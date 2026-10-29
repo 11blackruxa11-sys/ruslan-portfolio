@@ -302,6 +302,18 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
  #visualStage .stage-card.tiny-card{height:44%;width:auto;right:1%;bottom:2%}
 }
 
+
+/* CURSOR-DRIVEN WORKS / uninterrupted smooth movement */
+#worksGrid.is-carousel{transition:none!important}
+#featuredCarousel{touch-action:pan-y;outline-offset:5px}
+#featuredCarousel:focus-visible{outline:2px solid var(--accent)}
+.carousel-progress .progress-line i{transform:scaleX(.077);transition:transform .24s ease}
+.carousel-progress .progress-line i.running{animation:none!important}
+@media(hover:hover) and (pointer:fine){
+  #featuredCarousel{cursor:ew-resize}
+  #featuredCarousel .work-card{cursor:zoom-in}
+}
+
 </style>
 </head>
 <body>
@@ -334,10 +346,10 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <section class="section works" id="works">
 <div class="container">
 <div class="section-kicker eyebrow reveal"><span class="line"></span> 01 / FEATURED WORKS</div>
-<div class="section-heading reveal"><h2>ИЗБРАННОЕ<span class="section-title-line accent">/ РАБОТЫ.</span></h2><p class="section-intro">Все 13 авторских работ в одном бесконечном слайдере. Афиши плавно перелистываются сами. Нажми на любую, чтобы рассмотреть крупнее.</p></div>
-<div class="featured-carousel" id="featuredCarousel" aria-label="Автоматическая галерея афиш"><div class="works-grid" id="worksGrid"><button aria-label="Посмотреть афишу: Карина Мейханаджян" class="work-card reveal" data-cat="artist" data-id="1" type="button"><div class="work-image"><img alt="Оригинальная афиша: Карина Мейханаджян" decoding="async" loading="lazy" src="assets/poster-01.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 01</span><h3>Карина Мейханаджян</h3><p>Тур / концертная афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: MONA" class="work-card reveal" data-cat="artist" data-id="2" type="button"><div class="work-image"><img alt="Оригинальная афиша: MONA" decoding="async" loading="lazy" src="assets/poster-02.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 02</span><h3>MONA</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: DJ KILA / VINOGRAD" class="work-card reveal" data-cat="artist" data-id="3" type="button"><div class="work-image"><img alt="Оригинальная афиша: DJ KILA / VINOGRAD" decoding="async" loading="lazy" src="assets/poster-03.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 03</span><h3>DJ KILA / VINOGRAD</h3><p>Ресторан / музыкальное событие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button></div></div>
+<div class="section-heading reveal"><h2>ИЗБРАННОЕ<span class="section-title-line accent">/ РАБОТЫ.</span></h2><p class="section-intro">Веди курсор вправо или влево по галерее, чтобы плавно листать афиши. На телефоне используй свайп. Нажми на работу, чтобы открыть крупно.</p></div>
+<div class="featured-carousel" id="featuredCarousel" aria-label="Галерея афиш: ведите курсор вправо или влево, чтобы листать"><div class="works-grid" id="worksGrid"><button aria-label="Посмотреть афишу: Карина Мейханаджян" class="work-card reveal" data-cat="artist" data-id="1" type="button"><div class="work-image"><img alt="Оригинальная афиша: Карина Мейханаджян" decoding="async" loading="lazy" src="assets/poster-01.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 01</span><h3>Карина Мейханаджян</h3><p>Тур / концертная афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: MONA" class="work-card reveal" data-cat="artist" data-id="2" type="button"><div class="work-image"><img alt="Оригинальная афиша: MONA" decoding="async" loading="lazy" src="assets/poster-02.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 02</span><h3>MONA</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: DJ KILA / VINOGRAD" class="work-card reveal" data-cat="artist" data-id="3" type="button"><div class="work-image"><img alt="Оригинальная афиша: DJ KILA / VINOGRAD" decoding="async" loading="lazy" src="assets/poster-03.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 03</span><h3>DJ KILA / VINOGRAD</h3><p>Ресторан / музыкальное событие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button></div></div>
 <div class="carousel-controls"><div class="carousel-progress" aria-live="off"><strong id="carouselCurrent">01</strong><span class="progress-line"><i id="carouselProgress"></i></span><span>13 РАБОТ</span></div><div class="carousel-arrows"><button id="carouselPrev" type="button" aria-label="Предыдущая афиша">←</button><button id="carouselNext" type="button" aria-label="Следующая афиша">→</button></div></div>
-<div class="preview-gallery-actions reveal"><span class="gallery-note">АВТОМАТИЧЕСКОЕ СЛАЙД-ШОУ · ВСЕ 13 АФИШ</span><a href="works/" class="all-projects-link">СМОТРЕТЬ ВСЕ 13 РАБОТ <span class="arrow" aria-hidden="true">↗</span></a></div>
+<div class="preview-gallery-actions reveal"><span class="gallery-note">УПРАВЛЯЙ КУРСОРОМ ИЛИ СВАЙПОМ · 13 АФИШ</span><a href="works/" class="all-projects-link">СМОТРЕТЬ ВСЕ 13 РАБОТ <span class="arrow" aria-hidden="true">↗</span></a></div>
 </div>
 </section>
 <section class="expertise" id="services">
@@ -498,8 +510,9 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     const featuredTrack=document.getElementById('worksGrid');
     const baseCard=featuredTrack.querySelector('.work-card').cloneNode(true);
     const carouselCount=allPosterIds.length;
-    const replicaCount=3; // covers desktop, tablet and mobile loop edges
-    const carouselIds=allPosterIds.concat(allPosterIds.slice(0,replicaCount));
+    // Three identical sequences allow seamless motion in either direction.
+    // Start in the middle set, then silently wrap by exactly 13 cards.
+    const carouselIds=allPosterIds.concat(allPosterIds,allPosterIds);
     function buildSlide(id){
       const p=projectData[id],card=baseCard.cloneNode(true),img=card.querySelector('.work-image img');
       card.classList.remove('reveal');card.classList.add('visible');
@@ -512,79 +525,106 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     }
     featuredTrack.replaceChildren(...carouselIds.map(buildSlide));
     featuredTrack.classList.add('is-carousel');
-    let carouselIndex=0,slideStep=0,carouselBusy=false,carouselPaused=false;
-    const autoplayInterval=5000,carouselProgress=document.getElementById('carouselProgress');
-    const reduceCarouselMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover=window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const carouselProgress=document.getElementById('carouselProgress');
+    const carouselCurrent=document.getElementById('carouselCurrent');
+    let slideStep=1,position=carouselCount,velocity=0,targetVelocity=0;
+    let moveFrom=null,moveTo=null,moveStart=0,moveDuration=720;
+    let frameTime=0,suppressClickUntil=0;
+    function normalizePosition(){
+      if(position>=carouselCount*2)position-=carouselCount;
+      if(position<carouselCount)position+=carouselCount;
+    }
+    function drawCarousel(){
+      featuredTrack.style.transform='translate3d('+(-position*slideStep)+'px,0,0)';
+      const current=Math.floor(((position%carouselCount)+carouselCount)%carouselCount);
+      carouselCurrent.textContent=String(current+1).padStart(2,'0');
+      if(carouselProgress)carouselProgress.style.transform='scaleX('+((current+1)/carouselCount)+')';
+    }
     function measureSlides(){
-      const child=featuredTrack.querySelector('.work-card');
-      if(!child)return;
-      const computed=getComputedStyle(featuredTrack);
-      slideStep=child.getBoundingClientRect().width+parseFloat(computed.columnGap||computed.gap||'18');
-      featuredTrack.style.transition='none';
-      featuredTrack.style.transform='translate3d('+(-carouselIndex*slideStep)+'px,0,0)';
-      void featuredTrack.offsetWidth;
-      featuredTrack.style.transition='';
+      const card=featuredTrack.querySelector('.work-card');
+      if(!card)return;
+      const cs=getComputedStyle(featuredTrack);
+      slideStep=card.getBoundingClientRect().width+parseFloat(cs.columnGap||cs.gap||'18');
+      drawCarousel();
     }
-    function carouselCounter(){
-      document.getElementById('carouselCurrent').textContent=String(carouselIndex%carouselCount+1).padStart(2,'0');
+    function cursorVelocity(clientX){
+      const rect=featuredViewport.getBoundingClientRect();
+      const normalized=Math.max(-1,Math.min(1,((clientX-rect.left)/rect.width-.5)*2));
+      const deadZone=.22;
+      const strength=Math.max(0,(Math.abs(normalized)-deadZone)/(1-deadZone));
+      // Cursor in right half: flow toward the next posters; left half: reverse.
+      return Math.sign(normalized)*Math.pow(strength,1.45)*540;
     }
-    function nextSlide(direction=1){
-      if(carouselBusy)return;
-      carouselBusy=true;
-      if(direction<0&&carouselIndex===0){
-        carouselIndex=carouselCount;
-        featuredTrack.style.transition='none';
-        featuredTrack.style.transform='translate3d('+(-carouselIndex*slideStep)+'px,0,0)';
-        void featuredTrack.offsetWidth;
-      }
-      carouselIndex+=direction;
-      featuredTrack.style.transition=reduceCarouselMotion?'none':'transform 1.25s cubic-bezier(.25,.1,.18,1)';
-      featuredTrack.style.transform='translate3d('+(-carouselIndex*slideStep)+'px,0,0)';
-      carouselCounter();
-      if(reduceCarouselMotion){
-        if(carouselIndex>=carouselCount)carouselIndex=0;
-        carouselBusy=false;measureSlides();
-      }
+    if(canHover){
+      featuredViewport.addEventListener('pointerenter',e=>{
+        if(e.pointerType==='mouse')targetVelocity=cursorVelocity(e.clientX);
+      });
+      featuredViewport.addEventListener('pointermove',e=>{
+        if(e.pointerType==='mouse')targetVelocity=cursorVelocity(e.clientX);
+      });
+      featuredViewport.addEventListener('pointerleave',()=>{targetVelocity=0});
+      window.addEventListener('blur',()=>{targetVelocity=0});
     }
-    featuredTrack.addEventListener('transitionend',e=>{
-      if(e.target!==featuredTrack||e.propertyName!=='transform')return;
-      if(carouselIndex>=carouselCount){
-        carouselIndex=0;
-        featuredTrack.style.transition='none';
-        featuredTrack.style.transform='translate3d(0,0,0)';
-        void featuredTrack.offsetWidth;
-        featuredTrack.style.transition='';
-      }
-      carouselBusy=false;
+    function moveBySlide(direction){
+      velocity=0;targetVelocity=0;
+      moveFrom=position;moveTo=position+direction;
+      moveStart=performance.now();
+      moveDuration=isReducedMotion?0:700;
+    }
+    document.getElementById('carouselPrev').addEventListener('click',()=>moveBySlide(-1));
+    document.getElementById('carouselNext').addEventListener('click',()=>moveBySlide(1));
+    featuredViewport.setAttribute('tabindex','0');
+    featuredViewport.addEventListener('keydown',e=>{
+      if(e.target!==featuredViewport)return;
+      if(e.key==='ArrowRight'){e.preventDefault();moveBySlide(1)}
+      if(e.key==='ArrowLeft'){e.preventDefault();moveBySlide(-1)}
     });
-    measureSlides();carouselCounter();
-    window.addEventListener('resize',measureSlides,{passive:true});
-    function resetCarouselProgress(){
-      carouselProgress.classList.remove('running');
-      if(!reduceCarouselMotion){void carouselProgress.offsetWidth;carouselProgress.classList.add('running')}
-    }
-    function carouselPause(value){carouselPaused=value;carouselProgress.style.animationPlayState=value?'paused':'running'}
-    featuredViewport.addEventListener('mouseenter',()=>carouselPause(true));
-    featuredViewport.addEventListener('mouseleave',()=>carouselPause(false));
-    featuredViewport.addEventListener('focusin',()=>carouselPause(true));
-    featuredViewport.addEventListener('focusout',e=>{if(!featuredViewport.contains(e.relatedTarget))carouselPause(false)});
-    document.getElementById('carouselPrev').addEventListener('click',()=>{nextSlide(-1);resetCarouselProgress()});
-    document.getElementById('carouselNext').addEventListener('click',()=>{nextSlide(1);resetCarouselProgress()});
-    let carouselTouchX=null;
-    featuredViewport.addEventListener('touchstart',e=>{carouselTouchX=e.touches[0]?.clientX??null},{passive:true});
-    featuredViewport.addEventListener('touchend',e=>{
-      if(carouselTouchX===null)return;
-      const dx=(e.changedTouches[0]?.clientX??carouselTouchX)-carouselTouchX;
-      if(Math.abs(dx)>50){nextSlide(dx>0?-1:1);resetCarouselProgress()}
-      carouselTouchX=null;
+    let touchStartX=null;
+    featuredViewport.addEventListener('touchstart',e=>{
+      touchStartX=e.touches[0]?.clientX??null;
     },{passive:true});
-    if(!reduceCarouselMotion){
-      resetCarouselProgress();
-      setInterval(()=>{
-        if(document.hidden||document.body.classList.contains('modal-open')||carouselPaused||carouselBusy)return;
-        nextSlide(1);resetCarouselProgress();
-      },autoplayInterval);
+    featuredViewport.addEventListener('touchend',e=>{
+      if(touchStartX===null)return;
+      const delta=(e.changedTouches[0]?.clientX??touchStartX)-touchStartX;
+      if(Math.abs(delta)>45){
+        suppressClickUntil=performance.now()+450;
+        moveBySlide(delta<0?1:-1);
+      }
+      touchStartX=null;
+    },{passive:true});
+    featuredTrack.addEventListener('click',e=>{
+      if(performance.now()<suppressClickUntil){
+        e.preventDefault();e.stopImmediatePropagation();
+      }
+    },true);
+    const suspendCarousel=()=>document.hidden||document.body.classList.contains('modal-open');
+    function animateCarousel(now){
+      let dt=frameTime?Math.min(50,now-frameTime):16;
+      frameTime=now;
+      if(suspendCarousel()){
+        velocity=0;
+      }else if(moveTo!==null){
+        const p=moveDuration===0?1:Math.min(1,(now-moveStart)/moveDuration);
+        const ease=1-Math.pow(1-p,3);
+        position=moveFrom+(moveTo-moveFrom)*ease;
+        if(p>=1){
+          normalizePosition();moveTo=null;moveFrom=null;
+        }
+      }else if(!isReducedMotion){
+        velocity+=(targetVelocity-velocity)*(1-Math.exp(-dt/200));
+        if(Math.abs(velocity)<.07&&targetVelocity===0)velocity=0;
+        position+=(velocity*dt/1000)/slideStep;
+        normalizePosition();
+      }
+      drawCarousel();
+      requestAnimationFrame(animateCarousel);
     }
+    // Motion is cursor-controlled only, not timer-controlled.
+    measureSlides();
+    window.addEventListener('resize',measureSlides,{passive:true});
+    requestAnimationFrame(animateCarousel);
     featuredCards.forEach(card=>card.addEventListener('click',()=>showProject(card.dataset.id)));
     if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       setInterval(()=>{
