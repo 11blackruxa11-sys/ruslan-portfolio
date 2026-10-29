@@ -240,6 +240,68 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 @media(max-width:650px){#worksGrid.is-carousel .work-card{flex-basis:100%;width:100%}.carousel-progress .progress-line{width:80px}.carousel-controls{margin-top:15px}.carousel-arrows button{width:44px;height:44px}.featured-carousel{max-width:520px;margin:auto}}
 @media(prefers-reduced-motion:reduce){#worksGrid.is-carousel{transition:none!important}.carousel-progress .progress-line i.running{animation:none!important;transform:scaleX(1)}}
 
+
+/* V6: clean poster-only hero, project-number-only 5s carousel */
+#visualStage::after{display:none!important}
+#visualStage .stage-card{
+  background:transparent!important;
+  box-shadow:none;
+  aspect-ratio:9/16;
+  width:auto;
+  overflow:hidden;
+}
+#visualStage .stage-card::after{display:none!important}
+#visualStage .stage-card.main-card{
+  width:auto;height:86%;top:7%;left:26%;
+  background:transparent!important;
+}
+#visualStage .stage-card.chrome-card{
+  width:auto;height:52%;top:20%;left:1%;
+  background:transparent!important;
+}
+#visualStage .stage-card.tiny-card{
+  width:auto;height:46%;bottom:1%;right:1%;
+  background:transparent!important;
+}
+#visualStage .stage-card img{
+  width:100%;height:100%;display:block;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+  box-shadow:none;
+}
+#worksGrid.is-carousel .work-card{
+  background:transparent;
+  border-color:transparent;
+}
+#worksGrid.is-carousel .work-card:hover{border-color:transparent}
+#worksGrid .work-meta h3,
+#worksGrid .work-meta p,
+#worksGrid .work-arrow{display:none!important}
+#worksGrid .work-meta{
+  background:transparent;
+  padding:15px 2px 8px;
+  min-height:0;
+  border:0;
+}
+#worksGrid .work-numeral{
+  margin:0;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+#worksGrid.is-carousel{
+  transition:transform 1.25s cubic-bezier(.25,.1,.18,1);
+}
+.carousel-progress .progress-line i.running{
+  animation-duration:5s;
+}
+@media(max-width:680px){
+ #visualStage .stage-card.main-card{height:85%;width:auto;left:26%;top:5%}
+ #visualStage .stage-card.chrome-card{height:50%;width:auto;left:1%;top:20%}
+ #visualStage .stage-card.tiny-card{height:44%;width:auto;right:1%;bottom:2%}
+}
+
 </style>
 </head>
 <body>
@@ -444,15 +506,14 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       card.dataset.id=id;card.setAttribute('aria-label','Посмотреть афишу: '+p.title);
       img.src=p.image;img.alt='Оригинальная афиша: '+p.title;img.loading='lazy';
       card.querySelector('.work-numeral').textContent='PROJECT / '+String(id).padStart(2,'0');
-      card.querySelector('.work-meta h3').textContent=p.title;
-      card.querySelector('.work-meta p').textContent=p.category;
+      card.querySelectorAll('.work-meta h3, .work-meta p, .work-arrow').forEach(el=>el.remove());
       card.addEventListener('click',()=>showProject(id));
       return card;
     }
     featuredTrack.replaceChildren(...carouselIds.map(buildSlide));
     featuredTrack.classList.add('is-carousel');
     let carouselIndex=0,slideStep=0,carouselBusy=false,carouselPaused=false;
-    const autoplayInterval=4400,carouselProgress=document.getElementById('carouselProgress');
+    const autoplayInterval=5000,carouselProgress=document.getElementById('carouselProgress');
     const reduceCarouselMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function measureSlides(){
       const child=featuredTrack.querySelector('.work-card');
@@ -477,7 +538,7 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
         void featuredTrack.offsetWidth;
       }
       carouselIndex+=direction;
-      featuredTrack.style.transition=reduceCarouselMotion?'none':'transform .9s cubic-bezier(.22,1,.36,1)';
+      featuredTrack.style.transition=reduceCarouselMotion?'none':'transform 1.25s cubic-bezier(.25,.1,.18,1)';
       featuredTrack.style.transform='translate3d('+(-carouselIndex*slideStep)+'px,0,0)';
       carouselCounter();
       if(reduceCarouselMotion){
