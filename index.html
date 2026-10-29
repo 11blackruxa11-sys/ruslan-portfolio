@@ -216,6 +216,30 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 @keyframes modalPosterZoom{0%{opacity:.3;transform:scale(.68) translateY(20px);filter:blur(9px)}60%{filter:blur(0)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
 @media(max-width:680px){.preview-gallery-actions{align-items:stretch;flex-direction:column}.all-projects-link{width:100%;justify-content:space-between}.stage-card img.art-swap{animation-duration:.65s}}
 @media(prefers-reduced-motion:reduce){.stage-card img.art-swap,#projectModal.open .project-picture img{animation:none;opacity:1;filter:none;transform:none}}
+
+/* AUTO PORTFOLIO CAROUSEL - all 13 original works */
+.featured-carousel{position:relative;overflow:hidden;width:100%;border-radius:2px}
+#worksGrid.is-carousel{display:flex;grid-template-columns:none;gap:18px;align-items:stretch;will-change:transform;transform:translate3d(0,0,0);transition:transform .9s cubic-bezier(.22,1,.36,1)}
+#worksGrid.is-carousel .work-card{flex:0 0 calc((100% - 36px)/3);width:calc((100% - 36px)/3);min-width:0;transform:none;opacity:1;visibility:visible}
+#worksGrid.is-carousel .work-card:hover{transform:none;border-color:var(--accent)}
+#worksGrid.is-carousel .work-card .work-image img{transition:transform .75s cubic-bezier(.16,1,.3,1)}
+#worksGrid.is-carousel .work-card:hover .work-image img{transform:scale(1.035)}
+.carousel-controls{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:24px;padding-bottom:4px}
+.carousel-progress{display:flex;align-items:center;gap:16px;font-size:12px;letter-spacing:.08em;color:#b8bfb4;font-weight:800}
+.carousel-progress strong{color:var(--accent);font-size:15px}
+.carousel-progress .progress-line{width:clamp(70px,12vw,170px);height:2px;background:#363b35;overflow:hidden;position:relative}
+.carousel-progress .progress-line i{position:absolute;left:0;top:0;height:100%;width:100%;background:var(--accent);transform-origin:left;transform:scaleX(0)}
+.carousel-progress .progress-line i.running{animation:featuredAutoProgress 4.4s linear forwards}
+@keyframes featuredAutoProgress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.carousel-arrows{display:flex;gap:9px}
+.carousel-arrows button{width:48px;height:48px;background:transparent;border:1px solid #6c7368;color:white;font-size:22px;display:grid;place-items:center;transition:background .2s,color .2s,border-color .2s}
+.carousel-arrows button:hover{background:var(--accent);color:#121510;border-color:var(--accent)}
+.carousel-arrows button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.featured-carousel .work-card{cursor:zoom-in}
+@media(max-width:1050px){#worksGrid.is-carousel .work-card{flex-basis:calc((100% - 18px)/2);width:calc((100% - 18px)/2)}}
+@media(max-width:650px){#worksGrid.is-carousel .work-card{flex-basis:100%;width:100%}.carousel-progress .progress-line{width:80px}.carousel-controls{margin-top:15px}.carousel-arrows button{width:44px;height:44px}.featured-carousel{max-width:520px;margin:auto}}
+@media(prefers-reduced-motion:reduce){#worksGrid.is-carousel{transition:none!important}.carousel-progress .progress-line i.running{animation:none!important;transform:scaleX(1)}}
+
 </style>
 </head>
 <body>
@@ -248,9 +272,10 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <section class="section works" id="works">
 <div class="container">
 <div class="section-kicker eyebrow reveal"><span class="line"></span> 01 / FEATURED WORKS</div>
-<div class="section-heading reveal"><h2>ИЗБРАННОЕ<span class="section-title-line accent">/ РАБОТЫ.</span></h2><p class="section-intro">Три проекта из коллекции. Афиши на первом экране меняются случайным образом. Открой архив, чтобы увидеть все работы.</p></div>
-<div class="works-grid" id="worksGrid"><button aria-label="Посмотреть афишу: Карина Мейханаджян" class="work-card reveal" data-cat="artist" data-id="1" type="button"><div class="work-image"><img alt="Оригинальная афиша: Карина Мейханаджян" decoding="async" loading="lazy" src="assets/poster-01.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 01</span><h3>Карина Мейханаджян</h3><p>Тур / концертная афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: MONA" class="work-card reveal" data-cat="artist" data-id="2" type="button"><div class="work-image"><img alt="Оригинальная афиша: MONA" decoding="async" loading="lazy" src="assets/poster-02.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 02</span><h3>MONA</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: DJ KILA / VINOGRAD" class="work-card reveal" data-cat="artist" data-id="3" type="button"><div class="work-image"><img alt="Оригинальная афиша: DJ KILA / VINOGRAD" decoding="async" loading="lazy" src="assets/poster-03.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 03</span><h3>DJ KILA / VINOGRAD</h3><p>Ресторан / музыкальное событие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button></div>
-<div class="preview-gallery-actions reveal"><span class="gallery-note">03 ИЗ 13 ПРОЕКТОВ · ПОЛНАЯ КОЛЛЕКЦИЯ В АРХИВЕ</span><a href="works/" class="all-projects-link">СМОТРЕТЬ ВСЕ 13 РАБОТ <span class="arrow" aria-hidden="true">↗</span></a></div>
+<div class="section-heading reveal"><h2>ИЗБРАННОЕ<span class="section-title-line accent">/ РАБОТЫ.</span></h2><p class="section-intro">Все 13 авторских работ в одном бесконечном слайдере. Афиши плавно перелистываются сами. Нажми на любую, чтобы рассмотреть крупнее.</p></div>
+<div class="featured-carousel" id="featuredCarousel" aria-label="Автоматическая галерея афиш"><div class="works-grid" id="worksGrid"><button aria-label="Посмотреть афишу: Карина Мейханаджян" class="work-card reveal" data-cat="artist" data-id="1" type="button"><div class="work-image"><img alt="Оригинальная афиша: Карина Мейханаджян" decoding="async" loading="lazy" src="assets/poster-01.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 01</span><h3>Карина Мейханаджян</h3><p>Тур / концертная афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: MONA" class="work-card reveal" data-cat="artist" data-id="2" type="button"><div class="work-image"><img alt="Оригинальная афиша: MONA" decoding="async" loading="lazy" src="assets/poster-02.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 02</span><h3>MONA</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: DJ KILA / VINOGRAD" class="work-card reveal" data-cat="artist" data-id="3" type="button"><div class="work-image"><img alt="Оригинальная афиша: DJ KILA / VINOGRAD" decoding="async" loading="lazy" src="assets/poster-03.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 03</span><h3>DJ KILA / VINOGRAD</h3><p>Ресторан / музыкальное событие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button></div></div>
+<div class="carousel-controls"><div class="carousel-progress" aria-live="off"><strong id="carouselCurrent">01</strong><span class="progress-line"><i id="carouselProgress"></i></span><span>13 РАБОТ</span></div><div class="carousel-arrows"><button id="carouselPrev" type="button" aria-label="Предыдущая афиша">←</button><button id="carouselNext" type="button" aria-label="Следующая афиша">→</button></div></div>
+<div class="preview-gallery-actions reveal"><span class="gallery-note">АВТОМАТИЧЕСКОЕ СЛАЙД-ШОУ · ВСЕ 13 АФИШ</span><a href="works/" class="all-projects-link">СМОТРЕТЬ ВСЕ 13 РАБОТ <span class="arrow" aria-hidden="true">↗</span></a></div>
 </div>
 </section>
 <section class="expertise" id="services">
@@ -379,12 +404,12 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       document.getElementById('modalProjectTags').replaceChildren(...p.tags.map(tag=>{const s=document.createElement('span');s.textContent=tag;return s}));
       openModal(modalProject)
     }
-    document.querySelectorAll('.work-card').forEach(card=>card.addEventListener('click',()=>showProject(card.dataset.id)));
+    // Carousel cards receive click handlers when constructed.
 
     // The first screen shows a random selection of 3 unique original artworks.
     // Rotate without repeating the currently visible 3, and pause in background tabs.
     const featuredCards=[...document.querySelectorAll('#visualStage .stage-card')];
-    const previewCards=[...document.querySelectorAll('#worksGrid .work-card')];
+
     const allPosterIds=Object.keys(projectData);
     let currentFeatured=[];
     function randomPosterIds(exclude){
@@ -398,25 +423,107 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       featuredCards.forEach((card,index)=>{
         const id=ids[index],poster=projectData[id],photo=card.querySelector('img');
         card.dataset.id=id;card.setAttribute('aria-label','Увеличить афишу: '+poster.title);
-        photo.classList.remove('art-swap');
-        photo.src=poster.image;
+        photo.classList.remove('art-swap');photo.src=poster.image;
         photo.alt='Авторская афиша: '+poster.title;
         if(animated){void photo.offsetWidth;photo.classList.add('art-swap')}
       });
     }
-    function fillPreview(ids){
-      previewCards.forEach((card,index)=>{
-        const id=ids[index],poster=projectData[id],photo=card.querySelector('.work-image img');
-        card.dataset.id=id;card.setAttribute('aria-label','Посмотреть афишу: '+poster.title);
-        photo.src=poster.image;photo.alt='Оригинальная афиша: '+poster.title;
-        card.querySelector('.work-numeral').textContent='PROJECT / '+String(id).padStart(2,'0');
-        card.querySelector('.work-meta h3').textContent=poster.title;
-        card.querySelector('.work-meta p').textContent=poster.category;
-      });
-    }
     const firstThree=randomPosterIds([]);
     fillStage(firstThree,false);
-    fillPreview(randomPosterIds(firstThree));
+
+    // Infinite featured-works carousel: 13 real artworks, no edits or overlays.
+    const featuredViewport=document.getElementById('featuredCarousel');
+    const featuredTrack=document.getElementById('worksGrid');
+    const baseCard=featuredTrack.querySelector('.work-card').cloneNode(true);
+    const carouselCount=allPosterIds.length;
+    const replicaCount=3; // covers desktop, tablet and mobile loop edges
+    const carouselIds=allPosterIds.concat(allPosterIds.slice(0,replicaCount));
+    function buildSlide(id){
+      const p=projectData[id],card=baseCard.cloneNode(true),img=card.querySelector('.work-image img');
+      card.classList.remove('reveal');card.classList.add('visible');
+      card.dataset.id=id;card.setAttribute('aria-label','Посмотреть афишу: '+p.title);
+      img.src=p.image;img.alt='Оригинальная афиша: '+p.title;img.loading='lazy';
+      card.querySelector('.work-numeral').textContent='PROJECT / '+String(id).padStart(2,'0');
+      card.querySelector('.work-meta h3').textContent=p.title;
+      card.querySelector('.work-meta p').textContent=p.category;
+      card.addEventListener('click',()=>showProject(id));
+      return card;
+    }
+    featuredTrack.replaceChildren(...carouselIds.map(buildSlide));
+    featuredTrack.classList.add('is-carousel');
+    let carouselIndex=0,slideStep=0,carouselBusy=false,carouselPaused=false;
+    const autoplayInterval=4400,carouselProgress=document.getElementById('carouselProgress');
+    const reduceCarouselMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function measureSlides(){
+      const child=featuredTrack.querySelector('.work-card');
+      if(!child)return;
+      const computed=getComputedStyle(featuredTrack);
+      slideStep=child.getBoundingClientRect().width+parseFloat(computed.columnGap||computed.gap||'18');
+      featuredTrack.style.transition='none';
+      featuredTrack.style.transform='translate3d('+(-carouselIndex*slideStep)+'px,0,0)';
+      void featuredTrack.offsetWidth;
+      featuredTrack.style.transition='';
+    }
+    function carouselCounter(){
+      document.getElementById('carouselCurrent').textContent=String(carouselIndex%carouselCount+1).padStart(2,'0');
+    }
+    function nextSlide(direction=1){
+      if(carouselBusy)return;
+      carouselBusy=true;
+      if(direction<0&&carouselIndex===0){
+        carouselIndex=carouselCount;
+        featuredTrack.style.transition='none';
+        featuredTrack.style.transform='translate3d('+(-carouselIndex*slideStep)+'px,0,0)';
+        void featuredTrack.offsetWidth;
+      }
+      carouselIndex+=direction;
+      featuredTrack.style.transition=reduceCarouselMotion?'none':'transform .9s cubic-bezier(.22,1,.36,1)';
+      featuredTrack.style.transform='translate3d('+(-carouselIndex*slideStep)+'px,0,0)';
+      carouselCounter();
+      if(reduceCarouselMotion){
+        if(carouselIndex>=carouselCount)carouselIndex=0;
+        carouselBusy=false;measureSlides();
+      }
+    }
+    featuredTrack.addEventListener('transitionend',e=>{
+      if(e.target!==featuredTrack||e.propertyName!=='transform')return;
+      if(carouselIndex>=carouselCount){
+        carouselIndex=0;
+        featuredTrack.style.transition='none';
+        featuredTrack.style.transform='translate3d(0,0,0)';
+        void featuredTrack.offsetWidth;
+        featuredTrack.style.transition='';
+      }
+      carouselBusy=false;
+    });
+    measureSlides();carouselCounter();
+    window.addEventListener('resize',measureSlides,{passive:true});
+    function resetCarouselProgress(){
+      carouselProgress.classList.remove('running');
+      if(!reduceCarouselMotion){void carouselProgress.offsetWidth;carouselProgress.classList.add('running')}
+    }
+    function carouselPause(value){carouselPaused=value;carouselProgress.style.animationPlayState=value?'paused':'running'}
+    featuredViewport.addEventListener('mouseenter',()=>carouselPause(true));
+    featuredViewport.addEventListener('mouseleave',()=>carouselPause(false));
+    featuredViewport.addEventListener('focusin',()=>carouselPause(true));
+    featuredViewport.addEventListener('focusout',e=>{if(!featuredViewport.contains(e.relatedTarget))carouselPause(false)});
+    document.getElementById('carouselPrev').addEventListener('click',()=>{nextSlide(-1);resetCarouselProgress()});
+    document.getElementById('carouselNext').addEventListener('click',()=>{nextSlide(1);resetCarouselProgress()});
+    let carouselTouchX=null;
+    featuredViewport.addEventListener('touchstart',e=>{carouselTouchX=e.touches[0]?.clientX??null},{passive:true});
+    featuredViewport.addEventListener('touchend',e=>{
+      if(carouselTouchX===null)return;
+      const dx=(e.changedTouches[0]?.clientX??carouselTouchX)-carouselTouchX;
+      if(Math.abs(dx)>50){nextSlide(dx>0?-1:1);resetCarouselProgress()}
+      carouselTouchX=null;
+    },{passive:true});
+    if(!reduceCarouselMotion){
+      resetCarouselProgress();
+      setInterval(()=>{
+        if(document.hidden||document.body.classList.contains('modal-open')||carouselPaused||carouselBusy)return;
+        nextSlide(1);resetCarouselProgress();
+      },autoplayInterval);
+    }
     featuredCards.forEach(card=>card.addEventListener('click',()=>showProject(card.dataset.id)));
     if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       setInterval(()=>{
