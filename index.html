@@ -201,29 +201,44 @@ h1,h2,h3{letter-spacing:-.028em;overflow-wrap:normal}
 .max-number-row .max-contact-label{font-size:14px;line-height:1.4;letter-spacing:0;font-weight:700;white-space:normal}
 @media(max-width:800px){.directory-details .contact-minilabel{margin-bottom:16px}.directory-headline{font-size:clamp(34px,8vw,49px);margin-bottom:13px}}
 
+
+/* Dynamic frontpage / 3 rotating original posters */
+button.stage-card{padding:0;margin:0;border:none;border-radius:0;cursor:zoom-in;color:inherit;appearance:none;transition:box-shadow .35s}
+button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6px}
+.stage-card img.art-swap{animation:featuredPosterReveal .85s cubic-bezier(.16,1,.3,1) both}
+@keyframes featuredPosterReveal{0%{opacity:.12;transform:scale(.86) translateY(14px);filter:blur(9px)}50%{opacity:.9;filter:blur(0)}100%{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}}
+.preview-gallery-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between;border-top:1px solid var(--line);margin-top:26px;padding-top:30px}
+.preview-gallery-actions .gallery-note{color:#9ea49a;line-height:1.5;font-size:12px;letter-spacing:.03em}
+.all-projects-link{display:inline-flex;align-items:center;gap:42px;background:var(--accent);color:#0b0c0d;padding:19px 24px;font-weight:900;font-size:13px;letter-spacing:.045em;text-transform:uppercase;transition:background .25s,transform .25s}
+.all-projects-link:hover{background:#f1ffb9;transform:translateY(-3px)}
+.all-projects-link .arrow{font-size:25px;line-height:1}
+#projectModal.open .project-picture img{animation:modalPosterZoom .76s cubic-bezier(.16,1,.3,1) both;transform-origin:center center}
+@keyframes modalPosterZoom{0%{opacity:.3;transform:scale(.68) translateY(20px);filter:blur(9px)}60%{filter:blur(0)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+@media(max-width:680px){.preview-gallery-actions{align-items:stretch;flex-direction:column}.all-projects-link{width:100%;justify-content:space-between}.stage-card img.art-swap{animation-duration:.65s}}
+@media(prefers-reduced-motion:reduce){.stage-card img.art-swap,#projectModal.open .project-picture img{animation:none;opacity:1;filter:none;transform:none}}
 </style>
 </head>
 <body>
 <div aria-hidden="true" class="noise"></div>
-<a class="sr-only" href="#works">Перейти к работам</a>
+<a class="sr-only" href="works/">Перейти к работам</a>
 <header class="site-header" id="siteHeader">
 <a aria-label="На главную" class="brand" href="#top"><img alt="Логотип студии" src="assets/logo.png"/><span class="brand-copy">РУСЛАН / ДИЗАЙН<br/>DESIGN · MOTION · AI</span></a>
-<nav aria-label="Основное меню" class="desktop-nav"><a href="#works">Работы <span class="muted">(13)</span></a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
+<nav aria-label="Основное меню" class="desktop-nav"><a href="works/">Работы <span class="muted">(13)</span></a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
 <div class="header-right"><span class="status"><i></i> Открыт к новым проектам</span><button aria-label="Обсудить проект" class="round-btn" data-open-brief="" type="button"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></button><button aria-expanded="false" aria-label="Открыть меню" class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button></div>
 </header>
-<nav aria-label="Мобильное меню" class="mobile-nav" id="mobileNav"><a href="#works">Работы</a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
+<nav aria-label="Мобильное меню" class="mobile-nav" id="mobileNav"><a href="works/">Работы</a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
 <main id="top">
 <section aria-label="Главная" class="hero">
 <div class="container hero-inner">
 <div class="hero-copy">
 <div class="eyebrow hero-index">DESIGN × MOTION × AI / 2026</div>
 <h1><span>СОЗДАЮ</span><span class="stroke">ТО, ЧТО</span><span class="accent">ЦЕПЛЯЕТ</span></h1>
-<div class="hero-sub"><p class="hero-description"><strong>Афиши, графический дизайн, motion и AI-видео.</strong> Сильные образы для артистов, событий и брендов.</p><a class="hero-link" href="#works">Смотреть работы <svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></a></div>
+<div class="hero-sub"><p class="hero-description"><strong>Афиши, графический дизайн, motion и AI-видео.</strong> Сильные образы для артистов, событий и брендов.</p><a class="hero-link" href="works/">Смотреть работы <svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></a></div>
 </div>
 <div aria-label="Авторские афиши из портфолио" class="visual-stage" id="visualStage">
-<div class="stage-card chrome-card"><img alt="Афиша MONA" decoding="async" src="assets/poster-02.webp"/></div>
-<div class="stage-card main-card"><img alt="Афиша Карина Мейханаджян" decoding="async" src="assets/poster-01.webp"/></div>
-<div class="stage-card tiny-card"><img alt="Афиша Casino Royale" decoding="async" src="assets/poster-11.webp"/></div>
+<button type="button" class="stage-card chrome-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша MONA" decoding="async" src="assets/poster-02.webp"/></button>
+<button type="button" class="stage-card main-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша Карина Мейханаджян" decoding="async" src="assets/poster-01.webp"/></button>
+<button type="button" class="stage-card tiny-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша Casino Royale" decoding="async" src="assets/poster-11.webp"/></button>
 <div class="stage-sticker">made<br/>to be<br/>seen ✳</div><div class="stage-corner">INDEPENDENT CREATIVE DIRECTION</div><div class="stage-mark"></div>
 </div>
 </div>
@@ -232,11 +247,10 @@ h1,h2,h3{letter-spacing:-.028em;overflow-wrap:normal}
 <div aria-label="Дизайн, моушен, нейросети" class="ticker"><div aria-hidden="true" class="ticker-track"><span>VISUAL DESIGN</span><i></i><span>MOTION GRAPHICS</span><i></i><span>AI CREATION</span><i></i><span>ART DIRECTION</span><i></i><span>VISUAL DESIGN</span><i></i><span>MOTION GRAPHICS</span><i></i><span>AI CREATION</span><i></i><span>ART DIRECTION</span><i></i></div></div>
 <section class="section works" id="works">
 <div class="container">
-<div class="section-kicker eyebrow reveal"><span class="line"></span> 01 / SELECTED WORKS</div>
-<div class="section-heading reveal"><h2>РАБОТЫ<span class="section-title-line accent">/ ПОРТФОЛИО.</span></h2><p class="section-intro">Настоящие проекты. Разные артисты, события и визуальные стили. Каждая работа показана в исходном виде.</p></div>
-<div aria-label="Фильтр проектов" class="work-filters reveal" role="group"><button aria-pressed="true" class="filter active" data-filter="all" type="button">Все работы<span class="num"> 13</span></button><button aria-pressed="false" class="filter" data-filter="artist" type="button">Артисты</button><button aria-pressed="false" class="filter" data-filter="events" type="button">События</button><button aria-pressed="false" class="filter" data-filter="brand" type="button">Бренды</button><button aria-pressed="false" class="filter" data-filter="holiday" type="button">Новый год</button></div>
-<div class="works-grid" id="worksGrid"><button aria-label="Посмотреть афишу: Карина Мейханаджян" class="work-card reveal" data-cat="artist" data-id="1" type="button"><div class="work-image"><img alt="Оригинальная афиша: Карина Мейханаджян" decoding="async" loading="lazy" src="assets/poster-01.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 01</span><h3>Карина Мейханаджян</h3><p>Тур / концертная афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: MONA" class="work-card reveal" data-cat="artist" data-id="2" type="button"><div class="work-image"><img alt="Оригинальная афиша: MONA" decoding="async" loading="lazy" src="assets/poster-02.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 02</span><h3>MONA</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: DJ KILA / VINOGRAD" class="work-card reveal" data-cat="artist" data-id="3" type="button"><div class="work-image"><img alt="Оригинальная афиша: DJ KILA / VINOGRAD" decoding="async" loading="lazy" src="assets/poster-03.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 03</span><h3>DJ KILA / VINOGRAD</h3><p>Ресторан / музыкальное событие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: Магамет Дзыбов" class="work-card reveal" data-cat="artist" data-id="4" type="button"><div class="work-image"><img alt="Оригинальная афиша: Магамет Дзыбов" decoding="async" loading="lazy" src="assets/poster-04.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 04</span><h3>Магамет Дзыбов</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: INGVAR GROUP" class="work-card reveal" data-cat="brand" data-id="5" type="button"><div class="work-image"><img alt="Оригинальная афиша: INGVAR GROUP" decoding="async" loading="lazy" src="assets/poster-05.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 05</span><h3>INGVAR GROUP</h3><p>Бренд / открытие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: Амир и Заур" class="work-card reveal" data-cat="events" data-id="6" type="button"><div class="work-image"><img alt="Оригинальная афиша: Амир и Заур" decoding="async" loading="lazy" src="assets/poster-06.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 06</span><h3>Амир и Заур</h3><p>Стендап / шоу</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: Расул / Павел" class="work-card reveal" data-cat="events" data-id="7" type="button"><div class="work-image"><img alt="Оригинальная афиша: Расул / Павел" decoding="async" loading="lazy" src="assets/poster-07.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 07</span><h3>Расул / Павел</h3><p>Стендап / концерт</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: SEVAK" class="work-card reveal" data-cat="artist" data-id="8" type="button"><div class="work-image"><img alt="Оригинальная афиша: SEVAK" decoding="async" loading="lazy" src="assets/poster-08.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 08</span><h3>SEVAK</h3><p>Артист / концертное промо</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: TIGO" class="work-card reveal" data-cat="artist" data-id="9" type="button"><div class="work-image"><img alt="Оригинальная афиша: TIGO" decoding="async" loading="lazy" src="assets/poster-09.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 09</span><h3>TIGO</h3><p>Артист / афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: TOMAS NEVERGREEN" class="work-card reveal" data-cat="artist" data-id="10" type="button"><div class="work-image"><img alt="Оригинальная афиша: TOMAS NEVERGREEN" decoding="async" loading="lazy" src="assets/poster-10.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 10</span><h3>TOMAS NEVERGREEN</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: Casino Royale" class="work-card reveal" data-cat="holiday" data-id="11" type="button"><div class="work-image"><img alt="Оригинальная афиша: Casino Royale" decoding="async" loading="lazy" src="assets/poster-11.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 11</span><h3>Casino Royale</h3><p>Новый год / тематическая афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: Familia" class="work-card reveal" data-cat="events" data-id="12" type="button"><div class="work-image"><img alt="Оригинальная афиша: Familia" decoding="async" loading="lazy" src="assets/poster-12.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 12</span><h3>Familia</h3><p>Концерт / событие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: Катя Чехова" class="work-card reveal" data-cat="artist" data-id="13" type="button"><div class="work-image"><img alt="Оригинальная афиша: Катя Чехова" decoding="async" loading="lazy" src="assets/poster-13.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 13</span><h3>Катя Чехова</h3><p>Ностальгия / концерт</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button></div>
-<div class="works-footer reveal"><span>ПОКАЗАНО <strong class="num" id="workCount">13</strong> / 13 РАБОТ</span><span>Все афиши в оригинальном виде, без изменений</span></div>
+<div class="section-kicker eyebrow reveal"><span class="line"></span> 01 / FEATURED WORKS</div>
+<div class="section-heading reveal"><h2>ИЗБРАННОЕ<span class="section-title-line accent">/ РАБОТЫ.</span></h2><p class="section-intro">Три проекта из коллекции. Афиши на первом экране меняются случайным образом. Открой архив, чтобы увидеть все работы.</p></div>
+<div class="works-grid" id="worksGrid"><button aria-label="Посмотреть афишу: Карина Мейханаджян" class="work-card reveal" data-cat="artist" data-id="1" type="button"><div class="work-image"><img alt="Оригинальная афиша: Карина Мейханаджян" decoding="async" loading="lazy" src="assets/poster-01.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 01</span><h3>Карина Мейханаджян</h3><p>Тур / концертная афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: MONA" class="work-card reveal" data-cat="artist" data-id="2" type="button"><div class="work-image"><img alt="Оригинальная афиша: MONA" decoding="async" loading="lazy" src="assets/poster-02.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 02</span><h3>MONA</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: DJ KILA / VINOGRAD" class="work-card reveal" data-cat="artist" data-id="3" type="button"><div class="work-image"><img alt="Оригинальная афиша: DJ KILA / VINOGRAD" decoding="async" loading="lazy" src="assets/poster-03.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 03</span><h3>DJ KILA / VINOGRAD</h3><p>Ресторан / музыкальное событие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button></div>
+<div class="preview-gallery-actions reveal"><span class="gallery-note">03 ИЗ 13 ПРОЕКТОВ · ПОЛНАЯ КОЛЛЕКЦИЯ В АРХИВЕ</span><a href="works/" class="all-projects-link">СМОТРЕТЬ ВСЕ 13 РАБОТ <span class="arrow" aria-hidden="true">↗</span></a></div>
 </div>
 </section>
 <section class="expertise" id="services">
@@ -306,7 +320,7 @@ h1,h2,h3{letter-spacing:-.028em;overflow-wrap:normal}
 </a>
 </div>
 </section>
-<footer class="footer-bottom"><span>© 2026 / VISUAL STUDIO</span><span>DESIGNED TO MOVE.</span><div class="foot-links"><a href="#top">НАВЕРХ ↑</a><a href="#works">ПРОЕКТЫ</a><a href="mailto:11blackruxa11@gmail.com">ПОЧТА ↗</a></div></footer></div></section>
+<footer class="footer-bottom"><span>© 2026 / VISUAL STUDIO</span><span>DESIGNED TO MOVE.</span><div class="foot-links"><a href="#top">НАВЕРХ ↑</a><a href="works/">ПРОЕКТЫ</a><a href="mailto:11blackruxa11@gmail.com">ПОЧТА ↗</a></div></footer></div></section>
 </main>
 <div aria-hidden="true" aria-label="Подробнее о проекте" aria-modal="true" class="modal" id="projectModal" role="dialog"><div class="modal-shell"><button aria-label="Закрыть" class="modal-close" data-close="" type="button">×</button><div class="project-layout"><div class="project-picture"><img alt="Афиша Карина Мейханаджян" id="modalProjectImg" src="assets/poster-01.webp"/></div><div class="project-info"><span class="eyebrow" id="modalProjectNum">SELECTED WORK / 01</span><h2 id="modalProjectTitle">Карина Мейханаджян</h2><p id="modalProjectDesc">Афиша гастрольной программы «Карина Мейханаджян». Красная палитра, сильный портрет, контрастная афишная типографика.</p><div class="project-taglist" id="modalProjectTags"></div><a class="poster-full-link" href="assets/poster-01.webp" id="modalImageLink" rel="noopener" target="_blank">Открыть оригинал в полном размере ↗</a><p class="project-note">Изображение представлено в исходном виде, без дополнительных надписей или обработки.</p><button class="send-btn" data-open-brief="" type="button">Хочу похожий проект ↗</button></div></div></div></div>
 <div aria-hidden="true" aria-labelledby="briefHeading" aria-modal="true" class="modal" id="briefModal" role="dialog"><div class="modal-shell form-shell"><button aria-label="Закрыть" class="modal-close" data-close="" type="button">×</button><span class="eyebrow accent">LET'S CREATE SOMETHING</span><h2 id="briefHeading">РАССКАЖИ<br/>О ПРОЕКТЕ.</h2><p>Опиши задачу. Сайт откроет выбранный мессенджер с готовым сообщением. Нажми «Отправить» уже в приложении.</p><form class="brief-form" id="briefForm"><div class="brief-field"><label for="briefName">Как к тебе обращаться</label><input id="briefName" maxlength="80" placeholder="Имя / компания" required="" type="text"/></div><div class="brief-field"><label for="briefType">Что нужно сделать</label><select id="briefType"><option>Афиша / графический дизайн</option><option>Motion / анимация</option><option>AI-видео</option><option>Визуал для артиста</option><option>Другое</option></select></div><div class="brief-field"><label for="briefMessage">Расскажи подробнее</label><textarea id="briefMessage" maxlength="1500" placeholder="Что за проект, сроки, формат..." required=""></textarea></div><button aria-label="Открыть WhatsApp с заполненным брифом" class="send-btn" type="submit">Написать в WhatsApp ↗</button><div class="brief-send-options"><button data-brief-to="telegram" type="button">Telegram ↗</button><button data-brief-to="email" type="button">Почта ↗</button><button data-brief-to="copy" type="button">Скопировать текст ↗</button></div><div aria-live="polite" class="copy-notice" id="copyNotice" role="status"></div></form></div></div>
@@ -353,8 +367,9 @@ h1,h2,h3{letter-spacing:-.028em;overflow-wrap:normal}
     let activeModal=null,lastFocus=null;
     function closeModal(){if(!activeModal)return;activeModal.classList.remove('open');activeModal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');activeModal=null;if(lastFocus&&lastFocus.isConnected)lastFocus.focus()}
     function openModal(modal){if(activeModal)closeModal();lastFocus=document.activeElement;activeModal=modal;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('[data-close]').focus()}
-    document.querySelectorAll('.work-card').forEach(card=>card.addEventListener('click',()=>{
-      const id=card.dataset.id,p=projectData[id];
+
+    function showProject(id){
+      const p=projectData[id]; if(!p)return;
       document.getElementById('modalProjectImg').src=p.image;
       document.getElementById('modalProjectImg').alt='Оригинальная афиша '+p.title;
       document.getElementById('modalProjectTitle').textContent=p.title;
@@ -363,7 +378,52 @@ h1,h2,h3{letter-spacing:-.028em;overflow-wrap:normal}
       document.getElementById('modalImageLink').href=p.image;
       document.getElementById('modalProjectTags').replaceChildren(...p.tags.map(tag=>{const s=document.createElement('span');s.textContent=tag;return s}));
       openModal(modalProject)
-    }));
+    }
+    document.querySelectorAll('.work-card').forEach(card=>card.addEventListener('click',()=>showProject(card.dataset.id)));
+
+    // The first screen shows a random selection of 3 unique original artworks.
+    // Rotate without repeating the currently visible 3, and pause in background tabs.
+    const featuredCards=[...document.querySelectorAll('#visualStage .stage-card')];
+    const previewCards=[...document.querySelectorAll('#worksGrid .work-card')];
+    const allPosterIds=Object.keys(projectData);
+    let currentFeatured=[];
+    function randomPosterIds(exclude){
+      const excludeSet=new Set(exclude||[]);
+      const values=allPosterIds.filter(id=>!excludeSet.has(id));
+      for(let i=values.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[values[i],values[j]]=[values[j],values[i]]}
+      return values.slice(0,3);
+    }
+    function fillStage(ids,animated){
+      currentFeatured=ids;
+      featuredCards.forEach((card,index)=>{
+        const id=ids[index],poster=projectData[id],photo=card.querySelector('img');
+        card.dataset.id=id;card.setAttribute('aria-label','Увеличить афишу: '+poster.title);
+        photo.classList.remove('art-swap');
+        photo.src=poster.image;
+        photo.alt='Авторская афиша: '+poster.title;
+        if(animated){void photo.offsetWidth;photo.classList.add('art-swap')}
+      });
+    }
+    function fillPreview(ids){
+      previewCards.forEach((card,index)=>{
+        const id=ids[index],poster=projectData[id],photo=card.querySelector('.work-image img');
+        card.dataset.id=id;card.setAttribute('aria-label','Посмотреть афишу: '+poster.title);
+        photo.src=poster.image;photo.alt='Оригинальная афиша: '+poster.title;
+        card.querySelector('.work-numeral').textContent='PROJECT / '+String(id).padStart(2,'0');
+        card.querySelector('.work-meta h3').textContent=poster.title;
+        card.querySelector('.work-meta p').textContent=poster.category;
+      });
+    }
+    const firstThree=randomPosterIds([]);
+    fillStage(firstThree,false);
+    fillPreview(randomPosterIds(firstThree));
+    featuredCards.forEach(card=>card.addEventListener('click',()=>showProject(card.dataset.id)));
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      setInterval(()=>{
+        if(document.hidden||document.body.classList.contains('modal-open'))return;
+        fillStage(randomPosterIds(currentFeatured),true);
+      },8500);
+    }
     document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
     document.querySelectorAll('[data-start-brief]').forEach(b=>b.addEventListener('click',()=>openModal(briefModal)));
     document.querySelectorAll('[data-max-contact]').forEach(b=>b.addEventListener('click',()=>openModal(maxModal)));
