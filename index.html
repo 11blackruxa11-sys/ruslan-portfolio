@@ -314,6 +314,36 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
   #featuredCarousel .work-card{cursor:zoom-in}
 }
 
+
+/* V8 / unobstructed hero caption and progressive designer-introduction animation */
+.hero-creative-note{
+ display:inline-flex;gap:13px;align-items:center;
+ font-size:10px;letter-spacing:.15em;font-weight:700;
+ color:#939b92;line-height:1.45;
+ margin-top:clamp(20px,2.3vw,36px);max-width:100%;
+}
+.hero-creative-line{display:inline-block;width:32px;height:1px;flex:none;background:var(--accent);opacity:.65}
+@media(max-width:680px){
+ .hero-creative-note{font-size:9px;letter-spacing:.1em;margin-top:18px;gap:9px}
+ .hero-creative-line{width:22px}
+}
+.meet .meet-greeting .greet-line{display:block;overflow:hidden;white-space:nowrap;padding-bottom:.09em;margin-bottom:-.09em}
+.meet .meet-greeting .greet-word{display:inline-block}
+.js .meet .meet-greeting.reveal{opacity:1;transform:none;transition:none}
+.js .meet .meet-greeting .greet-word{
+ opacity:0;transform:translate3d(0,105%,0);
+ filter:blur(8px);
+ transition:opacity 1.05s ease, transform 1.18s cubic-bezier(.16,1,.3,1),filter 1.08s ease;
+ will-change:transform,opacity;
+}
+.js .meet .meet-greeting.visible .greet-word{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}
+.js .meet .meet-greeting .greet-first{transition-delay:.05s}
+.js .meet .meet-greeting .greet-i{transition-delay:.28s}
+.js .meet .meet-greeting .greet-name{transition-delay:.46s}
+@media(prefers-reduced-motion:reduce){
+ .js .meet .meet-greeting .greet-word{transition:none!important;filter:none!important;opacity:1!important;transform:none!important;will-change:auto}
+}
+
 </style>
 </head>
 <body>
@@ -321,23 +351,24 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <a class="sr-only" href="works/">Перейти к работам</a>
 <header class="site-header" id="siteHeader">
 <a aria-label="На главную" class="brand" href="#top"><img alt="Логотип студии" src="assets/logo.png"/><span class="brand-copy">РУСЛАН / ДИЗАЙН<br/>DESIGN · MOTION · AI</span></a>
-<nav aria-label="Основное меню" class="desktop-nav"><a href="works/">Работы <span class="muted">(13)</span></a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
+<nav aria-label="Основное меню" class="desktop-nav"><a href="works/">Проекты <span class="muted">(13)</span></a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
 <div class="header-right"><span class="status"><i></i> Открыт к новым проектам</span><button aria-label="Обсудить проект" class="round-btn" data-open-brief="" type="button"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></button><button aria-expanded="false" aria-label="Открыть меню" class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button></div>
 </header>
-<nav aria-label="Мобильное меню" class="mobile-nav" id="mobileNav"><a href="works/">Работы</a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
+<nav aria-label="Мобильное меню" class="mobile-nav" id="mobileNav"><a href="works/">Проекты</a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
 <main id="top">
 <section aria-label="Главная" class="hero">
 <div class="container hero-inner">
 <div class="hero-copy">
 <div class="eyebrow hero-index">DESIGN × MOTION × AI / 2026</div>
 <h1><span>СОЗДАЮ</span><span class="stroke">ТО, ЧТО</span><span class="accent">ЦЕПЛЯЕТ</span></h1>
-<div class="hero-sub"><p class="hero-description"><strong>Афиши, графический дизайн, motion и AI-видео.</strong> Сильные образы для артистов, событий и брендов.</p><a class="hero-link" href="works/">Смотреть работы <svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></a></div>
+<div class="hero-sub"><p class="hero-description"><strong>Афиши, графический дизайн, motion и AI-видео.</strong> Сильные образы для артистов, событий и брендов.</p><a class="hero-link" href="works/">Смотреть проекты <svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></a><div class="hero-creative-note"><span class="hero-creative-line" aria-hidden="true"></span>INDEPENDENT CREATIVE DIRECTION</div>
+</div>
 </div>
 <div aria-label="Авторские афиши из портфолио" class="visual-stage" id="visualStage">
 <button type="button" class="stage-card chrome-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша MONA" decoding="async" src="assets/poster-02.webp"/></button>
 <button type="button" class="stage-card main-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша Карина Мейханаджян" decoding="async" src="assets/poster-01.webp"/></button>
 <button type="button" class="stage-card tiny-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша Casino Royale" decoding="async" src="assets/poster-11.webp"/></button>
-<div class="stage-sticker">made<br/>to be<br/>seen ✳</div><div class="stage-corner">INDEPENDENT CREATIVE DIRECTION</div><div class="stage-mark"></div>
+<div class="stage-sticker">made<br/>to be<br/>seen ✳</div><div class="stage-mark"></div>
 </div>
 </div>
 <div class="hero-bottom"><span class="scroll-hint"><span class="scroll-line"></span>Листай вниз / Explore</span><span class="hero-no">SCROLL TO DISCOVER  ↓</span></div>
@@ -345,8 +376,8 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <div aria-label="Дизайн, моушен, нейросети" class="ticker"><div aria-hidden="true" class="ticker-track"><span>VISUAL DESIGN</span><i></i><span>MOTION GRAPHICS</span><i></i><span>AI CREATION</span><i></i><span>ART DIRECTION</span><i></i><span>VISUAL DESIGN</span><i></i><span>MOTION GRAPHICS</span><i></i><span>AI CREATION</span><i></i><span>ART DIRECTION</span><i></i></div></div>
 <section class="section works" id="works">
 <div class="container">
-<div class="section-kicker eyebrow reveal"><span class="line"></span> 01 / FEATURED WORKS</div>
-<div class="section-heading reveal"><h2>ИЗБРАННОЕ<span class="section-title-line accent">/ РАБОТЫ.</span></h2><p class="section-intro">Веди курсор вправо или влево по галерее, чтобы плавно листать афиши. На телефоне используй свайп. Нажми на работу, чтобы открыть крупно.</p></div>
+<div class="section-kicker eyebrow reveal"><span class="line"></span> 01 / PROJECTS</div>
+<div class="section-heading reveal"><h2>ПРОЕКТЫ<span class="accent">.</span></h2><p class="section-intro">Веди курсор вправо или влево по галерее, чтобы плавно листать афиши. На телефоне используй свайп. Нажми на работу, чтобы открыть крупно.</p></div>
 <div class="featured-carousel" id="featuredCarousel" aria-label="Галерея афиш: ведите курсор вправо или влево, чтобы листать"><div class="works-grid" id="worksGrid"><button aria-label="Посмотреть афишу: Карина Мейханаджян" class="work-card reveal" data-cat="artist" data-id="1" type="button"><div class="work-image"><img alt="Оригинальная афиша: Карина Мейханаджян" decoding="async" loading="lazy" src="assets/poster-01.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 01</span><h3>Карина Мейханаджян</h3><p>Тур / концертная афиша</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: MONA" class="work-card reveal" data-cat="artist" data-id="2" type="button"><div class="work-image"><img alt="Оригинальная афиша: MONA" decoding="async" loading="lazy" src="assets/poster-02.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 02</span><h3>MONA</h3><p>Концерт / артист</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button><button aria-label="Посмотреть афишу: DJ KILA / VINOGRAD" class="work-card reveal" data-cat="artist" data-id="3" type="button"><div class="work-image"><img alt="Оригинальная афиша: DJ KILA / VINOGRAD" decoding="async" loading="lazy" src="assets/poster-03.webp"/></div><div class="work-meta"><div><span class="work-numeral">PROJECT / 03</span><h3>DJ KILA / VINOGRAD</h3><p>Ресторан / музыкальное событие</p></div><span aria-hidden="true" class="work-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></span></div></button></div></div>
 <div class="carousel-controls"><div class="carousel-progress" aria-live="off"><strong id="carouselCurrent">01</strong><span class="progress-line"><i id="carouselProgress"></i></span><span>13 РАБОТ</span></div><div class="carousel-arrows"><button id="carouselPrev" type="button" aria-label="Предыдущая афиша">←</button><button id="carouselNext" type="button" aria-label="Следующая афиша">→</button></div></div>
 <div class="preview-gallery-actions reveal"><span class="gallery-note">УПРАВЛЯЙ КУРСОРОМ ИЛИ СВАЙПОМ · 13 АФИШ</span><a href="works/" class="all-projects-link">СМОТРЕТЬ ВСЕ 13 РАБОТ <span class="arrow" aria-hidden="true">↗</span></a></div>
@@ -370,7 +401,7 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <div class="container">
 <div class="meet-topline eyebrow reveal"><span><span class="meet-topline-dot"></span>03 / ЗНАКОМСТВО</span><span>ЧЕЛОВЕК ЗА КАЖДЫМ ПРОЕКТОМ</span></div>
 <div class="meet-heading">
-<h2 class="meet-headline reveal">ПРИВЕТ.<br/>Я <span class="meet-name">РУСЛАН<span class="meet-period">.</span></span></h2>
+<h2 class="meet-headline meet-greeting reveal"><span class="greet-line"><span class="greet-word greet-first">ПРИВЕТ.</span></span><span class="greet-line"><span class="greet-word greet-i">Я</span> <span class="meet-name greet-word greet-name">РУСЛАН<span class="meet-period">.</span></span></span></h2>
 <div class="meet-heading-aside reveal"><div class="meet-aside-sign"><span class="meet-aside-dot"></span> DESIGNER / CREATOR / HUMAN</div><p>Я лично работаю над проектами: от первой идеи и до финального кадра.</p><span aria-hidden="true" class="meet-aside-arrow">↘</span></div>
 </div>
 <div aria-label="Три оригинальных фотографии Руслана" class="meet-gallery">
