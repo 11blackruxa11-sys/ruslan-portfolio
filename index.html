@@ -758,6 +758,44 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 @media(max-width:680px){#visualStage{height:370px;max-width:450px}.magazine-shell{width:min(98%,418px);padding:16px 9px 11px;transform:rotate(-1.5deg)}.magazine-topline{font-size:7px;padding-bottom:8px}.magazine-footer{padding-top:9px}.magazine-nav{height:28px;width:28px}.magazine-counter{font-size:10px}.magazine-issue{font-size:8px}.magazine-progress{margin-top:10px}}
 @media(max-width:390px){#visualStage{height:330px}.magazine-shell{width:100%}.magazine-issue{letter-spacing:.07em}.magazine-controls{gap:6px}}
 @media(prefers-reduced-motion:reduce){.magazine-shell,.magazine-turner{transition:none!important}.magazine-turner.is-turning{transition:none!important}}
+
+/* BLACK_R_STUDIO mini arcade — intentionally compact and calm */
+.arcade-section{position:relative;padding:100px var(--pad) 115px;background:#101411;border-top:1px solid #ffffff1a;overflow:hidden}
+.arcade-section:before{content:"";position:absolute;pointer-events:none;left:0;bottom:-180px;width:55vw;height:480px;background:radial-gradient(circle,#d8ff3e0a,transparent 72%)}
+.arcade-inner{position:relative;display:flex;max-width:1090px;margin:auto;justify-content:space-between;align-items:center;gap:58px}
+.arcade-heading{flex:1;min-width:0}
+.arcade-kicker{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;font-weight:900;color:#b9c4b6;margin-bottom:35px}
+.arcade-kicker span{display:block;width:27px;height:2px;background:var(--accent)}
+.arcade-heading h2{font-size:clamp(44px,6.5vw,90px);font-weight:900;line-height:.96;letter-spacing:-.075em}
+.arcade-heading h2 em{font-style:normal;color:var(--accent)}
+.arcade-heading p{margin-top:28px;max-width:340px;color:#9eab9e;font-size:14px;line-height:1.8}
+.snake-panel{width:324px;max-width:100%;flex:0 0 auto;padding:17px 17px 12px;background:linear-gradient(160deg,#1c251d,#141b16 60%,#151b15);border:1px solid #e0ffd026;box-shadow:0 23px 70px #0008}
+.snake-topline{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;font-weight:900;letter-spacing:.11em;color:#eaf5e1}
+.snake-topline>span:first-child{display:flex;align-items:center;gap:8px}
+.snake-topline i{height:7px;width:7px;background:var(--accent);display:block;border-radius:50%;box-shadow:0 0 12px #d8ff3e70}
+.snake-status{font-size:8px;color:#869588;white-space:nowrap}
+.snake-scoreline{display:flex;justify-content:space-between;border-top:1px solid #ffffff18;padding-top:12px;margin:13px 0 11px;font-size:9px;color:#879b88;letter-spacing:.12em;font-weight:900}
+.snake-scoreline>div{display:flex;gap:10px;align-items:center}
+.snake-scoreline strong{color:var(--accent);font-size:17px;letter-spacing:.03em;font-variant-numeric:tabular-nums}
+.snake-canvas-wrap{position:relative;width:100%;aspect-ratio:1;background:#0b110c;border:1px solid #ffffff16;overflow:hidden}
+.snake-canvas-wrap canvas{display:block;width:100%;height:100%;outline:none;touch-action:none}
+.snake-canvas-wrap canvas:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
+.snake-overlay{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;flex-direction:column;gap:10px;background:#0b110c9e;backdrop-filter:blur(3px);pointer-events:none}
+.snake-overlay[hidden]{display:none}
+.snake-overlay span{font-weight:900;color:var(--accent);font-size:22px;letter-spacing:-.03em}
+.snake-overlay small{font-size:10px;letter-spacing:.13em;color:#b6c4b3;font-weight:900}
+.snake-bottom{display:flex;gap:8px;margin-top:11px}
+.snake-start{flex:1;display:flex;justify-content:space-between;padding:13px 15px;background:var(--accent);color:#0c130e;font-weight:900;font-size:11px;letter-spacing:.11em;cursor:pointer;transition:background .25s,transform .25s}
+.snake-start:hover{background:#eeff8d;transform:translateY(-2px)}
+.snake-reset{width:43px;background:#273329;color:#e3f3dc;border:1px solid #ffffff26;font-size:22px;cursor:pointer}
+.snake-reset:hover{color:var(--accent);border-color:var(--accent)}
+.snake-pad{display:none;grid-template-columns:repeat(3,44px);gap:6px;margin:12px auto 0;justify-content:center}
+.snake-pad button{height:42px;background:#29352b;color:#e8ffce;border:1px solid #ffffff2b;font-size:21px;touch-action:manipulation;cursor:pointer}
+.snake-pad button:active{background:var(--accent);color:#111}
+.snake-footnote{display:flex;justify-content:center;align-items:center;gap:8px;font-size:8px;font-weight:900;color:#829083;letter-spacing:.18em;margin-top:13px}
+.snake-footnote span{color:var(--accent)}
+@media(max-width:790px){.arcade-inner{flex-direction:column;align-items:stretch;gap:35px}.arcade-heading h2{font-size:clamp(48px,9vw,70px)}.snake-panel{align-self:center}.arcade-section{padding-top:75px;padding-bottom:90px}.snake-pad{display:grid}}
+@media(max-width:430px){.arcade-inner{gap:27px}.arcade-heading h2{font-size:clamp(44px,11vw,58px)}.snake-panel{width:min(324px,100%)}.snake-pad{grid-template-columns:repeat(3,40px)}.snake-pad button{height:39px}}
 </style>
 </head>
 <body>
@@ -905,6 +943,34 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 </div>
 </section>
 <footer class="footer-bottom"><span>© 2026 / BLACK_R_STUDIO</span><span>DESIGNED TO MOVE.</span><div class="foot-links"><a href="#top">НАВЕРХ ↑</a><a href="works/">ПРОЕКТЫ</a><a href="mailto:11blackruxa11@gmail.com">ПОЧТА ↗</a></div></footer></div></section>
+<section class="arcade-section" id="arcade" aria-label="Мини-игра Black Studio">
+  <div class="arcade-inner">
+    <div class="arcade-heading">
+      <span class="arcade-kicker"><span></span> BONUS LEVEL / 001</span>
+      <h2>МИНУТКА<br/><em>ЗАЛИПНУТЬ.</em></h2>
+      <p>Немного лайма, немного пикселей. Поймай свой рекорд, пока вдохновение на подходе.</p>
+    </div>
+    <div class="snake-panel" id="snakeGame" aria-label="Игра змейка">
+      <div class="snake-topline"><span><i></i> BLACK SNAKE</span><span class="snake-status" id="snakeStatus" role="status" aria-live="polite">ГОТОВ ИГРАТЬ?</span></div>
+      <div class="snake-scoreline"><div>ОЧКИ <strong id="snakeScore">000</strong></div><div>РЕКОРД <strong id="snakeBest">000</strong></div></div>
+      <div class="snake-canvas-wrap">
+        <canvas id="snakeCanvas" width="288" height="288" tabindex="0" aria-label="Игровое поле змейки. Управление стрелками или клавишами WASD"></canvas>
+        <div class="snake-overlay" id="snakeOverlay"><span id="snakeOverlayText">НАЖМИ START</span><small>СТРЕЛКИ / WASD</small></div>
+      </div>
+      <div class="snake-bottom">
+        <button type="button" class="snake-start" id="snakeStart">START GAME <span>↗</span></button>
+        <button type="button" class="snake-reset" id="snakeReset" aria-label="Начать заново">↺</button>
+      </div>
+      <div class="snake-pad" aria-label="Кнопки направления">
+        <span></span><button data-snake-dir="up" type="button" aria-label="Вверх">↑</button><span></span>
+        <button data-snake-dir="left" type="button" aria-label="Влево">←</button>
+        <button data-snake-dir="down" type="button" aria-label="Вниз">↓</button>
+        <button data-snake-dir="right" type="button" aria-label="Вправо">→</button>
+      </div>
+      <div class="snake-footnote">JUST FOR FUN <span>✳</span> BLACK_R_STUDIO</div>
+    </div>
+  </div>
+</section>
 </main>
 <div aria-hidden="true" aria-label="Подробнее о проекте" aria-modal="true" class="modal" id="projectModal" role="dialog"><div class="modal-shell"><button aria-label="Закрыть" class="modal-close" data-close="" type="button">×</button><div class="project-layout"><div class="project-picture"><img alt="Афиша Карина Мейханаджян" id="modalProjectImg" src="assets/poster-01.webp"/></div><div class="project-info"><span class="eyebrow" id="modalProjectNum">SELECTED WORK / 01</span><h2 id="modalProjectTitle">Карина Мейханаджян</h2><p id="modalProjectDesc">Собрал гастрольный постер: выделил крупный заголовок, выстроил блоки городов и дат, усилил портрет красно-чёрной палитрой.</p><div class="project-taglist" id="modalProjectTags"></div><a class="poster-full-link" href="assets/poster-01.webp" id="modalImageLink" rel="noopener" target="_blank">Открыть оригинал в полном размере ↗</a><p class="project-note">Изображение представлено в исходном виде, без дополнительных надписей или обработки.</p><button class="send-btn" data-open-brief="" type="button">Хочу похожий проект ↗</button></div></div></div></div>
 <div aria-hidden="true" aria-labelledby="briefHeading" aria-modal="true" class="modal" id="briefModal" role="dialog"><div class="modal-shell form-shell"><button aria-label="Закрыть" class="modal-close" data-close="" type="button">×</button><span class="eyebrow accent">LET'S CREATE SOMETHING</span><h2 id="briefHeading">РАССКАЖИ<br/>О ПРОЕКТЕ.</h2><p>Опиши задачу. Сайт откроет выбранный мессенджер с готовым сообщением. Нажми «Отправить» уже в приложении.</p><form class="brief-form" id="briefForm"><div class="brief-field"><label for="briefName">Как к тебе обращаться</label><input id="briefName" maxlength="80" placeholder="Имя / компания" required="" type="text"/></div><div class="brief-field"><label for="briefType">Что нужно сделать</label><select id="briefType"><option>Афиша / графический дизайн</option><option>Motion / анимация</option><option>AI-видео</option><option>Визуал для артиста</option><option>Другое</option></select></div><div class="brief-field"><label for="briefMessage">Расскажи подробнее</label><textarea id="briefMessage" maxlength="1500" placeholder="Что за проект, сроки, формат..." required=""></textarea></div><button aria-label="Открыть WhatsApp с заполненным брифом" class="send-btn" type="submit">Написать в WhatsApp ↗</button><div class="brief-send-options"><button data-brief-to="telegram" type="button">Telegram ↗</button><button data-brief-to="email" type="button">Почта ↗</button><button data-brief-to="copy" type="button">Скопировать текст ↗</button></div><div aria-live="polite" class="copy-notice" id="copyNotice" role="status"></div></form></div></div>
@@ -1301,6 +1367,116 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
         if(await videoExists(item)){available.push(item);missing=0;renderVideoRail(available)}
         else missing++
       }});
+
+    // BLACK SNAKE: small, fully client-side game; pauses when tab is hidden.
+    (function initBlackSnake(){
+      const root=document.getElementById('snakeGame');
+      if(!root)return;
+      const canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');
+      const start=document.getElementById('snakeStart'),reset=document.getElementById('snakeReset');
+      const scoreEl=document.getElementById('snakeScore'),bestEl=document.getElementById('snakeBest');
+      const statusEl=document.getElementById('snakeStatus'),overlay=document.getElementById('snakeOverlay');
+      const overlayText=document.getElementById('snakeOverlayText');
+      const cells=18,unit=16;
+      let snake,food,dir,nextDir,points=0,best=0,mode='ready',timer=null;
+      try{best=Math.max(0,Number(localStorage.getItem('black-studio-snake-best')||0)||0)}catch{}
+      function format(n){return String(n).padStart(3,'0')}
+      function scoreUI(){scoreEl.textContent=format(points);bestEl.textContent=format(best)}
+      function randomFood(){
+        const options=[];
+        for(let y=0;y<cells;y++)for(let x=0;x<cells;x++){
+          if(!snake.some(p=>p.x===x&&p.y===y))options.push({x,y});
+        }
+        return options.length?options[Math.floor(Math.random()*options.length)]:null;
+      }
+      function setMode(next,text){
+        mode=next;statusEl.textContent=next==='playing'?'PLAYING':next==='paused'?'PAUSE':next==='over'?'GAME OVER':'READY';
+        overlay.hidden=next==='playing';
+        overlayText.textContent=text||'НАЖМИ START';
+        start.innerHTML=next==='playing'?'PAUSE <span>Ⅱ</span>':next==='paused'?'RESUME <span>↗</span>':next==='over'?'RESTART <span>↗</span>':'START GAME <span>↗</span>';
+      }
+      function draw(){
+        if(!ctx)return;
+        ctx.clearRect(0,0,288,288);
+        ctx.fillStyle='#0c130d';ctx.fillRect(0,0,288,288);
+        ctx.strokeStyle='rgba(207,255,133,.045)';ctx.lineWidth=.55;
+        for(let i=0;i<=cells;i++){
+          const p=i*unit+.5;
+          ctx.beginPath();ctx.moveTo(p,0);ctx.lineTo(p,288);ctx.stroke();
+          ctx.beginPath();ctx.moveTo(0,p);ctx.lineTo(288,p);ctx.stroke();
+        }
+        if(food){
+          const x=food.x*unit+unit/2,y=food.y*unit+unit/2;
+          ctx.shadowBlur=14;ctx.shadowColor='#ecff70';ctx.fillStyle='#f0ffac';
+          ctx.beginPath();ctx.arc(x,y,5.3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+        }
+        snake.forEach((part,i)=>{
+          const x=part.x*unit,y=part.y*unit;
+          ctx.fillStyle=i===0?'#eaff72':i%2?'#b9f940':'#d8ff3e';
+          ctx.fillRect(x+1.7,y+1.7,unit-3.4,unit-3.4);
+          if(i===0){
+            ctx.fillStyle='#0b170b';
+            const ox=dir.x===0?4:dir.x>0?10:3,oy=dir.y===0?4:dir.y>0?10:3;
+            ctx.fillRect(x+ox,y+oy,2.4,2.4);
+          }
+        });
+      }
+      function clearGameTimer(){if(timer){clearInterval(timer);timer=null}}
+      function resetGame(){
+        clearGameTimer();
+        snake=[{x:7,y:9},{x:6,y:9},{x:5,y:9}];
+        dir={x:1,y:0};nextDir={x:1,y:0};points=0;food=randomFood();
+        scoreUI();setMode('ready');draw();
+      }
+      function gameOver(){
+        clearGameTimer();setMode('over','GAME OVER');draw();
+      }
+      function step(){
+        dir=nextDir;
+        const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+        const eats=food&&head.x===food.x&&head.y===food.y;
+        const body=eats?snake:snake.slice(0,-1);
+        if(head.x<0||head.y<0||head.x>=cells||head.y>=cells||body.some(p=>p.x===head.x&&p.y===head.y)){gameOver();return}
+        snake.unshift(head);
+        if(eats){
+          points+=10;
+          if(points>best){best=points;try{localStorage.setItem('black-studio-snake-best',String(best))}catch{}}
+          food=randomFood();scoreUI();if(!food){clearGameTimer();setMode('over','ПОБЕДА!');return}
+        }else snake.pop();
+        draw();
+      }
+      function play(){
+        if(mode==='over'||mode==='ready'){
+          resetGame();
+        }
+        clearGameTimer();setMode('playing');canvas.focus({preventScroll:true});timer=setInterval(step,132);
+      }
+      function pause(){
+        if(mode!=='playing')return;
+        clearGameTimer();setMode('paused','ПАУЗА');
+      }
+      function toggle(){if(mode==='playing')pause();else play()}
+      function directionInput(d){
+        const options={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};
+        const change=options[d];
+        if(!change||mode!=='playing'||(change.x===-dir.x&&change.y===-dir.y))return;
+        nextDir=change;
+      }
+      start.addEventListener('click',toggle);
+      reset.addEventListener('click',()=>{resetGame();canvas.focus({preventScroll:true})});
+      root.querySelectorAll('[data-snake-dir]').forEach(b=>b.addEventListener('click',()=>{directionInput(b.dataset.snakeDir);canvas.focus({preventScroll:true})}));
+      document.addEventListener('keydown',e=>{
+        if(!root.contains(document.activeElement)||document.body.classList.contains('modal-open'))return;
+        const k=e.key.toLowerCase();
+        const mapping={arrowup:'up',w:'up',arrowdown:'down',s:'down',arrowleft:'left',a:'left',arrowright:'right',d:'right'};
+        if(mapping[k]){e.preventDefault();directionInput(mapping[k])}
+        if(k===' '&&document.activeElement===canvas){e.preventDefault();toggle()}
+      });
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)pause()});
+      window.addEventListener('blur',pause);
+      resetGame();
+    })();
+
     document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
     document.querySelectorAll('[data-start-brief]').forEach(b=>b.addEventListener('click',()=>openModal(briefModal)));
     document.querySelectorAll('[data-max-contact]').forEach(b=>b.addEventListener('click',()=>openModal(maxModal)));
