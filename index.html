@@ -516,7 +516,29 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     // Rotate without repeating the currently visible 3, and pause in background tabs.
     const featuredCards=[...document.querySelectorAll('#visualStage .stage-card')];
 
+    // Randomize all real project posters on every page load, without losing any.
+    // Keep the first three different from the previous refresh in this tab.
     const allPosterIds=Object.keys(projectData);
+    for(let i=allPosterIds.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [allPosterIds[i],allPosterIds[j]]=[allPosterIds[j],allPosterIds[i]];
+    }
+    try {
+      const key='ruslan-portfolio-last-projects';
+      const saved=JSON.parse(sessionStorage.getItem(key)||'[]');
+      if(Array.isArray(saved)&&saved.length&&allPosterIds.length>6){
+        const previous=new Set(saved.map(String));
+        for(let i=0;i<3;i++){
+          if(previous.has(allPosterIds[i])){
+            const replacementIndex=allPosterIds.findIndex((id,index)=>index>=3&&!previous.has(id));
+            if(replacementIndex>=0){
+              [allPosterIds[i],allPosterIds[replacementIndex]]=[allPosterIds[replacementIndex],allPosterIds[i]];
+            }
+          }
+        }
+      }
+      sessionStorage.setItem(key,JSON.stringify(allPosterIds.slice(0,3)));
+    }catch(error){/* Private browsing can disable session storage; shuffle still works. */}
     let currentFeatured=[];
     function randomPosterIds(exclude){
       const excludeSet=new Set(exclude||[]);
@@ -537,7 +559,7 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     const firstThree=randomPosterIds([]);
     fillStage(firstThree,false);
 
-    // Infinite featured-works carousel: all 18 real artworks, no edits or overlays.
+    // Infinite featured-works carousel: all portfolio artworks in a new random order each visit.
     const featuredViewport=document.getElementById('featuredCarousel');
     const featuredTrack=document.getElementById('worksGrid');
     const baseCard=featuredTrack.querySelector('.work-card').cloneNode(true);
