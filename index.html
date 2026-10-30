@@ -380,6 +380,16 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
   }
 }
 @media(max-width:460px){.contact-channel .channel-action{font-size:9px;letter-spacing:0}.footer-bottom .foot-links{flex-wrap:wrap;justify-content:center;row-gap:12px}}
+
+/* Instagram is intentionally featured only once, in the opening hero. */
+.hero-meta-row{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-bottom:42px;max-width:690px}
+.hero-meta-row .hero-index{margin:0;min-width:0;white-space:nowrap}
+.hero-instagram{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;padding:7px 0;border-bottom:1px solid rgba(216,255,62,.4);color:#c1c7bc;font-size:10px;letter-spacing:.065em;font-weight:800;white-space:nowrap;transition:color .25s,border-color .25s,transform .25s}
+.hero-instagram svg{width:14px;height:14px;flex:none}
+.hero-instagram:hover,.hero-instagram:focus-visible{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+.hero-instagram .hero-ig-arrow{font-size:14px;margin-left:2px}
+@media(max-width:1100px){.hero-meta-row{flex-wrap:wrap;justify-content:flex-start;gap:10px 20px}}
+@media(max-width:680px){.hero-meta-row{margin-bottom:25px;gap:8px 16px}.hero-instagram{font-size:9px;padding:5px 0}.hero-instagram svg{width:13px;height:13px}}
 </style>
 </head>
 <body>
@@ -395,7 +405,12 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <section aria-label="Главная" class="hero">
 <div class="container hero-inner">
 <div class="hero-copy">
+<div class="hero-meta-row">
 <div class="eyebrow hero-index">DESIGN × MOTION × AI / 2026</div>
+<a class="hero-instagram" href="https://www.instagram.com/black_r_studio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram студии black_r_studio">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+<span>@black_r_studio</span><span class="hero-ig-arrow" aria-hidden="true">↗</span>
+</a></div>
 <h1><span>СОЗДАЮ</span><span class="stroke">ТО, ЧТО</span><span class="accent">ЦЕПЛЯЕТ</span></h1>
 <div class="hero-sub"><p class="hero-description"><strong>Афиши, графический дизайн, motion и AI-видео.</strong> Сильные образы для артистов, событий и брендов.</p><a class="hero-link" href="works/">Смотреть проекты <svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></a>
 </div>
@@ -485,12 +500,9 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <a aria-label="Написать на электронную почту" class="contact-channel" href="mailto:11blackruxa11@gmail.com?subject=%D0%9E%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82&amp;body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%20%D0%B8%D0%BB%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82.">
 <span class="contact-channel-mark">04</span><strong>Почта</strong><span class="channel-action">НАПИСАТЬ <b>↗</b></span>
 </a>
-<a aria-label="Открыть Instagram black_r_studio" class="contact-channel" href="https://www.instagram.com/black_r_studio/" rel="noopener noreferrer" target="_blank">
-<span class="contact-channel-mark">05</span><strong>Instagram</strong><span class="channel-action">@black_r_studio <b>↗</b></span>
-</a>
 </div>
 </section>
-<footer class="footer-bottom"><span>© 2026 / BLACK_R_STUDIO</span><span>DESIGNED TO MOVE.</span><div class="foot-links"><a href="#top">НАВЕРХ ↑</a><a href="works/">ПРОЕКТЫ</a><a href="mailto:11blackruxa11@gmail.com">ПОЧТА ↗</a><a href="https://www.instagram.com/black_r_studio/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a></div></footer></div></section>
+<footer class="footer-bottom"><span>© 2026 / BLACK_R_STUDIO</span><span>DESIGNED TO MOVE.</span><div class="foot-links"><a href="#top">НАВЕРХ ↑</a><a href="works/">ПРОЕКТЫ</a><a href="mailto:11blackruxa11@gmail.com">ПОЧТА ↗</a></div></footer></div></section>
 </main>
 <div aria-hidden="true" aria-label="Подробнее о проекте" aria-modal="true" class="modal" id="projectModal" role="dialog"><div class="modal-shell"><button aria-label="Закрыть" class="modal-close" data-close="" type="button">×</button><div class="project-layout"><div class="project-picture"><img alt="Афиша Карина Мейханаджян" id="modalProjectImg" src="assets/poster-01.webp"/></div><div class="project-info"><span class="eyebrow" id="modalProjectNum">SELECTED WORK / 01</span><h2 id="modalProjectTitle">Карина Мейханаджян</h2><p id="modalProjectDesc">Собрал гастрольный постер: выделил крупный заголовок, выстроил блоки городов и дат, усилил портрет красно-чёрной палитрой.</p><div class="project-taglist" id="modalProjectTags"></div><a class="poster-full-link" href="assets/poster-01.webp" id="modalImageLink" rel="noopener" target="_blank">Открыть оригинал в полном размере ↗</a><p class="project-note">Изображение представлено в исходном виде, без дополнительных надписей или обработки.</p><button class="send-btn" data-open-brief="" type="button">Хочу похожий проект ↗</button></div></div></div></div>
 <div aria-hidden="true" aria-labelledby="briefHeading" aria-modal="true" class="modal" id="briefModal" role="dialog"><div class="modal-shell form-shell"><button aria-label="Закрыть" class="modal-close" data-close="" type="button">×</button><span class="eyebrow accent">LET'S CREATE SOMETHING</span><h2 id="briefHeading">РАССКАЖИ<br/>О ПРОЕКТЕ.</h2><p>Опиши задачу. Сайт откроет выбранный мессенджер с готовым сообщением. Нажми «Отправить» уже в приложении.</p><form class="brief-form" id="briefForm"><div class="brief-field"><label for="briefName">Как к тебе обращаться</label><input id="briefName" maxlength="80" placeholder="Имя / компания" required="" type="text"/></div><div class="brief-field"><label for="briefType">Что нужно сделать</label><select id="briefType"><option>Афиша / графический дизайн</option><option>Motion / анимация</option><option>AI-видео</option><option>Визуал для артиста</option><option>Другое</option></select></div><div class="brief-field"><label for="briefMessage">Расскажи подробнее</label><textarea id="briefMessage" maxlength="1500" placeholder="Что за проект, сроки, формат..." required=""></textarea></div><button aria-label="Открыть WhatsApp с заполненным брифом" class="send-btn" type="submit">Написать в WhatsApp ↗</button><div class="brief-send-options"><button data-brief-to="telegram" type="button">Telegram ↗</button><button data-brief-to="email" type="button">Почта ↗</button><button data-brief-to="copy" type="button">Скопировать текст ↗</button></div><div aria-live="polite" class="copy-notice" id="copyNotice" role="status"></div></form></div></div>
