@@ -834,6 +834,13 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     color:#111b0d;
   }
 }
+
+/* Gentle shuffle of the real filmstrip, preserving all video elements. */
+.video-section .video-track{opacity:1;transition:opacity .24s ease}
+.video-section .video-track.is-randomizing{opacity:.18}
+@media(prefers-reduced-motion:reduce){
+  .video-section .video-track{transition:none}
+}
 </style>
 </head>
 <body>
@@ -1351,7 +1358,7 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     const fineVideoPointer=matchMedia('(hover:hover) and (pointer:fine)').matches;
     const videoList=[
       {src:'assets/Лолита_1280_720_1.mp4',title:'Видео 01'},
-      ...Array.from({length:39},(_,i)=>{
+      ...Array.from({length:46},(_,i)=>{
         const n=String(i+2).padStart(2,'0');
         return {src:'assets/video-'+n+'.mp4',title:'Видео '+n};
       })
@@ -1431,6 +1438,40 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       if(videoObserver)videoObserver.observe(card);
       return card;
     }
+    // Uniform Fisher-Yates shuffle. Every MP4 has one real card, no duplicates.
+    function shuffleVideoList(items){
+      const order=items.slice();
+      for(let i=order.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [order[i],order[j]]=[order[j],order[i]];
+      }
+      return order;
+    }
+    let railHovered=false,railTouchActive=false,railIsShuffling=false,railShuffleTimer=null;
+    videoRail.addEventListener('pointerenter',()=>{railHovered=true});
+    videoRail.addEventListener('pointerleave',()=>{railHovered=false});
+    videoRail.addEventListener('touchstart',()=>{railTouchActive=true},{passive:true});
+    videoRail.addEventListener('touchend',()=>{railTouchActive=false},{passive:true});
+    videoRail.addEventListener('touchcancel',()=>{railTouchActive=false},{passive:true});
+    function shuffleRailInPlace(){
+      if(railIsShuffling||!videoTrack.children.length||railHovered||railTouchActive||document.hidden||document.body.classList.contains('modal-open'))return;
+      const bounds=videoRail.getBoundingClientRect();
+      if(bounds.bottom<=0||bounds.top>=innerHeight)return;
+      railIsShuffling=true;
+      const children=[...videoTrack.children];
+      const shuffled=shuffleVideoList(children);
+      // Ensure the visible sequence actually changes.
+      if(shuffled.every((card,i)=>card===children[i])&&shuffled.length>1)shuffled.push(shuffled.shift());
+      videoTrack.classList.add('is-randomizing');
+      window.setTimeout(()=>{
+        videoTrack.replaceChildren(...shuffled);
+        videoRail.scrollLeft=0;
+        requestAnimationFrame(()=>videoTrack.classList.remove('is-randomizing'));
+        window.setTimeout(()=>{railIsShuffling=false},350);
+      },200);
+    }
+    // Reorder gently while idle, not when someone is browsing/playing a film.
+    railShuffleTimer=window.setInterval(shuffleRailInPlace,30000);
     function renderVideoRail(items){
       pauseVideoPreviews();
       if(videoObserver)for(const card of videoStates.keys())videoObserver.unobserve(card);
@@ -1507,7 +1548,7 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
         return {...item,bytes:response.headers.get('content-length'),etag:response.headers.get('etag')};
       }catch{return null}
     }
-    // Scan all 40 allowed filenames, even if intermediate numbers are absent.
+    // Scan every uploaded numbered video through video-47, including any gaps.
     Promise.all(videoList.map(verifyVideo)).then(found=>{
       const seen=new Set(),unique=[];
       for(const item of found){
@@ -1524,7 +1565,8 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
         if(seen.has(key))continue;
         seen.add(key);unique.push(item);
       }
-      renderVideoRail(unique);
+      // Start in a different order every time the site opens.
+      renderVideoRail(shuffleVideoList(unique));
     }).catch(()=>{videoTrack.replaceChildren()});
     
     document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
