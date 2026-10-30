@@ -758,6 +758,14 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 .snake-footnote span{color:var(--accent)}
 @media(max-width:790px){.arcade-inner{flex-direction:column;align-items:stretch;gap:35px}.arcade-heading h2{font-size:clamp(48px,9vw,70px)}.snake-panel{align-self:center}.arcade-section{padding-top:75px;padding-bottom:90px}.snake-pad{display:grid}}
 @media(max-width:430px){.arcade-inner{gap:27px}.arcade-heading h2{font-size:clamp(44px,11vw,58px)}.snake-panel{width:min(324px,100%)}.snake-pad{grid-template-columns:repeat(3,40px)}.snake-pad button{height:39px}}
+
+/* Real MP4 files only: no preview posters, no blank fillers, no cloned video cards. */
+.video-section .video-tile .video-cover{display:none!important}
+.video-section .video-tile .video-preview{opacity:1!important;filter:brightness(.96);background:#101510;object-fit:contain}
+.video-section .video-tile:hover .video-preview{filter:brightness(1.06)}
+.video-section .video-track{width:max-content;min-width:0}
+.video-section .video-tile{flex-shrink:0}
+
 </style>
 </head>
 <body>
@@ -1266,96 +1274,185 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     featuredCards.forEach(card=>card.addEventListener('click',()=>showProject(card.dataset.id)));
     setInterval(()=>{void advanceHeroPoster()},4500);
 
-    // Seamless four-to-many small videos; muted previews, audio ONLY after click.
-    const videoRail=document.getElementById('videoRail'),videoTrack=document.getElementById('videoTrack');
-    const videoStates=new Map(),reducedVideoMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    // Video-only rail: exactly one card per real MP4, no poster images or repeated clones.
+    const videoRail=document.getElementById('videoRail');
+    const videoTrack=document.getElementById('videoTrack');
+    const videoStates=new Map();
+    const reducedVideoMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
     const fineVideoPointer=matchMedia('(hover:hover) and (pointer:fine)').matches;
-    const covers=['poster-12.webp','poster-17.webp','poster-18.webp','poster-11.webp','poster-11.webp','poster-14.webp','poster-10.webp','poster-04.webp','poster-09.webp','poster-16.webp'];
-    const videoList=[{src:'assets/Лолита_1280_720_1.mp4',title:'Видео 01',cover:'assets/'+covers[0],ratio:16/9},
-      ...Array.from({length:5},(_,i)=>({src:'assets/video-'+String(i+2).padStart(2,'0')+'.mp4',title:'Видео '+String(i+2).padStart(2,'0'),cover:'assets/'+covers[i+1],ratio:9/16}))];
-    let railItems=[],cycleWidth=0,railInit=false,vTarget=0,vCurrent=0,lastTime=0;
+    const videoList=[
+      {src:'assets/Лолита_1280_720_1.mp4',title:'Видео 01'},
+      ...Array.from({length:39},(_,i)=>{
+        const n=String(i+2).padStart(2,'0');
+        return {src:'assets/video-'+n+'.mp4',title:'Видео '+n};
+      })
+    ];
+    let vTarget=0,vCurrent=0,lastTime=0;
+    function pauseVideoPreviews(){
+      for(const video of videoStates.values()){video.pause();video.muted=true}
+    }
+    function previewInView(card){
+      const r=card.getBoundingClientRect(),v=videoRail.getBoundingClientRect();
+      return r.right>v.left&&r.left<v.right&&r.top<innerHeight&&r.bottom>0;
+    }
+    function playPreview(card,video){
+      if(document.hidden||document.body.classList.contains('modal-open')||!previewInView(card))return;
+      video.muted=true;
+      if(!video.getAttribute('src'))video.src=card.dataset.src;
+      video.play().catch(()=>{/* First frame remains visible if autoplay isn't allowed. */});
+    }
     const videoObserver=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
-      for(const entry of entries){const v=videoStates.get(entry.target);if(!v)continue;
-        if(entry.isIntersecting&&!document.hidden&&!document.body.classList.contains('modal-open')){
-          v.muted=true;if(!v.getAttribute('src'))v.src=entry.target.dataset.src;v.play().catch(()=>{});
-        }else v.pause();
+      for(const entry of entries){
+        const video=videoStates.get(entry.target);
+        if(!video)continue;
+        if(entry.isIntersecting)playPreview(entry.target,video);
+        else video.pause();
       }
-    },{root:videoRail,rootMargin:'70px 50px',threshold:.05}):null;
-    function pauseVideoPreviews(){for(const v of videoStates.values()){v.pause();v.muted=true}}
-    function videoCardHeight(){return videoTrack.firstElementChild?.getBoundingClientRect().height||200}
-    function sizeCard(card){card.style.setProperty('--card-width',Math.round(videoCardHeight()*(Number(card.dataset.ratio)||.5625))+'px')}
-    function measureRail(){
-      if(!railItems.length)return;const a=videoTrack.children[0],b=videoTrack.children[railItems.length];if(!a||!b)return;
-      const w=b.offsetLeft-a.offsetLeft;if(w<1)return;
-      if(!railInit){cycleWidth=w;videoRail.scrollLeft=w*2;railInit=true}
-      else if(Math.abs(cycleWidth-w)>2){const relative=(videoRail.scrollLeft-cycleWidth*2)/cycleWidth;cycleWidth=w;videoRail.scrollLeft=w*(2+relative)}
+    },{root:videoRail,rootMargin:'75px 60px',threshold:.04}):null;
+    function sizeCard(card){
+      const cardHeight=card.getBoundingClientRect().height||185;
+      const ratio=Number(card.dataset.ratio)||9/16;
+      card.style.setProperty('--card-width',Math.round(cardHeight*ratio)+'px');
     }
     function makeCard(item){
-      const card=document.createElement('article');card.className='video-tile';card.dataset.src=item.src;card.dataset.ratio=item.ratio;
-      const cover=document.createElement('img');cover.className='video-cover';cover.src=item.cover;cover.alt='Превью видео';cover.loading='lazy';
-      const video=document.createElement('video');video.className='video-preview';video.muted=true;video.defaultMuted=true;video.setAttribute('muted','');
-      video.setAttribute('playsinline','');video.playsInline=true;video.loop=true;video.autoplay=false;video.preload='none';video.tabIndex=-1;video.setAttribute('aria-hidden','true');
+      const card=document.createElement('article');
+      card.className='video-tile';
+      card.dataset.src=item.src;
+      card.dataset.ratio='0.5625';
+      card.setAttribute('aria-label',item.title);
+      const video=document.createElement('video');
+      video.className='video-preview';
+      video.muted=true;
+      video.defaultMuted=true;
+      video.setAttribute('muted','');
+      video.setAttribute('playsinline','');
+      video.playsInline=true;
+      video.loop=true;
+      video.autoplay=false;
+      video.preload='none';
+      video.tabIndex=-1;
+      video.setAttribute('aria-hidden','true');
       video.addEventListener('loadedmetadata',()=>{
         if(videoStates.get(card)!==video||!video.videoWidth||!video.videoHeight)return;
-        card.dataset.ratio=video.videoWidth/video.videoHeight;sizeCard(card);requestAnimationFrame(measureRail);
+        card.dataset.ratio=String(video.videoWidth/video.videoHeight);
+        sizeCard(card);
       });
-      video.addEventListener('playing',()=>card.classList.add('is-preview-ready'));
-      video.addEventListener('error',()=>card.classList.remove('is-preview-ready'));
-      const btn=document.createElement('button');btn.type='button';btn.className='video-tile-play';btn.setAttribute('aria-label','Смотреть '+item.title+' со звуком');
-      btn.innerHTML='<span class="video-play-ring"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span>';
-      btn.onclick=()=>{pauseVideoPreviews();portfolioVideoPlayer.pause();portfolioVideoPlayer.muted=false;portfolioVideoPlayer.defaultMuted=false;portfolioVideoPlayer.volume=1;
-        portfolioVideoPlayer.style.maxWidth='100%';portfolioVideoPlayer.style.aspectRatio='auto';
-        portfolioVideoPlayer.src=item.src;portfolioVideoPlayer.poster=item.cover;
-        document.getElementById('videoModalTitle').textContent=item.title;openModal(videoModal);portfolioVideoPlayer.play().catch(()=>{});
-      };
-      card.append(cover,video,btn);videoStates.set(card,video);if(videoObserver)videoObserver.observe(card);sizeCard(card);return card;
+      const button=document.createElement('button');
+      button.className='video-tile-play';
+      button.type='button';
+      button.setAttribute('aria-label','Смотреть '+item.title+' со звуком');
+      button.innerHTML='<span class="video-play-ring"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span>';
+      button.addEventListener('click',()=>{
+        pauseVideoPreviews();
+        portfolioVideoPlayer.pause();
+        portfolioVideoPlayer.muted=false;
+        portfolioVideoPlayer.defaultMuted=false;
+        portfolioVideoPlayer.volume=1;
+        portfolioVideoPlayer.style.maxWidth='100%';
+        portfolioVideoPlayer.style.aspectRatio='auto';
+        portfolioVideoPlayer.removeAttribute('poster');
+        portfolioVideoPlayer.src=item.src;
+        document.getElementById('videoModalTitle').textContent=item.title;
+        openModal(videoModal);
+        portfolioVideoPlayer.play().catch(()=>{});
+      });
+      card.append(video,button);
+      videoStates.set(card,video);
+      sizeCard(card);
+      if(videoObserver)videoObserver.observe(card);
+      return card;
     }
     function renderVideoRail(items){
-      pauseVideoPreviews();if(videoObserver)for(const card of videoStates.keys())videoObserver.unobserve(card);
-      videoStates.clear();railItems=items;cycleWidth=0;railInit=false;
-      const cards=[];for(let i=0;i<5;i++)for(const item of items)cards.push(makeCard(item));
-      videoTrack.replaceChildren(...cards);requestAnimationFrame(measureRail);
+      pauseVideoPreviews();
+      if(videoObserver)for(const card of videoStates.keys())videoObserver.unobserve(card);
+      videoStates.clear();
+      const cards=items.map(makeCard);
+      videoTrack.replaceChildren(...cards);
+      videoRail.scrollLeft=0;
+      videoRail.setAttribute('aria-label','Видеоработы. '+items.length+' роликов. Веди курсор вправо или влево, либо листай пальцем.');
+      if(!videoObserver)refreshVisiblePreviews();
     }
-    function loopRail(){if(!cycleWidth)return;if(videoRail.scrollLeft>=3*cycleWidth)videoRail.scrollLeft-=cycleWidth;
-      if(videoRail.scrollLeft<2*cycleWidth)videoRail.scrollLeft+=cycleWidth}
-    function railSpeed(x){const r=videoRail.getBoundingClientRect(),n=Math.max(-1,Math.min(1,((x-r.left)/r.width-.5)*2));
-      return Math.sign(n)*Math.pow(Math.max(0,(Math.abs(n)-.2)/.8),1.4)*470}
-    if(fineVideoPointer){videoRail.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')vTarget=railSpeed(e.clientX)});
+    function railSpeed(x){
+      const r=videoRail.getBoundingClientRect();
+      const n=Math.max(-1,Math.min(1,((x-r.left)/r.width-.5)*2));
+      const power=Math.max(0,(Math.abs(n)-.19)/.81);
+      return Math.sign(n)*Math.pow(power,1.4)*470;
+    }
+    if(fineVideoPointer){
+      videoRail.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')vTarget=railSpeed(e.clientX)});
       videoRail.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')vTarget=railSpeed(e.clientX)});
-      videoRail.addEventListener('pointerleave',()=>vTarget=0);addEventListener('blur',()=>vTarget=0)}
-    videoRail.addEventListener('keydown',e=>{if(e.target!==videoRail)return;
-      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();videoRail.scrollBy({left:(e.key==='ArrowRight'?1:-1)*240,behavior:reducedVideoMotion?'instant':'smooth'})}});
-    videoRail.addEventListener('scroll',()=>{if(!fineVideoPointer)loopRail()},{passive:true});
-    let touchMoved=false;videoRail.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')touchMoved=false},{passive:true});
+      videoRail.addEventListener('pointerleave',()=>{vTarget=0});
+      addEventListener('blur',()=>{vTarget=0});
+    }
+    videoRail.addEventListener('keydown',e=>{
+      if(e.target!==videoRail)return;
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();
+        videoRail.scrollBy({left:(e.key==='ArrowRight'?1:-1)*250,behavior:reducedVideoMotion?'auto':'smooth'});
+      }
+    });
+    let touchMoved=false;
+    videoRail.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')touchMoved=false},{passive:true});
     videoRail.addEventListener('pointermove',e=>{if(e.pointerType==='touch')touchMoved=true},{passive:true});
-    videoRail.addEventListener('click',e=>{if(touchMoved){e.preventDefault();e.stopImmediatePropagation();touchMoved=false}},true);
-    function frame(now){const dt=lastTime?Math.min(50,now-lastTime):16;lastTime=now;
+    videoRail.addEventListener('click',e=>{
+      if(touchMoved){e.preventDefault();e.stopImmediatePropagation();touchMoved=false}
+    },true);
+    function frame(now){
+      const dt=lastTime?Math.min(50,now-lastTime):16;
+      lastTime=now;
       if(document.hidden||document.body.classList.contains('modal-open')){vTarget=0;vCurrent=0}
-      else if(fineVideoPointer&&!reducedVideoMotion&&cycleWidth){vCurrent+=(vTarget-vCurrent)*(1-Math.exp(-dt/205));
+      else if(fineVideoPointer&&!reducedVideoMotion){
+        vCurrent+=(vTarget-vCurrent)*(1-Math.exp(-dt/205));
         if(Math.abs(vCurrent)<.08&&vTarget===0)vCurrent=0;
-        if(vCurrent){videoRail.scrollLeft+=vCurrent*dt/1000;loopRail()}}
-      requestAnimationFrame(frame)}requestAnimationFrame(frame);
-    function refreshVisiblePreviews(){if(document.hidden||document.body.classList.contains('modal-open'))return;
-      const outer=videoRail.getBoundingClientRect();for(const [tile,v] of videoStates){const r=tile.getBoundingClientRect();
-        if(r.right>outer.left&&r.left<outer.right&&r.top<innerHeight&&r.bottom>0){
-          v.muted=true;if(!v.getAttribute('src'))v.src=tile.dataset.src;v.play().catch(()=>{})}}}
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseVideoPreviews();else refreshVisiblePreviews()});
-    addEventListener('resize',()=>{for(const card of videoStates.keys())sizeCard(card);requestAnimationFrame(measureRail)},{passive:true});
-    portfolioVideoPlayer.addEventListener('loadedmetadata',()=>{if(!portfolioVideoPlayer.videoWidth||!portfolioVideoPlayer.videoHeight)return;
+        if(vCurrent){
+          const maxScroll=videoRail.scrollWidth-videoRail.clientWidth;
+          videoRail.scrollLeft=Math.max(0,Math.min(maxScroll,videoRail.scrollLeft+vCurrent*dt/1000));
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    function refreshVisiblePreviews(){
+      if(document.hidden||document.body.classList.contains('modal-open'))return;
+      for(const [card,video] of videoStates)if(previewInView(card))playPreview(card,video);
+    }
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden)pauseVideoPreviews();
+      else refreshVisiblePreviews();
+    });
+    addEventListener('resize',()=>{
+      for(const card of videoStates.keys())sizeCard(card);
+    },{passive:true});
+    portfolioVideoPlayer.addEventListener('loadedmetadata',()=>{
+      if(!portfolioVideoPlayer.videoWidth||!portfolioVideoPlayer.videoHeight)return;
       const ratio=portfolioVideoPlayer.videoWidth/portfolioVideoPlayer.videoHeight;
       portfolioVideoPlayer.style.aspectRatio=portfolioVideoPlayer.videoWidth+' / '+portfolioVideoPlayer.videoHeight;
-      portfolioVideoPlayer.style.maxWidth='min(100%, '+(67*ratio).toFixed(3)+'vh)'});
-    async function videoExists(item){try{const r=await fetch(item.src,{method:'HEAD'});const mime=(r.headers.get('content-type')||'').toLowerCase();
-      return r.ok&&(mime.includes('video/')||mime.includes('octet-stream'))}catch{return false}}
-    Promise.all(videoList.map(async x=>(await videoExists(x))?x:null)).then(async checked=>{
-      const available=checked.filter(Boolean);if(available.length)renderVideoRail(available);
-      let missing=0;
-      for(let i=7;i<=80&&missing<3;i++){const n=String(i).padStart(2,'0');
-        const item={src:'assets/video-'+n+'.mp4',title:'Видео '+n,cover:'assets/'+covers[(i-1)%covers.length],ratio:9/16};
-        if(await videoExists(item)){available.push(item);missing=0;renderVideoRail(available)}
-        else missing++
-      }});
-
+      portfolioVideoPlayer.style.maxWidth='min(100%, '+(67*ratio).toFixed(3)+'vh)';
+    });
+    async function verifyVideo(item){
+      try{
+        const response=await fetch(item.src,{method:'HEAD',cache:'no-cache'});
+        if(!response.ok)return null;
+        const mime=(response.headers.get('content-type')||'').toLowerCase();
+        if(mime.includes('text/html')||(!mime.includes('video/')&&!mime.includes('octet-stream')&&!mime.includes('application/mp4')))return null;
+        return {...item,bytes:response.headers.get('content-length'),etag:response.headers.get('etag')};
+      }catch{return null}
+    }
+    // Scan all 40 allowed filenames, even if intermediate numbers are absent.
+    Promise.all(videoList.map(verifyVideo)).then(found=>{
+      const seen=new Set(),unique=[];
+      for(const item of found){
+        if(!item)continue;
+        // Identical binary uploads generally share byte length and ETag.
+        // Keep one if metadata confirms a repeat (e.g. video-04 / video-05).
+        const identity=item.bytes&&item.etag?item.bytes+'|'+item.etag:null;
+        const key=identity||(item.bytes&&item.bytes==='16372863'&&(item.src.endsWith('/video-04.mp4')||item.src.endsWith('/video-05.mp4'))?'identical-04-05':item.src);
+        if(seen.has(key))continue;
+        seen.add(key);unique.push(item);
+      }
+      renderVideoRail(unique);
+    }).catch(()=>{videoTrack.replaceChildren()});
+    
     document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
     document.querySelectorAll('[data-start-brief]').forEach(b=>b.addEventListener('click',()=>openModal(briefModal)));
     document.querySelectorAll('[data-max-contact]').forEach(b=>b.addEventListener('click',()=>openModal(maxModal)));
