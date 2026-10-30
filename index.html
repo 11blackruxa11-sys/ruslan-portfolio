@@ -1217,8 +1217,8 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     function measureRail(){
       if(!railItems.length)return;const a=videoTrack.children[0],b=videoTrack.children[railItems.length];if(!a||!b)return;
       const w=b.offsetLeft-a.offsetLeft;if(w<1)return;
-      if(!railInit){cycleWidth=w;videoRail.scrollLeft=w;railInit=true}
-      else if(Math.abs(cycleWidth-w)>2){const relative=(videoRail.scrollLeft-cycleWidth)/cycleWidth;cycleWidth=w;videoRail.scrollLeft=w*(1+relative)}
+      if(!railInit){cycleWidth=w;videoRail.scrollLeft=w*2;railInit=true}
+      else if(Math.abs(cycleWidth-w)>2){const relative=(videoRail.scrollLeft-cycleWidth*2)/cycleWidth;cycleWidth=w;videoRail.scrollLeft=w*(2+relative)}
     }
     function makeCard(item){
       const card=document.createElement('article');card.className='video-tile';card.dataset.src=item.src;card.dataset.ratio=item.ratio;
@@ -1243,11 +1243,11 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     function renderVideoRail(items){
       pauseVideoPreviews();if(videoObserver)for(const card of videoStates.keys())videoObserver.unobserve(card);
       videoStates.clear();railItems=items;cycleWidth=0;railInit=false;
-      const cards=[];for(let i=0;i<3;i++)for(const item of items)cards.push(makeCard(item));
+      const cards=[];for(let i=0;i<5;i++)for(const item of items)cards.push(makeCard(item));
       videoTrack.replaceChildren(...cards);requestAnimationFrame(measureRail);
     }
-    function loopRail(){if(!cycleWidth)return;if(videoRail.scrollLeft>=2*cycleWidth)videoRail.scrollLeft-=cycleWidth;
-      if(videoRail.scrollLeft<cycleWidth)videoRail.scrollLeft+=cycleWidth}
+    function loopRail(){if(!cycleWidth)return;if(videoRail.scrollLeft>=3*cycleWidth)videoRail.scrollLeft-=cycleWidth;
+      if(videoRail.scrollLeft<2*cycleWidth)videoRail.scrollLeft+=cycleWidth}
     function railSpeed(x){const r=videoRail.getBoundingClientRect(),n=Math.max(-1,Math.min(1,((x-r.left)/r.width-.5)*2));
       return Math.sign(n)*Math.pow(Math.max(0,(Math.abs(n)-.2)/.8),1.4)*470}
     if(fineVideoPointer){videoRail.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')vTarget=railSpeed(e.clientX)});
