@@ -556,7 +556,8 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
         if(animated){void photo.offsetWidth;photo.classList.add('art-swap')}
       });
     }
-    const firstThree=randomPosterIds([]);
+    // Show the saved, freshly shuffled first three posters in the hero.
+    const firstThree=allPosterIds.slice(0,3);
     fillStage(firstThree,false);
 
     // Infinite featured-works carousel: all portfolio artworks in a new random order each visit.
