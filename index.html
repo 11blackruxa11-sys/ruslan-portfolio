@@ -694,6 +694,32 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
   .video-section .video-tile.video-is-switching{opacity:1;filter:none}
 }
 
+
+/* Compact cinematic filmstrip, without text or large cards */
+.video-section .video-gallery{display:flex;column-count:auto;overflow-x:auto;overflow-y:hidden;width:100%;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x;cursor:ew-resize;padding:8px 0;margin-top:24px;-webkit-overflow-scrolling:touch}
+.video-section .video-gallery::-webkit-scrollbar{display:none}
+.video-gallery:focus-visible{outline:2px solid var(--accent)}
+.video-track{display:flex;flex-wrap:nowrap;align-items:center;gap:8px;width:max-content;min-width:100%}
+.video-section .video-tile{position:relative;display:block;flex:0 0 auto;width:var(--card-width,130px);height:clamp(150px,18vw,215px);aspect-ratio:auto;margin:0;overflow:hidden;background:#111515;border:1px solid #ffffff15;filter:none;opacity:1;transform:none;box-shadow:none;transition:box-shadow .55s,border-color .45s}
+.video-section .video-tile:before{display:none}
+.video-section .video-tile:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent 67%,#0002)}
+.video-section .video-tile:hover,.video-section .video-tile:focus-within{box-shadow:0 14px 30px #0008;border-color:#d8ff3e88;transform:none}
+.video-section .video-tile .video-cover,.video-section .video-tile .video-preview{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center;background:#111515}
+.video-section .video-tile .video-cover{filter:brightness(.84);transition:opacity .65s,transform .8s,filter .65s}
+.video-section .video-tile .video-preview{z-index:1;opacity:0;filter:brightness(.93);transition:opacity .65s,transform .8s,filter .65s;pointer-events:none}
+.video-section .video-tile.is-preview-ready .video-preview{opacity:1}
+.video-section .video-tile.is-preview-ready .video-cover{opacity:0}
+.video-section .video-tile:hover .video-cover,.video-section .video-tile:hover .video-preview{transform:scale(1.027);filter:brightness(1.05)}
+.video-section .video-tile-play{position:absolute;inset:0;z-index:5;width:100%;height:100%;display:grid;place-items:center;background:transparent;cursor:pointer}
+.video-section .video-tile .video-play-ring{width:43px;height:43px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:#111;opacity:0;transform:scale(.8);transition:opacity .4s,transform .45s}
+.video-section .video-tile:hover .video-play-ring,.video-section .video-tile:focus-within .video-play-ring{opacity:.98;transform:scale(1)}
+.video-section .video-tile-play svg{width:16px;height:16px;margin-left:2px}
+.video-modal-body .video-caption{display:none}
+@media(max-width:1100px){.video-section .video-tile{height:clamp(145px,21vw,198px)}.video-track{gap:7px}}
+@media(max-width:680px){.video-section .video-tile{height:155px}.video-track{gap:6px}}
+@media(max-width:460px){.video-section .video-tile{height:138px}.video-track{gap:5px}}
+@media(hover:none){.video-section .video-gallery{cursor:grab}.video-section .video-tile .video-play-ring{opacity:.7;transform:scale(.75)}}
+@media(prefers-reduced-motion:reduce){.video-section .video-tile,.video-section .video-tile .video-preview,.video-section .video-tile .video-cover{transition:none!important}}
 </style>
 </head>
 <body>
@@ -751,40 +777,7 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <span class="video-line video-line--white">КОТОРЫЙ</span>
 <span class="video-line video-line--glow">ДВИГАЕТСЯ.<span class="video-line-sheen" aria-hidden="true">ДВИГАЕТСЯ.</span></span>
 </h2></div>
-    <div class="video-gallery" aria-label="Доска авторских видео">
-<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/Лолита_1280_720_1.mp4" data-video-title="Лолита / Видео">
-<img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Лолита / Видео" src="assets/poster-12.webp"/>
-<span class="video-grain" aria-hidden="true"></span>
-
-
-<button class="video-tile-play" aria-label="Открыть Лолита / Видео со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-
-</article>
-<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-02.mp4" data-video-title="AI / Cinematic">
-<img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки AI / Cinematic" src="assets/poster-17.webp"/>
-<span class="video-grain" aria-hidden="true"></span>
-
-
-<button class="video-tile-play" aria-label="Открыть AI / Cinematic со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-
-</article>
-<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-03.mp4" data-video-title="Артист / Promo">
-<img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Артист / Promo" src="assets/poster-18.webp"/>
-<span class="video-grain" aria-hidden="true"></span>
-
-
-<button class="video-tile-play" aria-label="Открыть Артист / Promo со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-
-</article>
-<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-04.mp4" data-video-title="Анимированные афиши">
-<img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Анимированные афиши" src="assets/poster-11.webp"/>
-<span class="video-grain" aria-hidden="true"></span>
-
-
-<button class="video-tile-play" aria-label="Открыть Анимированные афиши со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-
-</article>
-    </div>
+    <div class="video-gallery" id="videoRail" tabindex="0" aria-label="Видеолента. Веди курсор вправо или влево, чтобы листать"><div class="video-track" id="videoTrack"></div></div>
     
   </div>
 </section>
@@ -1202,146 +1195,97 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     // Every 4.5 seconds, smoothly replace one poster at a time, cycling left–center–right.
     setInterval(()=>{void advanceHeroPoster()},4500);
 
-    // Four-tile motion board with dynamic pool. No audio until a real user click.
-    const videoTiles=[...document.querySelectorAll('.video-tile[data-video-src]')];
-    portfolioVideoPlayer.addEventListener('loadedmetadata',()=>{
-      if(!portfolioVideoPlayer.videoWidth||!portfolioVideoPlayer.videoHeight)return;
-      const ratio=portfolioVideoPlayer.videoWidth/portfolioVideoPlayer.videoHeight;
-      // In the large viewer, a portrait film stays narrow and tall, a landscape film wide.
-      portfolioVideoPlayer.style.aspectRatio=portfolioVideoPlayer.videoWidth+' / '+portfolioVideoPlayer.videoHeight;
-      portfolioVideoPlayer.style.maxWidth='min(100%, '+(67*ratio).toFixed(3)+'vh)';
-    });
-
-    const videoStates=new Map();
-    const videosPool=[
-      {src:'assets/Лолита_1280_720_1.mp4',title:'Лолита / Видео',cover:'assets/poster-12.webp',type:'MOTION'},
-      ...Array.from({length:11},(_,i)=>{
-        const number=i+2;
-        const numberString=String(number).padStart(2,'0');
-        const names=['AI / Cinematic','Артист / Promo','Анимированные афиши','Графика в движении','Кинематограф','Концертный визуал','Атмосфера события','Creative / AI','Видео для брендов','Motion 11','Motion 12'];
-        const covers=['assets/poster-17.webp','assets/poster-18.webp','assets/poster-11.webp','assets/poster-14.webp','assets/poster-10.webp','assets/poster-04.webp','assets/poster-09.webp','assets/poster-16.webp','assets/poster-23.png','assets/poster-05.webp','assets/poster-20.png'];
-        return {src:'assets/video-'+numberString+'.mp4',title:names[i],cover:covers[i],type:'MOTION / AI'};
-      })
-    ];
-    let videoPoolAvailable=[],videoSlotIndex=0,videoRotationBusy=false;
-    const motionReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function playTilePreview(tile,video){
-      if(document.hidden||document.body.classList.contains('modal-open'))return;
-      const bounds=tile.getBoundingClientRect();
-      if(bounds.bottom<0||bounds.top>innerHeight)return;
-      video.muted=true;
-      if(!video.src){video.src=tile.dataset.videoSrc}
-      video.play().catch(()=>{/* A still cover is the safe fallback. */});
-    }
-    function pauseVideoPreviews(){
-      videoStates.forEach(video=>{video.pause();video.muted=true});
-    }
-    const videoViewportObserver=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
-      entries.forEach(({target,isIntersecting})=>{
-        const video=videoStates.get(target);
-        if(!video)return;
-        if(isIntersecting)playTilePreview(target,video);
-        else video.pause();
-      });
-    },{threshold:.15,rootMargin:'100px 0px'}):null;
-    function loadVideoInTile(tile,item){
-      const oldVideo=videoStates.get(tile);
-      if(oldVideo){oldVideo.pause();oldVideo.removeAttribute('src');oldVideo.load();oldVideo.remove();videoStates.delete(tile)}
-      if(videoViewportObserver)videoViewportObserver.unobserve(tile);
-      tile.classList.remove('is-preview-ready');
-      tile.dataset.videoSrc=item.src;
-      tile.dataset.videoTitle=item.title;
-      const cover=tile.querySelector('.video-cover');
-      cover.src=item.cover;
-      cover.alt='Обложка проекта '+item.title;
-      tile.setAttribute('aria-label','Видеоработа: '+item.title);
-      const button=tile.querySelector('.video-tile-play');
-      button.hidden=true;
-      button.onclick=null;
-      const video=document.createElement('video');
-      video.className='video-preview';
-      video.muted=true;video.defaultMuted=true;
-      video.setAttribute('muted','');
-      video.setAttribute('playsinline','');
-      video.autoplay=false;video.loop=true;video.playsInline=true; // IntersectionObserver controls muted preview playback
-      video.preload='metadata';video.tabIndex=-1;
-      video.addEventListener('loadedmetadata',()=>{
-        // Honor the ORIGINAL video dimensions (landscape / portrait / square).
-        if(videoStates.get(tile)!==video||!video.videoWidth||!video.videoHeight)return;
-        tile.style.setProperty('--tile-ratio',video.videoWidth+' / '+video.videoHeight);
-        tile.dataset.orientation=video.videoWidth>video.videoHeight?'landscape':video.videoWidth<video.videoHeight?'portrait':'square';
-      });
-      video.setAttribute('aria-hidden','true');
-      video.addEventListener('playing',()=>{if(videoStates.get(tile)===video)tile.classList.add('is-preview-ready')});
-      video.addEventListener('error',()=>tile.classList.remove('is-preview-ready'));
-      tile.querySelector('.video-grain').before(video);
-      videoStates.set(tile,video);
-      video.src=item.src; // metadata loads even when a tile starts off-screen
-      button.hidden=false;
-      button.setAttribute('aria-label','Смотреть '+item.title+' со звуком');
-      button.onclick=()=>{
-        pauseVideoPreviews();
-        portfolioVideoPlayer.pause();
-        portfolioVideoPlayer.muted=false;
-        portfolioVideoPlayer.defaultMuted=false;
-        portfolioVideoPlayer.volume=1;
-        portfolioVideoPlayer.style.maxWidth='100%';
-        portfolioVideoPlayer.style.aspectRatio='auto';
-        portfolioVideoPlayer.src=item.src;
-        portfolioVideoPlayer.poster=item.cover;
-        document.getElementById('videoModalTitle').textContent=item.title;
-        openModal(videoModal);
-        portfolioVideoPlayer.play().catch(()=>{/* Manual play available. */});
-      };
-      if(videoViewportObserver)videoViewportObserver.observe(tile);
-      else playTilePreview(tile,video);
-    }
-    function refreshVisiblePreviews(){
-      if(document.hidden||document.body.classList.contains('modal-open'))return;
-      videoStates.forEach((video,tile)=>playTilePreview(tile,video));
-    }
-    document.addEventListener('visibilitychange',()=>{
-      if(document.hidden)pauseVideoPreviews();else refreshVisiblePreviews();
-    });
-    const shuffleVideoPool=(items)=>{
-      const copied=items.slice();
-      for(let i=copied.length-1;i>0;i--){
-        const j=Math.floor(Math.random()*(i+1));
-        [copied[i],copied[j]]=[copied[j],copied[i]];
+    
+    // Seamless four-to-many small videos; muted previews, audio ONLY after click.
+    const videoRail=document.getElementById('videoRail'),videoTrack=document.getElementById('videoTrack');
+    const videoStates=new Map(),reducedVideoMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const fineVideoPointer=matchMedia('(hover:hover) and (pointer:fine)').matches;
+    const covers=['poster-12.webp','poster-17.webp','poster-18.webp','poster-11.webp','poster-11.webp','poster-14.webp','poster-10.webp','poster-04.webp','poster-09.webp','poster-16.webp'];
+    const videoList=[{src:'assets/Лолита_1280_720_1.mp4',title:'Видео 01',cover:'assets/'+covers[0],ratio:16/9},
+      ...Array.from({length:5},(_,i)=>({src:'assets/video-'+String(i+2).padStart(2,'0')+'.mp4',title:'Видео '+String(i+2).padStart(2,'0'),cover:'assets/'+covers[i+1],ratio:9/16}))];
+    let railItems=[],cycleWidth=0,railInit=false,vTarget=0,vCurrent=0,lastTime=0;
+    const videoObserver=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
+      for(const entry of entries){const v=videoStates.get(entry.target);if(!v)continue;
+        if(entry.isIntersecting&&!document.hidden&&!document.body.classList.contains('modal-open')){
+          v.muted=true;if(!v.getAttribute('src'))v.src=entry.target.dataset.src;v.play().catch(()=>{});
+        }else v.pause();
       }
-      return copied;
-    };
-    Promise.all(videosPool.map(async item=>{
-      try{
-        const response=await fetch(item.src,{method:'HEAD'});
-        const mime=(response.headers.get('content-type')||'').toLowerCase();
-        return response.ok&&!mime.includes('text/html')&&(mime.includes('video/')||mime.includes('octet-stream'))?item:null;
-      }catch(error){return null}
-    })).then(results=>{
-      videoPoolAvailable=shuffleVideoPool(results.filter(Boolean));
-      // Missing files remain as original poster covers, not fake playable videos.
-      videoPoolAvailable.slice(0,videoTiles.length).forEach((item,index)=>loadVideoInTile(videoTiles[index],item));
-      if(!videoPoolAvailable.length)return;
-      // If 4 or fewer files exist, each clip stays visible and plays in a loop.
-      // At 5+ files, one tile changes every 7 seconds, smoothly.
-      setInterval(async ()=>{
-        if(videoRotationBusy||document.hidden||document.body.classList.contains('modal-open')||videoPoolAvailable.length<=videoTiles.length)return;
-        const slot=videoTiles[videoSlotIndex];
-        const visible=new Set(videoTiles.map(tile=>tile.dataset.videoSrc).filter(src=>videoPoolAvailable.some(item=>item.src===src)));
-        const options=videoPoolAvailable.filter(item=>!visible.has(item.src));
-        if(!options.length)return;
-        videoRotationBusy=true;
-        try{
-          const next=options[Math.floor(Math.random()*options.length)];
-          slot.classList.add('video-is-switching');
-          if(!motionReduced)await new Promise(resolve=>setTimeout(resolve,470));
-          loadVideoInTile(slot,next);
-          slot.classList.remove('video-is-switching');
-          videoSlotIndex=(videoSlotIndex+1)%videoTiles.length;
-        }finally{videoRotationBusy=false}
-      },7000);
-    });
-        document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
+    },{root:videoRail,rootMargin:'70px 50px',threshold:.05}):null;
+    function pauseVideoPreviews(){for(const v of videoStates.values()){v.pause();v.muted=true}}
+    function videoCardHeight(){return videoTrack.firstElementChild?.getBoundingClientRect().height||200}
+    function sizeCard(card){card.style.setProperty('--card-width',Math.round(videoCardHeight()*(Number(card.dataset.ratio)||.5625))+'px')}
+    function measureRail(){
+      if(!railItems.length)return;const a=videoTrack.children[0],b=videoTrack.children[railItems.length];if(!a||!b)return;
+      const w=b.offsetLeft-a.offsetLeft;if(w<1)return;
+      if(!railInit){cycleWidth=w;videoRail.scrollLeft=w;railInit=true}
+      else if(Math.abs(cycleWidth-w)>2){const relative=(videoRail.scrollLeft-cycleWidth)/cycleWidth;cycleWidth=w;videoRail.scrollLeft=w*(1+relative)}
+    }
+    function makeCard(item){
+      const card=document.createElement('article');card.className='video-tile';card.dataset.src=item.src;card.dataset.ratio=item.ratio;
+      const cover=document.createElement('img');cover.className='video-cover';cover.src=item.cover;cover.alt='Превью видео';cover.loading='lazy';
+      const video=document.createElement('video');video.className='video-preview';video.muted=true;video.defaultMuted=true;video.setAttribute('muted','');
+      video.setAttribute('playsinline','');video.playsInline=true;video.loop=true;video.autoplay=false;video.preload='none';video.tabIndex=-1;video.setAttribute('aria-hidden','true');
+      video.addEventListener('loadedmetadata',()=>{
+        if(videoStates.get(card)!==video||!video.videoWidth||!video.videoHeight)return;
+        card.dataset.ratio=video.videoWidth/video.videoHeight;sizeCard(card);requestAnimationFrame(measureRail);
+      });
+      video.addEventListener('playing',()=>card.classList.add('is-preview-ready'));
+      video.addEventListener('error',()=>card.classList.remove('is-preview-ready'));
+      const btn=document.createElement('button');btn.type='button';btn.className='video-tile-play';btn.setAttribute('aria-label','Смотреть '+item.title+' со звуком');
+      btn.innerHTML='<span class="video-play-ring"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span>';
+      btn.onclick=()=>{pauseVideoPreviews();portfolioVideoPlayer.pause();portfolioVideoPlayer.muted=false;portfolioVideoPlayer.defaultMuted=false;portfolioVideoPlayer.volume=1;
+        portfolioVideoPlayer.style.maxWidth='100%';portfolioVideoPlayer.style.aspectRatio='auto';
+        portfolioVideoPlayer.src=item.src;portfolioVideoPlayer.poster=item.cover;
+        document.getElementById('videoModalTitle').textContent=item.title;openModal(videoModal);portfolioVideoPlayer.play().catch(()=>{});
+      };
+      card.append(cover,video,btn);videoStates.set(card,video);if(videoObserver)videoObserver.observe(card);sizeCard(card);return card;
+    }
+    function renderVideoRail(items){
+      pauseVideoPreviews();if(videoObserver)for(const card of videoStates.keys())videoObserver.unobserve(card);
+      videoStates.clear();railItems=items;cycleWidth=0;railInit=false;
+      const cards=[];for(let i=0;i<3;i++)for(const item of items)cards.push(makeCard(item));
+      videoTrack.replaceChildren(...cards);requestAnimationFrame(measureRail);
+    }
+    function loopRail(){if(!cycleWidth)return;if(videoRail.scrollLeft>=2*cycleWidth)videoRail.scrollLeft-=cycleWidth;
+      if(videoRail.scrollLeft<cycleWidth)videoRail.scrollLeft+=cycleWidth}
+    function railSpeed(x){const r=videoRail.getBoundingClientRect(),n=Math.max(-1,Math.min(1,((x-r.left)/r.width-.5)*2));
+      return Math.sign(n)*Math.pow(Math.max(0,(Math.abs(n)-.2)/.8),1.4)*470}
+    if(fineVideoPointer){videoRail.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')vTarget=railSpeed(e.clientX)});
+      videoRail.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')vTarget=railSpeed(e.clientX)});
+      videoRail.addEventListener('pointerleave',()=>vTarget=0);addEventListener('blur',()=>vTarget=0)}
+    videoRail.addEventListener('keydown',e=>{if(e.target!==videoRail)return;
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();videoRail.scrollBy({left:(e.key==='ArrowRight'?1:-1)*240,behavior:reducedVideoMotion?'instant':'smooth'})}});
+    videoRail.addEventListener('scroll',()=>{if(!fineVideoPointer)loopRail()},{passive:true});
+    let touchMoved=false;videoRail.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')touchMoved=false},{passive:true});
+    videoRail.addEventListener('pointermove',e=>{if(e.pointerType==='touch')touchMoved=true},{passive:true});
+    videoRail.addEventListener('click',e=>{if(touchMoved){e.preventDefault();e.stopImmediatePropagation();touchMoved=false}},true);
+    function frame(now){const dt=lastTime?Math.min(50,now-lastTime):16;lastTime=now;
+      if(document.hidden||document.body.classList.contains('modal-open')){vTarget=0;vCurrent=0}
+      else if(fineVideoPointer&&!reducedVideoMotion&&cycleWidth){vCurrent+=(vTarget-vCurrent)*(1-Math.exp(-dt/205));
+        if(Math.abs(vCurrent)<.08&&vTarget===0)vCurrent=0;
+        if(vCurrent){videoRail.scrollLeft+=vCurrent*dt/1000;loopRail()}}
+      requestAnimationFrame(frame)}requestAnimationFrame(frame);
+    function refreshVisiblePreviews(){if(document.hidden||document.body.classList.contains('modal-open'))return;
+      const outer=videoRail.getBoundingClientRect();for(const [tile,v] of videoStates){const r=tile.getBoundingClientRect();
+        if(r.right>outer.left&&r.left<outer.right&&r.top<innerHeight&&r.bottom>0){
+          v.muted=true;if(!v.getAttribute('src'))v.src=tile.dataset.src;v.play().catch(()=>{})}}}
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseVideoPreviews();else refreshVisiblePreviews()});
+    addEventListener('resize',()=>{for(const card of videoStates.keys())sizeCard(card);requestAnimationFrame(measureRail)},{passive:true});
+    portfolioVideoPlayer.addEventListener('loadedmetadata',()=>{if(!portfolioVideoPlayer.videoWidth||!portfolioVideoPlayer.videoHeight)return;
+      const ratio=portfolioVideoPlayer.videoWidth/portfolioVideoPlayer.videoHeight;
+      portfolioVideoPlayer.style.aspectRatio=portfolioVideoPlayer.videoWidth+' / '+portfolioVideoPlayer.videoHeight;
+      portfolioVideoPlayer.style.maxWidth='min(100%, '+(67*ratio).toFixed(3)+'vh)'});
+    async function videoExists(item){try{const r=await fetch(item.src,{method:'HEAD'});const mime=(r.headers.get('content-type')||'').toLowerCase();
+      return r.ok&&(mime.includes('video/')||mime.includes('octet-stream'))}catch{return false}}
+    Promise.all(videoList.map(async x=>(await videoExists(x))?x:null)).then(async checked=>{
+      const available=checked.filter(Boolean);if(available.length)renderVideoRail(available);
+      let missing=0;
+      for(let i=7;i<=80&&missing<3;i++){const n=String(i).padStart(2,'0');
+        const item={src:'assets/video-'+n+'.mp4',title:'Видео '+n,cover:'assets/'+covers[(i-1)%covers.length],ratio:9/16};
+        if(await videoExists(item)){available.push(item);missing=0;renderVideoRail(available)}
+        else missing++
+      }});
+    document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
     document.querySelectorAll('[data-start-brief]').forEach(b=>b.addEventListener('click',()=>openModal(briefModal)));
     document.querySelectorAll('[data-max-contact]').forEach(b=>b.addEventListener('click',()=>openModal(maxModal)));
     document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModal));
