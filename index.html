@@ -1443,10 +1443,15 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       const seen=new Set(),unique=[];
       for(const item of found){
         if(!item)continue;
-        // Identical binary uploads generally share byte length and ETag.
-        // Keep one if metadata confirms a repeat (e.g. video-04 / video-05).
+        // 04 and 05 are currently the exact same uploaded binary.
+        // Skip 05 only while their file lengths still match; a replacement reappears.
+        if(item.src.endsWith('/video-05.mp4')){
+          const fourth=found.find(other=>other&&other.src.endsWith('/video-04.mp4'));
+          if(fourth&&fourth.bytes&&item.bytes===fourth.bytes)continue;
+        }
+        // For any other duplicate, compare ETag and byte count when provided.
         const identity=item.bytes&&item.etag?item.bytes+'|'+item.etag:null;
-        const key=identity||(item.bytes&&item.bytes==='16372863'&&(item.src.endsWith('/video-04.mp4')||item.src.endsWith('/video-05.mp4'))?'identical-04-05':item.src);
+        const key=identity||item.src;
         if(seen.has(key))continue;
         seen.add(key);unique.push(item);
       }
