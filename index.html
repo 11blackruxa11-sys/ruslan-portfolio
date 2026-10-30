@@ -390,6 +390,107 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 .hero-instagram .hero-ig-arrow{font-size:14px;margin-left:2px}
 @media(max-width:1100px){.hero-meta-row{flex-wrap:wrap;justify-content:flex-start;gap:10px 20px}}
 @media(max-width:680px){.hero-meta-row{margin-bottom:25px;gap:8px 16px}.hero-instagram{font-size:9px;padding:5px 0}.hero-instagram svg{width:13px;height:13px}}
+
+/* BLACK_R_STUDIO / interactive artwork showcase */
+#visualStage{
+ --spot-x:52%; --spot-y:44%;
+}
+#visualStage .stage-depth-field{
+ pointer-events:none;position:absolute;z-index:0;
+ inset:0;overflow:visible;
+ background:
+   radial-gradient(ellipse 50% 50% at var(--spot-x) var(--spot-y),rgba(212,255,66,.115),transparent 83%),
+   radial-gradient(ellipse 70% 60% at 54% 51%,rgba(117,144,107,.09),transparent 82%);
+}
+#visualStage .stage-depth-field:before{
+ content:"";position:absolute;top:11%;left:14%;width:79%;height:73%;
+ border:1px solid rgba(216,255,62,.105);
+ transform:skewY(-8deg) rotate(-3deg);
+ clip-path:polygon(0 0,100% 0,100% 19%,98% 19%,98% 90%,18% 90%,18% 100%,0 100%);
+}
+#visualStage .stage-depth-field:after{
+ content:"";position:absolute;inset:13% -1% 15% -3%;
+ background:linear-gradient(145deg,transparent 43%,rgba(216,255,62,.18) 43.08%,transparent 43.3%),
+ linear-gradient(156deg,transparent 72%,rgba(216,255,62,.105) 72.1%,transparent 72.35%);
+ opacity:.8;transform:rotate(-2deg);
+}
+#visualStage .stage-depth-ray{
+ position:absolute;left:3%;top:44%;height:28%;width:75%;
+ background:linear-gradient(112deg,transparent,rgba(216,255,62,.08) 57%,transparent);
+ filter:blur(30px);
+ transform:rotate(-16deg);
+}
+#visualStage .stage-depth-corner{
+ position:absolute;left:3%;top:10%;width:24px;height:24px;
+ border-top:1px solid rgba(216,255,62,.55);
+ border-left:1px solid rgba(216,255,62,.55);
+ opacity:.75;
+}
+#visualStage .stage-card{
+ transition:translate .65s cubic-bezier(.16,1,.3,1),scale .48s cubic-bezier(.16,1,.3,1),box-shadow .4s ease;
+ outline:1px solid rgba(255,255,255,.075);
+ outline-offset:-1px;
+ box-shadow:0 24px 55px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.025);
+ backface-visibility:hidden;
+}
+#visualStage .stage-card:before{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
+ background:linear-gradient(125deg,rgba(255,255,255,.17),transparent 34%,transparent 62%,rgba(255,255,255,.05));
+ opacity:0;transition:opacity .35s;
+ mix-blend-mode:screen;
+}
+#visualStage .stage-card:hover,
+#visualStage .stage-card:focus-visible{
+ scale:1.043;z-index:7;outline:1px solid rgba(216,255,62,.6);
+ box-shadow:0 40px 80px rgba(0,0,0,.68),0 0 35px rgba(216,255,62,.09);
+}
+#visualStage .stage-card:hover:before,
+#visualStage .stage-card:focus-visible:before{opacity:.55}
+#visualStage .stage-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#visualStage .stage-card.main-card{
+ height:88%;top:5%;left:24%;
+}
+#visualStage .stage-card.chrome-card{
+ height:58%;top:21%;left:0%;
+}
+#visualStage .stage-card.tiny-card{
+ height:54%;bottom:8%;right:3%;z-index:2;
+}
+#visualStage .stage-sticker{
+ box-shadow:0 10px 35px rgba(0,0,0,.45),0 0 45px rgba(216,255,62,.08);
+}
+#visualStage .stage-art-direction{
+ position:absolute;left:4%;right:5%;bottom:0;
+ display:flex;gap:14px;align-items:center;
+ z-index:1;pointer-events:none;
+ color:#949d91;font-weight:700;letter-spacing:.18em;font-size:9px;
+}
+#visualStage .stage-art-line{
+ height:1px;width:34px;flex:none;background:var(--accent);opacity:.6;
+}
+#visualStage .stage-art-count{margin-left:auto;color:#c7d0c2}
+@media(max-width:950px){
+ #visualStage .stage-depth-field:before{opacity:.65}
+ #visualStage .stage-card.main-card{height:86%;left:24%;top:5%}
+ #visualStage .stage-card.chrome-card{height:56%;left:1%;top:21%}
+ #visualStage .stage-card.tiny-card{height:51%;right:3%;bottom:8%}
+}
+@media(max-width:680px){
+ #visualStage .stage-card.main-card{height:84%;left:24%;top:6%}
+ #visualStage .stage-card.chrome-card{height:53%;left:0%;top:22%}
+ #visualStage .stage-card.tiny-card{height:47%;right:1%;bottom:11%}
+ #visualStage .stage-art-direction{left:2%;right:2%;bottom:2%;font-size:7px;gap:9px}
+ #visualStage .stage-art-line{width:22px}
+ #visualStage .stage-depth-field:before{opacity:.45}
+}
+@media(hover:none){
+ #visualStage .stage-card:hover{scale:1;outline:1px solid rgba(255,255,255,.075)}
+}
+@media(prefers-reduced-motion:reduce){
+ #visualStage .stage-card{transition:none!important;translate:0px 0px!important}
+ #visualStage .stage-depth-field{background:radial-gradient(ellipse 60% 54% at 52% 44%,rgba(212,255,66,.09),transparent 85%)}
+}
+
 </style>
 </head>
 <body>
@@ -417,10 +518,13 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <div class="hero-creative-note"><span class="hero-creative-line" aria-hidden="true"></span>INDEPENDENT CREATIVE DIRECTION</div>
 </div>
 <div aria-label="Авторские афиши из портфолио" class="visual-stage" id="visualStage">
+<div class="stage-depth-field" aria-hidden="true"><span class="stage-depth-ray"></span><span class="stage-depth-corner"></span></div>
 <button type="button" class="stage-card chrome-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша MONA" decoding="async" src="assets/poster-02.webp"/></button>
 <button type="button" class="stage-card main-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша Карина Мейханаджян" decoding="async" src="assets/poster-01.webp"/></button>
 <button type="button" class="stage-card tiny-card" aria-label="Открыть афишу в увеличенном виде"><img alt="Афиша EGO UNTOLD" decoding="async" src="assets/poster-11.webp"/></button>
-<div class="stage-sticker">made<br/>to be<br/>seen ✳</div><div class="stage-mark"></div>
+<div class="stage-sticker">made<br/>to be<br/>seen ✳</div>
+<div class="stage-mark"></div>
+<div class="stage-art-direction" aria-hidden="true"><span class="stage-art-line"></span><span>VISUALS IN MOTION</span><span class="stage-art-count">23 / WORKS</span></div>
 </div>
 </div>
 <div class="hero-bottom"><span class="scroll-hint"><span class="scroll-line"></span>Листай вниз / Explore</span><span class="hero-no">SCROLL TO DISCOVER  ↓</span></div>
@@ -566,6 +670,42 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     // The first screen shows a random selection of 3 unique original artworks.
     // Rotate without repeating the currently visible 3, and pause in background tabs.
     const featuredCards=[...document.querySelectorAll('#visualStage .stage-card')];
+
+    // Subtle 3D depth without disturbing the individual poster blur transitions.
+    const heroStage=document.getElementById('visualStage');
+    const finePointer=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    const heroMotionOff=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(heroStage&&finePointer&&!heroMotionOff){
+      const depthCards=[...heroStage.querySelectorAll('.stage-card')];
+      const depths=[-12,20,-17];
+      let pendingHeroFrame=false,mouseX=0,mouseY=0;
+      function updateHeroDepth(){
+        pendingHeroFrame=false;
+        heroStage.style.setProperty('--spot-x',(50+mouseX*20).toFixed(1)+'%');
+        heroStage.style.setProperty('--spot-y',(45+mouseY*18).toFixed(1)+'%');
+        depthCards.forEach((card,i)=>{
+          const d=depths[i];
+          card.style.translate=(mouseX*d).toFixed(1)+'px '+(mouseY*d*.64).toFixed(1)+'px';
+        });
+      }
+      function requestHeroDepth(){
+        if(!pendingHeroFrame){
+          pendingHeroFrame=true;
+          requestAnimationFrame(updateHeroDepth);
+        }
+      }
+      heroStage.addEventListener('pointermove',e=>{
+        const rect=heroStage.getBoundingClientRect();
+        mouseX=Math.max(-1,Math.min(1,2*((e.clientX-rect.left)/rect.width-.5)));
+        mouseY=Math.max(-1,Math.min(1,2*((e.clientY-rect.top)/rect.height-.5)));
+        requestHeroDepth();
+      },{passive:true});
+      heroStage.addEventListener('pointerleave',()=>{
+        mouseX=0;mouseY=0;requestHeroDepth();
+      });
+      window.addEventListener('blur',()=>{mouseX=0;mouseY=0;requestHeroDepth()});
+    }
+
 
     // Randomize all real project posters on every page load, without losing any.
     // Keep the first three different from the previous refresh in this tab.
