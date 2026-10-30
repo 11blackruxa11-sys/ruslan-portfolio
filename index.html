@@ -803,10 +803,10 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <a class="sr-only" href="works/">Перейти к работам</a>
 <header class="site-header" id="siteHeader">
 <a aria-label="На главную" class="brand" href="#top"><img alt="Логотип студии" src="assets/logo.png"/><span class="brand-copy">BLACK_R_STUDIO<br/>DESIGN · MOTION · AI</span></a>
-<nav aria-label="Основное меню" class="desktop-nav"><a href="works/">Проекты <span class="muted">(<span data-portfolio-total>23</span>)</span></a><a href="#video">Видео</a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
+<nav aria-label="Основное меню" class="desktop-nav"><a href="works/">Проекты <span class="muted">(<span data-portfolio-total>23</span>)</span></a><a href="#video">Видео</a><a href="#services">Услуги</a><a href="#arcade">Игра ✳</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
 <div class="header-right"><span class="status"><i></i> Открыт к новым проектам</span><button aria-label="Обсудить проект" class="round-btn" data-open-brief="" type="button"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 19 19 5M6 5h13v13"></path></svg></button><button aria-expanded="false" aria-label="Открыть меню" class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button></div>
 </header>
-<nav aria-label="Мобильное меню" class="mobile-nav" id="mobileNav"><a href="works/">Проекты</a><a href="#video">Видео</a><a href="#services">Услуги</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
+<nav aria-label="Мобильное меню" class="mobile-nav" id="mobileNav"><a href="works/">Проекты</a><a href="#video">Видео</a><a href="#services">Услуги</a><a href="#arcade">Игра ✳</a><a href="#about">Знакомство</a><a href="#contact">Контакты</a></nav>
 <main id="top">
 <section aria-label="Главная" class="hero">
 <div class="container hero-inner">
@@ -1043,100 +1043,10 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       document.getElementById('modalProjectTags').replaceChildren(...p.tags.map(tag=>{const s=document.createElement('span');s.textContent=tag;return s}));
       openModal(modalProject)
     }
+    window.__blackStudioOpenProject = showProject;
     // Carousel cards receive click handlers when constructed.
 
-    // Edition-style interactive magazine. Real portfolio artworks, not generated artwork.
-    const magazineStage=document.getElementById('visualStage');
-    const magazineLeft=document.getElementById('magazineLeft');
-    const magazineRight=document.getElementById('magazineRight');
-    const magazineLeftImg=document.getElementById('magazineLeftImg');
-    const magazineRightImg=document.getElementById('magazineRightImg');
-    const magazineTurner=document.getElementById('magazineTurner');
-    const magazineTurnFront=document.getElementById('magazineTurnFront');
-    const magazineTurnBack=document.getElementById('magazineTurnBack');
-    const magazineCounter=document.getElementById('magazineCounter');
-    const magazineProgress=document.getElementById('magazineProgress');
-    const magazineReduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const magazinePages=allPosterIds.slice();
-    if(magazinePages.length%2)magazinePages.push(magazinePages[0]);
-    const magazineSpreadCount=magazinePages.length/2;
-    let magazineIndex=0,magazineBusy=false,magazinePointerOver=false;
-    function magazineIds(index){
-      const normalized=(index+magazineSpreadCount)%magazineSpreadCount;
-      return [magazinePages[normalized*2],magazinePages[normalized*2+1]];
-    }
-    function updateMagazine(index){
-      magazineIndex=(index+magazineSpreadCount)%magazineSpreadCount;
-      const [leftId,rightId]=magazineIds(magazineIndex);
-      magazineLeftImg.src=projectData[leftId].image;
-      magazineRightImg.src=projectData[rightId].image;
-      magazineLeftImg.alt='Афиша '+projectData[leftId].title;
-      magazineRightImg.alt='Афиша '+projectData[rightId].title;
-      magazineLeft.dataset.id=leftId;
-      magazineRight.dataset.id=rightId;
-      magazineLeft.setAttribute('aria-label','Открыть афишу '+projectData[leftId].title);
-      magazineRight.setAttribute('aria-label','Открыть афишу '+projectData[rightId].title);
-      magazineCounter.textContent=String(magazineIndex+1).padStart(2,'0')+' / '+String(magazineSpreadCount).padStart(2,'0');
-    }
-    const magazinePauseTime=5600;
-    let magazineLastFlip=performance.now();
-    function preloadMagazineImage(path){
-      return new Promise(resolve=>{
-        const img=new Image();
-        img.onload=()=>resolve(true);img.onerror=()=>resolve(false);img.src=path;
-        if(img.complete)resolve(img.naturalWidth>0);
-      });
-    }
-    async function turnMagazine(direction=1){
-      if(magazineBusy||document.hidden||document.body.classList.contains('modal-open'))return;
-      const destination=(magazineIndex+direction+magazineSpreadCount)%magazineSpreadCount;
-      const [nextLeft,nextRight]=magazineIds(destination);
-      const [,currentRight]=magazineIds(magazineIndex);
-      magazineBusy=true;
-      try{
-        const loaded=await Promise.all([preloadMagazineImage(projectData[nextLeft].image),preloadMagazineImage(projectData[nextRight].image)]);
-        if(!loaded.every(Boolean))return;
-        if(magazineReduceMotion){
-          updateMagazine(destination);
-          return;
-        }
-        magazineTurnFront.src=projectData[currentRight].image;
-        magazineTurnBack.src=projectData[nextLeft].image;
-        magazineRightImg.src=projectData[nextRight].image;
-        magazineTurner.classList.remove('is-turning');
-        magazineTurner.classList.add('is-visible');
-        void magazineTurner.offsetWidth;
-        requestAnimationFrame(()=>magazineTurner.classList.add('is-turning'));
-        await new Promise(resolve=>setTimeout(resolve,1250));
-        updateMagazine(destination);
-      }finally{
-        magazineTurner.classList.remove('is-turning','is-visible');
-        magazineBusy=false;
-        magazineLastFlip=performance.now();
-        magazineProgress.style.transition='none';
-        magazineProgress.style.transform='scaleX(0)';
-      }
-    }
-    updateMagazine(0);
-    magazineLeft.addEventListener('click',()=>showProject(magazineLeft.dataset.id));
-    magazineRight.addEventListener('click',()=>showProject(magazineRight.dataset.id));
-    document.getElementById('magazinePrev').addEventListener('click',()=>{void turnMagazine(-1)});
-    document.getElementById('magazineNext').addEventListener('click',()=>{void turnMagazine(1)});
-    magazineStage.addEventListener('mouseenter',()=>{magazinePointerOver=true});
-    magazineStage.addEventListener('mouseleave',()=>{magazinePointerOver=false;magazineLastFlip=performance.now()});
-    magazineStage.addEventListener('focusin',()=>{magazinePointerOver=true});
-    magazineStage.addEventListener('focusout',e=>{if(!magazineStage.contains(e.relatedTarget)){magazinePointerOver=false;magazineLastFlip=performance.now()}});
-    setInterval(()=>{
-      if(document.hidden||magazineBusy||magazinePointerOver||document.body.classList.contains('modal-open')){
-        magazineLastFlip=performance.now();
-        return;
-      }
-      const elapsed=performance.now()-magazineLastFlip;
-      magazineProgress.style.transition='transform .18s linear';
-      magazineProgress.style.transform='scaleX('+Math.min(1,elapsed/magazinePauseTime)+')';
-      if(elapsed>=magazinePauseTime)void turnMagazine(1);
-    },180);
-        // Infinite featured-works carousel: all portfolio artworks in a new random order each visit.
+    // Infinite featured-works carousel: all portfolio artworks in a new random order each visit.
     const featuredViewport=document.getElementById('featuredCarousel');
     const featuredTrack=document.getElementById('worksGrid');
     const baseCard=featuredTrack.querySelector('.work-card').cloneNode(true);
@@ -1369,7 +1279,176 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
         else missing++
       }});
 
-    // BLACK SNAKE: small, fully client-side game; pauses when tab is hidden.
+    document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
+    document.querySelectorAll('[data-start-brief]').forEach(b=>b.addEventListener('click',()=>openModal(briefModal)));
+    document.querySelectorAll('[data-max-contact]').forEach(b=>b.addEventListener('click',()=>openModal(maxModal)));
+    document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModal));
+    [modalProject,briefModal,contactModal,maxModal,videoModal].forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal()}));
+    addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();setMenu(false)}if(e.key==='Tab'&&activeModal){const focusable=[...activeModal.querySelectorAll('button:not([disabled]),input,select,textarea,a[href]')];if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+    document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{const val=btn.dataset.filter;document.querySelectorAll('.filter').forEach(b=>{const active=b===btn;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});let n=0;document.querySelectorAll('.work-card').forEach(card=>{const show=val==='all'||card.dataset.cat===val;card.hidden=!show;if(show)n++});document.getElementById('workCount').textContent=String(n).padStart(2,'0')}));
+    document.querySelectorAll('.service-trigger').forEach(b=>b.addEventListener('click',()=>{const item=b.closest('.service-item'),open=!item.classList.contains('open');document.querySelectorAll('.service-item').forEach(el=>{el.classList.remove('open');el.querySelector('.service-trigger').setAttribute('aria-expanded','false')});if(open){item.classList.add('open');b.setAttribute('aria-expanded','true')}}));
+    
+    const PHONE='79385263970',EMAIL='11blackruxa11@gmail.com';
+    const briefForm=document.getElementById('briefForm');
+    function getBriefMessage(){
+      const name=document.getElementById('briefName').value.trim();
+      const type=document.getElementById('briefType').value;
+      const details=document.getElementById('briefMessage').value.trim();
+      return `Здравствуйте! Меня зовут ${name}.\nНужен проект: ${type}.\n\nОписание: ${details}`;
+    }
+    function copyContact(text,notice){
+      const fallback=()=>{const box=document.createElement('textarea');box.value=text;box.style.cssText='position:fixed;opacity:0;z-index:-1';document.body.appendChild(box);box.select();try{const ok=document.execCommand('copy');box.remove();return ok}catch(e){box.remove();return false}};
+      const ok=()=>{notice.textContent='✓ Скопировано';};
+      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok,()=>{notice.textContent=fallback()?'✓ Скопировано':'Выдели номер и скопируй вручную.'})}
+      else notice.textContent=fallback()?'✓ Скопировано':'Выдели номер и скопируй вручную.';
+    }
+    document.getElementById('maxCopyPhone').addEventListener('click',()=>copyContact('+79385263970',document.getElementById('maxCopyNotice')));
+    function sendBrief(channel){
+      if(!briefForm.reportValidity())return;
+      const message=getBriefMessage(),notice=document.getElementById('copyNotice');
+      if(channel==='copy'){copyContact(message,notice);return}
+      let url;
+      if(channel==='whatsapp')url='https://wa.me/'+PHONE+'?text='+encodeURIComponent(message);
+      if(channel==='telegram')url='https://t.me/+'+PHONE+'?text='+encodeURIComponent(message);
+      if(channel==='email')url='mailto:'+EMAIL+'?subject='+encodeURIComponent('Новый проект / заявка')+'&body='+encodeURIComponent(message);
+      if(!url)return;
+      notice.textContent='Открываю приложение. Проверь сообщение и нажми «Отправить».';
+      const target=channel==='email'?'_self':'_blank';
+      const opened=window.open(url,target);
+      if(opened&&target==='_blank')opened.opener=null;
+      if(!opened&&target==='_blank')notice.textContent='Браузер мог заблокировать новое окно. Разреши всплывающие окна или используй кнопки связи на странице.';
+    }
+    briefForm.addEventListener('submit',e=>{e.preventDefault();sendBrief('whatsapp')});
+    document.querySelectorAll('[data-brief-to]').forEach(b=>b.addEventListener('click',()=>sendBrief(b.dataset.briefTo)));
+  
+// Ensure project viewer uses the exact file displayed on each original portfolio card.
+Object.keys(projectData).forEach(id=>{const card=document.querySelector('.work-card[data-id=\"'+id+'\"] img');if(card)projectData[id].image=card.src});
+// Personal section: subtle scroll motion, portrait lightbox, originals preserved.
+(()=>{
+ const dialog=document.getElementById('portraitDialog');
+ const photo=document.getElementById('portraitDialogImage');
+ const triggers=[...document.querySelectorAll('[data-portrait]')];
+ triggers.forEach(btn=>btn.addEventListener('click',()=>{
+  photo.src=btn.querySelector('img').src;
+  photo.alt=btn.dataset.portraitAlt || 'Портрет Руслана';
+  if(dialog.showModal) dialog.showModal(); else dialog.setAttribute('open','');
+ }));
+ dialog.querySelector('.portrait-dialog-close').addEventListener('click',()=>dialog.close());
+ dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+ if(reduced.matches) return;
+ const imgs=[...document.querySelectorAll('.meet-portrait-trigger img')];
+ let pending=false;
+ const update=()=>{pending=false;
+  for(const img of imgs){const r=img.getBoundingClientRect();
+   if(r.bottom<0||r.top>innerHeight)continue;
+   const depth=(r.top+r.height*.5-innerHeight*.5)/innerHeight;
+   img.style.setProperty('--portrait-float',Math.max(-17,Math.min(17,depth*-16)).toFixed(1)+'px');
+  }
+ };
+ addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(update)}},{passive:true});
+ addEventListener('resize',()=>{if(!pending){pending=true;requestAnimationFrame(update)}},{passive:true});
+ update();
+})();
+</script>
+
+<script>
+
+(function(){
+  // Magazine runs independently from the rest of the portfolio.
+  const root=document.getElementById('visualStage');
+  if(!root)return;
+  const get=id=>document.getElementById(id);
+  const left=get('magazineLeft'),right=get('magazineRight'),limg=get('magazineLeftImg'),rimg=get('magazineRightImg');
+  const turner=get('magazineTurner'),front=get('magazineTurnFront'),back=get('magazineTurnBack');
+  const counter=get('magazineCounter'),progress=get('magazineProgress');
+  const prev=get('magazinePrev'),next=get('magazineNext');
+  if(!left||!right||!limg||!rimg||!turner||!front||!back||!prev||!next)return;
+  const originalRecords=[{"id":"1","image":"assets/poster-01.webp","title":"Карина Мейханаджян"},{"id":"2","image":"assets/poster-02.webp","title":"MONA"},{"id":"3","image":"assets/poster-03.webp","title":"DJ KILA / VINOGRAD"},{"id":"4","image":"assets/poster-04.webp","title":"Магамет Дзыбов"},{"id":"5","image":"assets/poster-05.webp","title":"INGVAR GROUP"},{"id":"6","image":"assets/poster-06.webp","title":"Амир и Заур"},{"id":"7","image":"assets/poster-07.webp","title":"Расул / Павел"},{"id":"8","image":"assets/poster-08.webp","title":"SEVAK"},{"id":"9","image":"assets/poster-09.webp","title":"TIGO"},{"id":"10","image":"assets/poster-10.webp","title":"TOMAS NEVERGREEN"},{"id":"11","image":"assets/poster-11.webp","title":"EGO UNTOLD"},{"id":"12","image":"assets/poster-12.webp","title":"Familia"},{"id":"13","image":"assets/poster-13.webp","title":"Катя Чехова"},{"id":"14","image":"assets/poster-14.webp","title":"Коста Лакоста"},{"id":"15","image":"assets/poster-15.webp","title":"Словетский"},{"id":"16","image":"assets/poster-16.webp","title":"GUF"},{"id":"17","image":"assets/poster-17.webp","title":"SLIMUS"},{"id":"18","image":"assets/poster-18.webp","title":"Баста"},{"id":"19","image":"assets/poster-19.png","title":"SHAMI"},{"id":"20","image":"assets/poster-20.png","title":"SVIK"},{"id":"21","image":"assets/poster-21.png","title":"Линда"},{"id":"22","image":"assets/poster-22.png","title":"Нодар Ревия"},{"id":"23","image":"assets/poster-23.png","title":"Бьянка"}];
+  const projectData=Object.fromEntries(originalRecords.map(p=>[p.id,p]));
+  const allPosterIds=originalRecords.map(p=>p.id);
+  for(let i=allPosterIds.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[allPosterIds[i],allPosterIds[j]]=[allPosterIds[j],allPosterIds[i]]}
+  if(allPosterIds.length%2)allPosterIds.push(allPosterIds[0]);
+  const spreadCount=allPosterIds.length/2,reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let index=0,busy=false,startedAt=performance.now();
+  function ids(n){
+    const x=((n%spreadCount)+spreadCount)%spreadCount;
+    return [allPosterIds[x*2],allPosterIds[x*2+1]];
+  }
+  function show(n){
+    index=((n%spreadCount)+spreadCount)%spreadCount;
+    const [a,b]=ids(index),pa=projectData[a],pb=projectData[b];
+    limg.src=pa.image;rimg.src=pb.image;
+    limg.alt='Афиша '+pa.title;rimg.alt='Афиша '+pb.title;
+    left.dataset.id=a;right.dataset.id=b;
+    left.setAttribute('aria-label','Открыть афишу '+pa.title);
+    right.setAttribute('aria-label','Открыть афишу '+pb.title);
+    counter.textContent=String(index+1).padStart(2,'0')+' / '+String(spreadCount).padStart(2,'0');
+  }
+  function load(src){
+    return new Promise(resolve=>{
+      const img=new Image();
+      img.onload=()=>resolve(true);img.onerror=()=>resolve(false);
+      img.src=src;
+      if(img.complete)resolve(img.naturalWidth>0);
+    });
+  }
+  async function flip(direction=1){
+    if(busy||document.hidden||document.body.classList.contains('modal-open'))return;
+    const to=((index+direction)%spreadCount+spreadCount)%spreadCount;
+    const [a,b]=ids(to),nextLeft=projectData[a],nextRight=projectData[b];
+    const [,oldRightId]=ids(index);
+    busy=true;startedAt=performance.now();progress.style.transform='scaleX(0)';
+    try{
+      const [aLoaded,bLoaded]=await Promise.all([load(nextLeft.image),load(nextRight.image)]);
+      if(!aLoaded||!bLoaded){show(to);return}
+      if(reduced){show(to);return}
+      front.src=projectData[oldRightId].image;
+      back.src=nextLeft.image;
+      rimg.src=nextRight.image;
+      turner.classList.remove('is-turning');
+      turner.classList.add('is-visible');
+      void turner.offsetWidth;
+      requestAnimationFrame(()=>turner.classList.add('is-turning'));
+      await new Promise(resolve=>setTimeout(resolve,1240));
+      show(to);
+    }catch(e){show(to)}
+    finally{
+      turner.classList.remove('is-turning','is-visible');
+      busy=false;
+      // Interval measured from the start of the flip, not the end.
+      startedAt=performance.now()-(reduced?0:1100);
+      progress.style.transition='none';progress.style.transform='scaleX(0)';
+    }
+  }
+  function openPoster(event){
+    const item=projectData[event.currentTarget.dataset.id];
+    if(!item)return;
+    if(typeof window.__blackStudioOpenProject==='function')window.__blackStudioOpenProject(item.id);
+    else window.open(item.image,'_blank','noopener');
+  }
+  left.addEventListener('click',openPoster);right.addEventListener('click',openPoster);
+  prev.addEventListener('click',()=>flip(-1));
+  next.addEventListener('click',()=>flip(1));
+  root.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'){e.preventDefault();flip(1)}
+    if(e.key==='ArrowLeft'){e.preventDefault();flip(-1)}
+  });
+  show(0);
+  const interval=5600;
+  setInterval(()=>{
+    if(document.hidden||document.body.classList.contains('modal-open')){startedAt=performance.now();return}
+    if(busy)return;
+    const dt=performance.now()-startedAt;
+    progress.style.transition='transform .18s linear';
+    progress.style.transform='scaleX('+Math.min(1,dt/interval)+')';
+    if(dt>=interval)flip(1);
+  },160);
+})();
+
+</script>
+<script>
+// BLACK SNAKE: small, fully client-side game; pauses when tab is hidden.
     (function initBlackSnake(){
       const root=document.getElementById('snakeGame');
       if(!root)return;
@@ -1478,77 +1557,6 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       resetGame();
     })();
 
-    document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
-    document.querySelectorAll('[data-start-brief]').forEach(b=>b.addEventListener('click',()=>openModal(briefModal)));
-    document.querySelectorAll('[data-max-contact]').forEach(b=>b.addEventListener('click',()=>openModal(maxModal)));
-    document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModal));
-    [modalProject,briefModal,contactModal,maxModal,videoModal].forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal()}));
-    addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();setMenu(false)}if(e.key==='Tab'&&activeModal){const focusable=[...activeModal.querySelectorAll('button:not([disabled]),input,select,textarea,a[href]')];if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
-    document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{const val=btn.dataset.filter;document.querySelectorAll('.filter').forEach(b=>{const active=b===btn;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});let n=0;document.querySelectorAll('.work-card').forEach(card=>{const show=val==='all'||card.dataset.cat===val;card.hidden=!show;if(show)n++});document.getElementById('workCount').textContent=String(n).padStart(2,'0')}));
-    document.querySelectorAll('.service-trigger').forEach(b=>b.addEventListener('click',()=>{const item=b.closest('.service-item'),open=!item.classList.contains('open');document.querySelectorAll('.service-item').forEach(el=>{el.classList.remove('open');el.querySelector('.service-trigger').setAttribute('aria-expanded','false')});if(open){item.classList.add('open');b.setAttribute('aria-expanded','true')}}));
-    
-    const PHONE='79385263970',EMAIL='11blackruxa11@gmail.com';
-    const briefForm=document.getElementById('briefForm');
-    function getBriefMessage(){
-      const name=document.getElementById('briefName').value.trim();
-      const type=document.getElementById('briefType').value;
-      const details=document.getElementById('briefMessage').value.trim();
-      return `Здравствуйте! Меня зовут ${name}.\nНужен проект: ${type}.\n\nОписание: ${details}`;
-    }
-    function copyContact(text,notice){
-      const fallback=()=>{const box=document.createElement('textarea');box.value=text;box.style.cssText='position:fixed;opacity:0;z-index:-1';document.body.appendChild(box);box.select();try{const ok=document.execCommand('copy');box.remove();return ok}catch(e){box.remove();return false}};
-      const ok=()=>{notice.textContent='✓ Скопировано';};
-      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok,()=>{notice.textContent=fallback()?'✓ Скопировано':'Выдели номер и скопируй вручную.'})}
-      else notice.textContent=fallback()?'✓ Скопировано':'Выдели номер и скопируй вручную.';
-    }
-    document.getElementById('maxCopyPhone').addEventListener('click',()=>copyContact('+79385263970',document.getElementById('maxCopyNotice')));
-    function sendBrief(channel){
-      if(!briefForm.reportValidity())return;
-      const message=getBriefMessage(),notice=document.getElementById('copyNotice');
-      if(channel==='copy'){copyContact(message,notice);return}
-      let url;
-      if(channel==='whatsapp')url='https://wa.me/'+PHONE+'?text='+encodeURIComponent(message);
-      if(channel==='telegram')url='https://t.me/+'+PHONE+'?text='+encodeURIComponent(message);
-      if(channel==='email')url='mailto:'+EMAIL+'?subject='+encodeURIComponent('Новый проект / заявка')+'&body='+encodeURIComponent(message);
-      if(!url)return;
-      notice.textContent='Открываю приложение. Проверь сообщение и нажми «Отправить».';
-      const target=channel==='email'?'_self':'_blank';
-      const opened=window.open(url,target);
-      if(opened&&target==='_blank')opened.opener=null;
-      if(!opened&&target==='_blank')notice.textContent='Браузер мог заблокировать новое окно. Разреши всплывающие окна или используй кнопки связи на странице.';
-    }
-    briefForm.addEventListener('submit',e=>{e.preventDefault();sendBrief('whatsapp')});
-    document.querySelectorAll('[data-brief-to]').forEach(b=>b.addEventListener('click',()=>sendBrief(b.dataset.briefTo)));
-  
-// Ensure project viewer uses the exact file displayed on each original portfolio card.
-Object.keys(projectData).forEach(id=>{const card=document.querySelector('.work-card[data-id=\"'+id+'\"] img');if(card)projectData[id].image=card.src});
-// Personal section: subtle scroll motion, portrait lightbox, originals preserved.
-(()=>{
- const dialog=document.getElementById('portraitDialog');
- const photo=document.getElementById('portraitDialogImage');
- const triggers=[...document.querySelectorAll('[data-portrait]')];
- triggers.forEach(btn=>btn.addEventListener('click',()=>{
-  photo.src=btn.querySelector('img').src;
-  photo.alt=btn.dataset.portraitAlt || 'Портрет Руслана';
-  if(dialog.showModal) dialog.showModal(); else dialog.setAttribute('open','');
- }));
- dialog.querySelector('.portrait-dialog-close').addEventListener('click',()=>dialog.close());
- dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
- const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
- if(reduced.matches) return;
- const imgs=[...document.querySelectorAll('.meet-portrait-trigger img')];
- let pending=false;
- const update=()=>{pending=false;
-  for(const img of imgs){const r=img.getBoundingClientRect();
-   if(r.bottom<0||r.top>innerHeight)continue;
-   const depth=(r.top+r.height*.5-innerHeight*.5)/innerHeight;
-   img.style.setProperty('--portrait-float',Math.max(-17,Math.min(17,depth*-16)).toFixed(1)+'px');
-  }
- };
- addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(update)}},{passive:true});
- addEventListener('resize',()=>{if(!pending){pending=true;requestAnimationFrame(update)}},{passive:true});
- update();
-})();
 </script>
 </body>
 </html>
