@@ -766,6 +766,27 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 .video-section .video-track{width:max-content;min-width:0}
 .video-section .video-tile{flex-shrink:0}
 
+
+/* Mobile-friendly BLACK SNAKE: large thumb targets and swipe controls */
+.snake-controls-note{display:none;font-size:10px;text-align:center;letter-spacing:.07em;line-height:1.5;color:#b6c9b2;font-weight:800;margin:16px auto 6px}
+.snake-pad button{-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;touch-action:manipulation;border-radius:12px}
+.snake-pad button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media(max-width:790px){
+ .snake-panel{width:min(380px,100%);padding:17px 16px 16px}
+ .snake-controls-note{display:block}
+ .snake-pad{display:grid;grid-template-columns:repeat(3,clamp(70px,20vw,84px));grid-template-rows:repeat(2,clamp(70px,20vw,84px));gap:10px 12px;margin:13px auto 0;align-items:stretch;justify-content:center}
+ .snake-pad button{display:grid;place-items:center;width:100%;height:100%;font-size:37px;font-weight:700;color:#e9ffd9;background:linear-gradient(145deg,#334935,#233328);border:1px solid rgba(216,255,62,.33);box-shadow:inset 0 1px 0 #ffffff12,0 5px 12px #0005;transition:background .13s ease,transform .13s ease,border-color .13s ease}
+ .snake-pad button:active{transform:scale(.93);background:var(--accent);color:#10180e;border-color:var(--accent)}
+ .snake-bottom{gap:10px;margin-top:15px}
+ .snake-start{min-height:55px;align-items:center;font-size:13px;padding:14px 18px;border-radius:7px}
+ .snake-reset{min-width:56px;min-height:55px;border-radius:7px;font-size:27px}
+}
+@media(max-width:430px){
+ .snake-panel{width:min(380px,100%);padding:16px 13px 15px}
+ .snake-pad{grid-template-columns:repeat(3,clamp(70px,20vw,84px));grid-template-rows:repeat(2,clamp(70px,20vw,84px));gap:9px 10px}
+ .snake-pad button{height:100%;font-size:35px}
+}
+
 </style>
 </head>
 <body>
@@ -884,13 +905,14 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       <div class="snake-scoreline"><div>ОЧКИ <strong id="snakeScore">000</strong></div><div>РЕКОРД <strong id="snakeBest">000</strong></div></div>
       <div class="snake-canvas-wrap">
         <canvas id="snakeCanvas" width="288" height="288" tabindex="0" aria-label="Игровое поле змейки. Управление стрелками или клавишами WASD"></canvas>
-        <div class="snake-overlay" id="snakeOverlay"><span id="snakeOverlayText">НАЖМИ START</span><small>СТРЕЛКИ / WASD</small></div>
+        <div class="snake-overlay" id="snakeOverlay"><span id="snakeOverlayText">НАЖМИ START</span><small>СВАЙП / КНОПКИ / WASD</small></div>
       </div>
       <div class="snake-bottom">
         <button type="button" class="snake-start" id="snakeStart">START GAME <span>↗</span></button>
         <button type="button" class="snake-reset" id="snakeReset" aria-label="Начать заново">↺</button>
       </div>
-      <div class="snake-pad" aria-label="Кнопки направления">
+      <div class="snake-controls-note">СВАЙПАЙ ПО ПОЛЮ ИЛИ УПРАВЛЯЙ КНОПКАМИ</div>
+      <div class="snake-pad" aria-label="Крупные кнопки управления змейкой">
         <span></span><button data-snake-dir="up" type="button" aria-label="Вверх">↑</button><span></span>
         <button data-snake-dir="left" type="button" aria-label="Влево">←</button>
         <button data-snake-dir="down" type="button" aria-label="Вниз">↓</button>
@@ -1629,7 +1651,30 @@ Object.keys(projectData).forEach(id=>{const card=document.querySelector('.work-c
       }
       start.addEventListener('click',toggle);
       reset.addEventListener('click',()=>{resetGame();canvas.focus({preventScroll:true})});
-      root.querySelectorAll('[data-snake-dir]').forEach(b=>b.addEventListener('click',()=>{directionInput(b.dataset.snakeDir);canvas.focus({preventScroll:true})}));
+      root.querySelectorAll('[data-snake-dir]').forEach(b=>{
+        b.addEventListener('click',()=>{
+          directionInput(b.dataset.snakeDir);
+          // Keep keyboard support without making the mobile page jump.
+          if(!matchMedia('(pointer:coarse)').matches)canvas.focus({preventScroll:true});
+        });
+      });
+      // Direct finger swipe on the canvas: each swipe changes the snake direction.
+      // The canvas already has touch-action:none, so the browser won't scroll
+      // the page while the user is actively steering.
+      let touchStart=null;
+      canvas.addEventListener('pointerdown',e=>{
+        if(e.pointerType!=='touch'&&e.pointerType!=='pen')return;
+        touchStart={x:e.clientX,y:e.clientY,pointerId:e.pointerId};
+        try{canvas.setPointerCapture(e.pointerId)}catch{}
+      });
+      canvas.addEventListener('pointerup',e=>{
+        if(!touchStart||e.pointerId!==touchStart.pointerId)return;
+        const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y;
+        touchStart=null;
+        if(Math.max(Math.abs(dx),Math.abs(dy))<20)return;
+        directionInput(Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up'));
+      });
+      canvas.addEventListener('pointercancel',()=>{touchStart=null});
       document.addEventListener('keydown',e=>{
         if(!root.contains(document.activeElement)||document.body.classList.contains('modal-open'))return;
         const k=e.key.toLowerCase();
