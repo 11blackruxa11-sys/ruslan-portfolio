@@ -1213,7 +1213,7 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       video.muted=true;video.defaultMuted=true;
       video.setAttribute('muted','');
       video.setAttribute('playsinline','');
-      video.autoplay=true;video.loop=true;video.playsInline=true;
+      video.autoplay=false;video.loop=true;video.playsInline=true; // IntersectionObserver controls muted preview playback
       video.preload='metadata';video.tabIndex=-1;
       video.addEventListener('loadedmetadata',()=>{
         // Honor the ORIGINAL video dimensions (landscape / portrait / square).
