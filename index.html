@@ -641,6 +641,59 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 @media(max-width:350px){.video-gallery{column-count:2}}
 @media(prefers-reduced-motion:reduce){.video-tile.video-is-switching{opacity:1;filter:none}}
 
+
+/* Video gallery refinement: pure moving imagery, no labels or descriptions. */
+.video-section .video-gallery{margin-top:28px}
+.video-section .video-tile{
+  box-shadow:0 7px 22px rgba(0,0,0,.14);
+  transition:opacity .76s cubic-bezier(.16,1,.3,1),
+    filter .76s cubic-bezier(.16,1,.3,1),
+    box-shadow .7s cubic-bezier(.16,1,.3,1);
+}
+.video-section .video-tile:hover,
+.video-section .video-tile:focus-within{
+  box-shadow:0 15px 42px rgba(0,0,0,.43),0 0 0 1px rgba(216,255,62,.27);
+}
+.video-section .video-tile .video-preview{
+  transition:opacity .95s ease,filter .85s ease,transform 1.2s cubic-bezier(.16,1,.3,1);
+  transform:scale(1);
+}
+.video-section .video-tile.is-preview-ready .video-preview{
+  opacity:1;filter:brightness(.93);transform:scale(1);
+}
+.video-section .video-tile:hover .video-preview,
+.video-section .video-tile:focus-within .video-preview{
+  filter:brightness(1.035);
+  transform:scale(1.023);
+}
+.video-section .video-tile .video-cover{
+  transition:opacity .95s ease,filter .85s ease,transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.video-section .video-tile .video-tile-play .video-play-ring{
+  opacity:0;transform:scale(.82);
+  transition:opacity .52s ease,transform .7s cubic-bezier(.16,1,.3,1),box-shadow .52s ease;
+}
+.video-section .video-tile:hover .video-play-ring,
+.video-section .video-tile:focus-within .video-play-ring{
+  opacity:.93;transform:scale(1);
+}
+.video-section .video-tile.video-is-switching{
+  opacity:.12;filter:blur(16px);
+}
+@media(hover:none){
+  .video-section .video-tile .video-tile-play .video-play-ring{
+    opacity:.65;transform:scale(.72);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .video-section .video-tile,.video-section .video-tile .video-preview,
+  .video-section .video-tile .video-cover,
+  .video-section .video-tile .video-play-ring{
+    transition:none!important;animation:none!important;
+  }
+  .video-section .video-tile.video-is-switching{opacity:1;filter:none}
+}
+
 </style>
 </head>
 <body>
@@ -697,42 +750,42 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <span class="video-line video-line--white">ДИЗАЙН,</span>
 <span class="video-line video-line--white">КОТОРЫЙ</span>
 <span class="video-line video-line--glow">ДВИГАЕТСЯ.<span class="video-line-sheen" aria-hidden="true">ДВИГАЕТСЯ.</span></span>
-</h2><p class="video-intro">Четыре видео рядом, как на Pinterest. Превью идут в цикле без звука. По нажатию ролик откроется со звуком, а новые работы будут плавно сменять друг друга.</p></div>
+</h2></div>
     <div class="video-gallery" aria-label="Доска авторских видео">
 <article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/Лолита_1280_720_1.mp4" data-video-title="Лолита / Видео">
 <img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Лолита / Видео" src="assets/poster-12.webp"/>
 <span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">01 / MOTION / TEST</span><span class="video-format">MOTION / AI</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО СКОРО</span>
+
+
 <button class="video-tile-play" aria-label="Открыть Лолита / Видео со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Лолита / Видео</h3><p>Превью без звука / нажми для просмотра</p></div>
+
 </article>
 <article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-02.mp4" data-video-title="AI / Cinematic">
 <img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки AI / Cinematic" src="assets/poster-17.webp"/>
 <span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">02 / AI VIDEO</span><span class="video-format">MOTION / AI</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО СКОРО</span>
+
+
 <button class="video-tile-play" aria-label="Открыть AI / Cinematic со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>AI / Cinematic</h3><p>Превью без звука / нажми для просмотра</p></div>
+
 </article>
 <article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-03.mp4" data-video-title="Артист / Promo">
 <img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Артист / Promo" src="assets/poster-18.webp"/>
 <span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">03 / MUSIC VISUALS</span><span class="video-format">MOTION / AI</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО СКОРО</span>
+
+
 <button class="video-tile-play" aria-label="Открыть Артист / Promo со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Артист / Promo</h3><p>Превью без звука / нажми для просмотра</p></div>
+
 </article>
 <article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-04.mp4" data-video-title="Анимированные афиши">
 <img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Анимированные афиши" src="assets/poster-11.webp"/>
 <span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">04 / MOTION</span><span class="video-format">MOTION / AI</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО СКОРО</span>
+
+
 <button class="video-tile-play" aria-label="Открыть Анимированные афиши со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Анимированные афиши</h3><p>Превью без звука / нажми для просмотра</p></div>
+
 </article>
     </div>
-    <div class="video-bottom reveal"><p class="video-bottom-note">Первое видео уже подключено. Остальные можно добавлять как <strong>video-02.mp4</strong> ... <strong>video-12.mp4</strong> в папку <strong>assets</strong>. На экране всегда четыре карточки; когда клипов станет больше четырёх, они будут автоматически меняться по одному.</p><button class="video-bottom-cta" data-open-brief="" type="button">ОБСУДИТЬ ВИДЕОПРОЕКТ ↗</button></div>
+    
   </div>
 </section>
 <section class="expertise" id="services">
@@ -1201,11 +1254,8 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       const cover=tile.querySelector('.video-cover');
       cover.src=item.cover;
       cover.alt='Обложка проекта '+item.title;
-      const title=tile.querySelector('.video-card-bottom h3');
-      title.textContent=item.title;
-      const pending=tile.querySelector('.video-coming');
+      tile.setAttribute('aria-label','Видеоработа: '+item.title);
       const button=tile.querySelector('.video-tile-play');
-      pending.hidden=false;
       button.hidden=true;
       button.onclick=null;
       const video=document.createElement('video');
@@ -1227,7 +1277,6 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
       tile.querySelector('.video-grain').before(video);
       videoStates.set(tile,video);
       video.src=item.src; // metadata loads even when a tile starts off-screen
-      pending.hidden=true;
       button.hidden=false;
       button.setAttribute('aria-label','Смотреть '+item.title+' со звуком');
       button.onclick=()=>{
