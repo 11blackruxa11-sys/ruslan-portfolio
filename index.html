@@ -520,39 +520,43 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
   #visualStage .stage-card.tiny-card {transition:none!important}
 }
 
-/* BLACK_R_STUDIO / cinematic video gallery (original posters are temporary covers) */
-.video-section{position:relative;overflow:hidden;background:#0e1111;padding:clamp(92px,9vw,150px) 0 clamp(105px,10vw,166px);border-top:1px solid rgba(255,255,255,.1);isolation:isolate}
-.video-section:before{content:"";position:absolute;inset:-20% auto auto 47%;width:75vw;height:75vw;max-height:890px;max-width:890px;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(216,255,62,.073),rgba(216,255,62,.016) 45%,transparent 70%);filter:blur(24px)}
-.video-head{position:relative;display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:42px}
+/* BLACK_R_STUDIO / Pinterest-style cinematic video board */
+.video-section{position:relative;overflow:hidden;background:#0e1111;padding:clamp(88px,9vw,145px) 0 clamp(94px,9vw,145px);border-top:1px solid rgba(255,255,255,.1);isolation:isolate}
+.video-section:before{content:"";position:absolute;inset:-20% auto auto 47%;width:75vw;height:75vw;max-height:890px;max-width:890px;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(216,255,62,.065),rgba(216,255,62,.015) 45%,transparent 70%);filter:blur(24px)}
+.video-head{position:relative;display:flex;justify-content:space-between;align-items:end;gap:44px;margin-bottom:40px}
 .video-head h2{font-size:clamp(38px,7vw,116px);font-weight:900;line-height:1.035;letter-spacing:-.065em;text-transform:uppercase;min-width:0;flex:1;overflow:visible}
-.video-head h2 .video-line{display:block;position:relative;white-space:nowrap;color:#f4f5ee}.video-head h2 .video-line--glow{color:var(--accent)}
-.video-head .video-intro{max-width:350px;color:#adb6aa;font-size:15px;line-height:1.7;padding-bottom:6px}
-.video-gallery{display:grid;grid-template-columns:1.35fr .79fr .79fr;gap:16px;min-height:490px}
-.video-tile{position:relative;min-width:0;min-height:480px;background:#171c1c;overflow:hidden;border:1px solid rgba(255,255,255,.12);isolation:isolate;transition:border-color .4s ease,box-shadow .5s ease,transform .75s cubic-bezier(.16,1,.3,1)}
-.video-tile:first-child{min-height:530px}
-.video-tile:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(180deg,rgba(0,0,0,.5),transparent 26%,transparent 49%,rgba(0,0,0,.83)),linear-gradient(90deg,rgba(0,0,0,.25),transparent)}
-.video-tile:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.14) 48%,transparent 61%);transform:translateX(-155%) skewX(-12deg);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
-.video-tile:hover{border-color:rgba(216,255,62,.5);box-shadow:0 18px 48px rgba(0,0,0,.35);transform:translateY(-7px)}
-.video-tile:hover:after{transform:translateX(155%) skewX(-12deg)}
-.video-tile .video-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.06) brightness(.77);transition:transform 1.35s cubic-bezier(.16,1,.3,1),filter 1.1s ease}
-.video-tile:hover .video-cover{transform:scale(1.075);filter:saturate(.97) contrast(1.03) brightness(.89)}
-.video-tile .video-grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.25;background:repeating-linear-gradient(0deg,transparent 0,transparent 4px,rgba(0,0,0,.13) 5px)}
-.video-topline{position:absolute;z-index:3;top:24px;left:22px;right:22px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:10px;line-height:1.5;font-weight:800;letter-spacing:.14em}
+.video-head h2 .video-line{display:block;position:relative;white-space:nowrap;color:#f4f5ee}
+.video-head h2 .video-line--glow{color:var(--accent)}
+.video-head .video-intro{max-width:340px;color:#adb6aa;font-size:15px;line-height:1.7;padding-bottom:6px}
+.video-gallery{position:relative;display:block;column-count:4;column-gap:7px;width:100%}
+.video-tile{display:block;position:relative;width:100%;margin:0 0 7px;aspect-ratio:var(--tile-ratio,9/14);background:#171c1c;overflow:hidden;border:0;break-inside:avoid;page-break-inside:avoid;isolation:isolate;transform:translateZ(0);transition:box-shadow .45s ease}
+.video-tile:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(180deg,rgba(0,0,0,.40),transparent 23%,transparent 50%,rgba(0,0,0,.81))}
+.video-tile:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(110deg,transparent 32%,rgba(255,255,255,.13) 49%,transparent 64%);transform:translateX(-180%);transition:transform 1.15s cubic-bezier(.16,1,.3,1)}
+.video-tile:hover:after{transform:translateX(180%)}
+.video-tile:focus-within{outline:2px solid var(--accent);outline-offset:-3px}
+.video-tile .video-cover,.video-tile .video-preview{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#15191a}
+.video-tile .video-cover{filter:brightness(.83) saturate(.82);transition:filter .65s ease,transform 1s cubic-bezier(.16,1,.3,1),opacity .6s ease}
+.video-tile:hover .video-cover{filter:brightness(.96) saturate(1);transform:scale(1.045)}
+.video-tile .video-preview{z-index:1;opacity:0;pointer-events:none;transition:opacity .65s ease;filter:brightness(.83)}
+.video-tile.is-preview-ready .video-preview{opacity:1}
+.video-tile.is-preview-ready .video-cover{opacity:0}
+.video-tile .video-grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.15;background:repeating-linear-gradient(0deg,transparent 0,transparent 4px,rgba(0,0,0,.11) 5px)}
+.video-topline{position:absolute;z-index:3;top:16px;left:14px;right:14px;display:flex;align-items:center;justify-content:space-between;gap:7px;font-size:9px;line-height:1.5;font-weight:800;letter-spacing:.12em;pointer-events:none}
 .video-topline .video-num{color:var(--accent)}
-.video-topline .video-format{color:#d6ded3;border:1px solid rgba(255,255,255,.33);padding:5px 9px}
-.video-card-bottom{position:absolute;z-index:4;bottom:24px;left:22px;right:22px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
-.video-card-bottom h3{font-size:clamp(26px,2.9vw,48px);line-height:.96;letter-spacing:-.075em;font-weight:900;text-transform:uppercase;max-width:100%;overflow-wrap:break-word}
-.video-card-bottom p{color:#c4cbc1;font-size:12px;line-height:1.5}
-.video-tile-play{position:absolute;z-index:5;inset:0;width:100%;height:100%;background:transparent;color:#101510;display:flex;align-items:center;justify-content:center;cursor:zoom-in}
-.video-tile-play .video-play-ring{display:grid;place-items:center;width:78px;height:78px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 12px rgba(216,255,62,.1),0 16px 40px #0008;transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease}
-.video-tile-play:hover .video-play-ring{transform:scale(1.13);box-shadow:0 0 0 24px rgba(216,255,62,.12),0 20px 50px #0008}
-.video-tile-play svg{width:24px;height:24px;margin-left:4px}
-.video-tile-play:focus-visible{outline:3px solid var(--accent);outline-offset:-5px}
-.video-coming{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;display:flex;align-items:center;gap:8px;white-space:nowrap;color:#f4f7ed;border:1px solid rgba(255,255,255,.5);background:rgba(12,14,14,.8);backdrop-filter:blur(14px);padding:12px 15px;font-size:10px;letter-spacing:.11em;font-weight:800}
-.video-coming .video-coming-dot{height:6px;width:6px;border-radius:50%;background:var(--accent)}
+.video-topline .video-format{color:#d6ded3;border:1px solid rgba(255,255,255,.3);padding:4px 7px}
+.video-card-bottom{position:absolute;z-index:4;bottom:15px;left:14px;right:14px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;pointer-events:none}
+.video-card-bottom h3{font-size:clamp(17px,1.75vw,30px);line-height:1.02;letter-spacing:-.05em;font-weight:900;text-transform:uppercase;max-width:100%;overflow-wrap:break-word}
+.video-card-bottom p{color:#c6ccc1;font-size:10px;line-height:1.4}
+.video-tile-play{position:absolute;z-index:5;inset:0;width:100%;height:100%;background:transparent;color:#101510;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.video-tile-play .video-play-ring{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 10px rgba(216,255,62,.08),0 14px 30px #0008;opacity:.82;transform:scale(.88);transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s,box-shadow .35s}
+.video-tile-play:hover .video-play-ring,.video-tile-play:focus-visible .video-play-ring{opacity:1;transform:scale(1.08);box-shadow:0 0 0 17px rgba(216,255,62,.11),0 18px 38px #000a}
+.video-tile-play svg{width:18px;height:18px;margin-left:2px}
+.video-tile-play:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
+.video-coming{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;display:flex;align-items:center;gap:6px;white-space:nowrap;color:#f4f7ed;border:1px solid rgba(255,255,255,.35);background:rgba(12,14,14,.76);backdrop-filter:blur(10px);padding:9px 10px;font-size:9px;letter-spacing:.07em;font-weight:800;pointer-events:none}
+.video-coming .video-coming-dot{height:5px;width:5px;border-radius:50%;background:var(--accent)}
 .video-tile [hidden]{display:none!important}
-.video-bottom{display:flex;justify-content:space-between;align-items:center;gap:25px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.17);padding-top:26px;margin-top:32px}
-.video-bottom-note{font-size:12px;color:#a8b1a7;line-height:1.6;max-width:610px}
+.video-bottom{display:flex;justify-content:space-between;align-items:center;gap:25px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.17);padding-top:25px;margin-top:25px}
+.video-bottom-note{font-size:12px;color:#a8b1a7;line-height:1.6;max-width:620px}
 .video-bottom-cta{background:var(--accent);color:#0b0d0d;padding:18px 23px;font-size:12px;letter-spacing:.03em;font-weight:900;transition:transform .25s,background .25s}
 .video-bottom-cta:hover{transform:translateY(-3px);background:#eaff9e}
 .video-modal-shell{width:min(1060px,100%);max-height:94vh}
@@ -561,39 +565,11 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 .video-modal-body h2{font-size:clamp(32px,4.5vw,64px);line-height:1.05;letter-spacing:-.07em;margin:0 50px 25px 0}
 .video-modal-body video{display:block;width:100%;max-height:67vh;aspect-ratio:16/9;object-fit:contain;background:#050606;border:1px solid rgba(255,255,255,.15)}
 .video-modal-body .video-caption{color:#aab3a7;line-height:1.6;font-size:13px;margin-top:18px}
-@media(max-width:1100px){
- .video-gallery{grid-template-columns:1.2fr 1fr;min-height:0}
- .video-tile:first-child{grid-row:span 2;min-height:625px}
- .video-tile{min-height:304px}
- .video-head{display:block}.video-head h2{font-size:clamp(42px,7.4vw,86px)}.video-head .video-intro{margin-top:25px;max-width:660px}
-}
-@media(max-width:750px){
- .video-head{display:block}
- .video-head .video-intro{margin-top:24px;max-width:540px}
- .video-gallery{grid-template-columns:1fr 1fr;gap:12px}
- .video-tile:first-child{grid-row:auto;grid-column:span 2;min-height:390px}
- .video-tile{min-height:380px}
- .video-card-bottom h3{font-size:clamp(25px,5vw,36px)}
- .video-bottom{align-items:stretch}
- .video-bottom-cta{width:100%;text-align:center}
-}
-@media(max-width:460px){
- .video-section{padding:80px 0 100px}
- .video-head h2{font-size:clamp(36px,9vw,48px);line-height:1.11;letter-spacing:-.075em}
- .video-gallery{grid-template-columns:1fr;gap:12px}
- .video-tile:first-child{grid-column:auto;min-height:420px}
- .video-tile{min-height:360px}
- .video-topline{top:18px;left:17px;right:17px}
- .video-card-bottom{bottom:18px;left:17px;right:17px}
- .video-coming{font-size:9px}
- .video-modal-body video{max-height:58vh}
-}
-@media(prefers-reduced-motion:reduce){
- .video-tile,.video-tile .video-cover,.video-tile:after,.video-tile-play .video-play-ring{transition:none!important;transform:none!important}
- .video-tile:hover{transform:none}
- .video-tile:after{display:none}
-}
-
+@media(max-width:1100px){.video-gallery{column-count:3}.video-head{display:block}.video-head h2{font-size:clamp(42px,7.4vw,86px)}.video-head .video-intro{margin-top:25px;max-width:660px}}
+@media(max-width:750px){.video-gallery{column-count:2;column-gap:6px}.video-tile{margin-bottom:6px}.video-head .video-intro{margin-top:24px;max-width:540px}.video-bottom{align-items:stretch}.video-bottom-cta{width:100%;text-align:center}.video-card-bottom h3{font-size:clamp(18px,3.6vw,28px)}}
+@media(max-width:460px){.video-section{padding:80px 0 100px}.video-head h2{font-size:clamp(36px,9vw,48px);line-height:1.11;letter-spacing:-.075em}.video-gallery{column-gap:5px}.video-tile{margin-bottom:5px}.video-topline{top:11px;left:9px;right:9px;font-size:7px}.video-card-bottom{bottom:10px;left:9px;right:9px}.video-card-bottom h3{font-size:clamp(16px,4vw,21px)}.video-card-bottom p{font-size:9px}.video-coming{font-size:8px;padding:7px}.video-tile-play .video-play-ring{width:42px;height:42px}.video-modal-body video{max-height:58vh}}
+@media(max-width:350px){.video-gallery{column-count:1}.video-card-bottom h3{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.video-tile,.video-tile .video-cover,.video-tile .video-preview,.video-tile:after,.video-tile-play .video-play-ring{transition:none!important;transform:none!important}.video-tile:after{display:none}}
 
 /* Kinetic video headline: three crisp lines, controlled glow and slow passing highlight. */
 .video-head h2 .video-line{
@@ -710,43 +686,82 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <span class="video-line video-line--white">ДИЗАЙН,</span>
 <span class="video-line video-line--white">КОТОРЫЙ</span>
 <span class="video-line video-line--glow">ДВИГАЕТСЯ.<span class="video-line-sheen" aria-hidden="true">ДВИГАЕТСЯ.</span></span>
-</h2><p class="video-intro">От живых афиш до кинематографичных AI-сцен. Этот раздел готов к твоим видео: пока здесь обложки из портфолио, а ролики добавим отдельно.</p></div>
-    <div class="video-gallery">
-      
-<article class="video-tile reveal" data-video-src="assets/video-01.mp4" data-video-title="Анимированные афиши">
-  <img class="video-cover" loading="lazy" decoding="async" alt="Обложка раздела Анимированные афиши, взята из авторского портфолио" src="assets/poster-11.webp"/>
-  <span class="video-grain" aria-hidden="true"></span>
-  <div class="video-topline"><span class="video-num">01 / MOTION DESIGN</span><span class="video-format">9:16</span></div>
-  <span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО ДОБАВИМ СКОРО</span>
-  <button class="video-tile-play" aria-label="Смотреть Анимированные афиши" type="button" hidden>
-    <span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span>
-  </button>
-  <div class="video-card-bottom"><h3>Анимированные афиши</h3><p>Демонстрационная обложка из портфолио</p></div>
+</h2><p class="video-intro">Живая доска видеоработ. Превью идут без звука, а посмотреть ролик со звуком можно только по нажатию. Пока вместо видео используются обложки из портфолио.</p></div>
+    <div class="video-gallery" aria-label="Доска авторских видео">
+<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-01.mp4" data-video-title="Анимированные афиши">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Анимированные афиши" src="assets/poster-11.webp"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">01 / MOTION</span><span class="video-format">9:16</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть Анимированные афиши со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Анимированные афиши</h3><p>Нажми для просмотра со звуком</p></div>
 </article>
-      
-<article class="video-tile reveal" data-video-src="assets/video-02.mp4" data-video-title="AI / Cinematic">
-  <img class="video-cover" loading="lazy" decoding="async" alt="Обложка раздела AI / Cinematic, взята из авторского портфолио" src="assets/poster-17.webp"/>
-  <span class="video-grain" aria-hidden="true"></span>
-  <div class="video-topline"><span class="video-num">02 / GENERATIVE VIDEO</span><span class="video-format">16:9</span></div>
-  <span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО ДОБАВИМ СКОРО</span>
-  <button class="video-tile-play" aria-label="Смотреть AI / Cinematic" type="button" hidden>
-    <span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span>
-  </button>
-  <div class="video-card-bottom"><h3>AI / Cinematic</h3><p>Демонстрационная обложка из портфолио</p></div>
+<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-02.mp4" data-video-title="AI / CINEMATIC">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: AI / CINEMATIC" src="assets/poster-17.webp"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">02 / AI VIDEO</span><span class="video-format">16:9</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть AI / CINEMATIC со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>AI / CINEMATIC</h3><p>Нажми для просмотра со звуком</p></div>
 </article>
-      
-<article class="video-tile reveal" data-video-src="assets/video-03.mp4" data-video-title="Артист / Promo">
-  <img class="video-cover" loading="lazy" decoding="async" alt="Обложка раздела Артист / Promo, взята из авторского портфолио" src="assets/poster-18.webp"/>
-  <span class="video-grain" aria-hidden="true"></span>
-  <div class="video-topline"><span class="video-num">03 / MUSIC VISUALS</span><span class="video-format">9:16</span></div>
-  <span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО ДОБАВИМ СКОРО</span>
-  <button class="video-tile-play" aria-label="Смотреть Артист / Promo" type="button" hidden>
-    <span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span>
-  </button>
-  <div class="video-card-bottom"><h3>Артист / Promo</h3><p>Демонстрационная обложка из портфолио</p></div>
+<article class="video-tile reveal" style="--tile-ratio:9/16" data-video-src="assets/video-03.mp4" data-video-title="Артист / PROMO">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Артист / PROMO" src="assets/poster-18.webp"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">03 / MUSIC VISUALS</span><span class="video-format">9:16</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть Артист / PROMO со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Артист / PROMO</h3><p>Нажми для просмотра со звуком</p></div>
+</article>
+<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-04.mp4" data-video-title="Графика в движении">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Графика в движении" src="assets/poster-14.webp"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">04 / MOTION</span><span class="video-format">9:16</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть Графика в движении со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Графика в движении</h3><p>Нажми для просмотра со звуком</p></div>
+</article>
+<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-05.mp4" data-video-title="Кинематограф">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Кинематограф" src="assets/poster-10.webp"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">05 / AI SCENES</span><span class="video-format">16:9</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть Кинематограф со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Кинематограф</h3><p>Нажми для просмотра со звуком</p></div>
+</article>
+<article class="video-tile reveal" style="--tile-ratio:9/11" data-video-src="assets/video-06.mp4" data-video-title="Концертный визуал">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Концертный визуал" src="assets/poster-04.webp"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">06 / PROMO</span><span class="video-format">9:16</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть Концертный визуал со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Концертный визуал</h3><p>Нажми для просмотра со звуком</p></div>
+</article>
+<article class="video-tile reveal" style="--tile-ratio:9/14" data-video-src="assets/video-07.mp4" data-video-title="Атмосфера события">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Атмосфера события" src="assets/poster-09.webp"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">07 / VFX / EVENT</span><span class="video-format">9:16</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть Атмосфера события со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Атмосфера события</h3><p>Нажми для просмотра со звуком</p></div>
+</article>
+<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-08.mp4" data-video-title="Creative / AI">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Creative / AI" src="assets/poster-16.webp"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">08 / GENERATIVE</span><span class="video-format">9:16</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть Creative / AI со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Creative / AI</h3><p>Нажми для просмотра со звуком</p></div>
+</article>
+<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-09.mp4" data-video-title="Видео для брендов">
+<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Видео для брендов" src="assets/poster-23.png"/>
+<span class="video-grain" aria-hidden="true"></span>
+<div class="video-topline"><span class="video-num">09 / AD / BRAND</span><span class="video-format">9:16</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
+<button class="video-tile-play" aria-label="Смотреть Видео для брендов со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Видео для брендов</h3><p>Нажми для просмотра со звуком</p></div>
 </article>
     </div>
-    <div class="video-bottom reveal"><p class="video-bottom-note">Здесь появятся оригинальные видео. Подключение уже подготовлено: достаточно загрузить файлы <strong>video-01.mp4</strong>, <strong>video-02.mp4</strong> и <strong>video-03.mp4</strong> в папку <strong>assets</strong>.</p><button class="video-bottom-cta" data-open-brief="" type="button">ОБСУДИТЬ ВИДЕОПРОЕКТ ↗</button></div>
+    <div class="video-bottom reveal"><p class="video-bottom-note">Загрузи ролики в GitHub → <strong>assets</strong> с названиями <strong>video-01.mp4</strong> ... <strong>video-09.mp4</strong>. Превью появятся автоматически: беззвучное воспроизведение в ленте, звук только после нажатия.</p><button class="video-bottom-cta" data-open-brief="" type="button">ОБСУДИТЬ ВИДЕОПРОЕКТ ↗</button></div>
   </div>
 </section>
 <section class="expertise" id="services">
@@ -854,8 +869,8 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     <div class="video-modal-body">
       <span class="eyebrow accent">VIDEO / BLACK_R_STUDIO</span>
       <h2 id="videoModalTitle">MOTION & AI</h2>
-      <video id="portfolioVideoPlayer" controls playsinline preload="metadata" controlsList="nodownload"></video>
-      <p class="video-caption">Авторское видео. Управляй воспроизведением и громкостью прямо здесь.</p>
+      <video id="portfolioVideoPlayer" controls playsinline preload="metadata" controlsList="nodownload" muted></video>
+      <p class="video-caption">Звук включается только после твоего нажатия на ролик. Здесь можно управлять воспроизведением и громкостью.</p>
     </div>
   </div>
 </div>
@@ -874,8 +889,8 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     const projectData={"1":{"title":"Карина Мейханаджян","category":"Тур / концертная афиша","desc":"Собрал гастрольный постер: выделил крупный заголовок, выстроил блоки городов и дат, усилил портрет красно-чёрной палитрой.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-01.webp"},"2":{"title":"MONA","category":"Концерт / артист","desc":"Выстроил светлую fashion-композицию с мягким фоном, тонкой типографикой и крупным портретом. Информацию о событии сделал лаконичной.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-02.webp"},"3":{"title":"DJ KILA / VINOGRAD","category":"Ресторан / музыкальное событие","desc":"Вписал портрет в архитектурный интерьер, согласовал золотистые акценты с оформлением площадки и выстроил иерархию информации.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-03.webp"},"4":{"title":"Магамет Дзыбов","category":"Концерт / артист","desc":"Собрал постер сольного концерта: тёплый интерьер, выразительный портрет, глубина за счёт света и объёмный металлический заголовок.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-04.webp"},"5":{"title":"INGVAR GROUP","category":"Бренд / открытие","desc":"Разработал рекламный макет открытия: скомпоновал фотографии продукции и образа жизни, выделил фирменный стиль и ключевую дату.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-05.webp"},"6":{"title":"Амир и Заур","category":"Стендап / шоу","desc":"Объединил два портрета на ярком жёлтом фоне, выстроил симметричную композицию и сделал крупную типографику главным акцентом.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-06.webp"},"7":{"title":"Расул / Павел","category":"Стендап / концерт","desc":"Собрал два чёрно-белых портрета в единую сетку. Расставил акценты датой, красной полосой и строгими вертикальными заголовками.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-07.webp"},"8":{"title":"SEVAK","category":"Артист / концертное промо","desc":"Создал контрастный промо-визуал: монохромный портрет, шероховатые серые фактуры и динамичные красные графические мазки.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-08.webp"},"9":{"title":"TIGO","category":"Артист / афиша","desc":"Подготовил минималистичный портретный постер в светло-серой гамме. Выстроил композицию вокруг силуэта и крупного белого заголовка.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-09.webp"},"10":{"title":"TOMAS NEVERGREEN","category":"Концерт / артист","desc":"Соединил чёрно-белый портрет, объёмную белую флористику и золотую типографику в цельную премиальную композицию.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-10.webp"},"11":{"title":"EGO UNTOLD","category":"Halloween / цирк ужасов","desc":"Разработал хэллоуинский визуал в эстетике мрачного цирка ужасов: гротескные образы, карнавальные костюмы, красно-оранжевый свет, свечи и хоррор-типографика.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-11.webp"},"12":{"title":"Familia","category":"Концерт / событие","desc":"Собрал концертную композицию на глубоком красном фоне. Выделил портрет, дату и название площадки с помощью контраста и масштаба.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-12.webp"},"13":{"title":"Катя Чехова","category":"Ностальгия / концерт","desc":"Оформил постер с настроением 2000-х: насыщенная красная палитра, сценические фактуры, крупная типографика и акцент на программе.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-13.webp"},"14":{"title":"Коста Лакоста","category":"Артист / концертное промо","desc":"Создал графичный монохромный портрет с эффектами цифрового сбоя, техническими деталями и контрастным красным заголовком.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-14.webp"},"15":{"title":"Словетский","category":"Артист / концертная афиша","desc":"Выстроил минималистичный постер в бежевой гамме: крупный портрет, спокойный фон, масштабный заголовок и мягкие тональные переходы.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-15.webp"},"16":{"title":"GUF","category":"Артист / концертное промо","desc":"Собрал многослойную композицию из чёрно-белого портрета, красных фактур и контрастных надписей. Проработал визуальный ритм.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-16.webp"},"17":{"title":"SLIMUS","category":"Артист / концертная афиша","desc":"Оформил контрастный постер с оранжевым фоном, монохромным портретом и фактурной типографикой. Сделал заголовок центральным элементом.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-17.webp"},"18":{"title":"Баста","category":"Артист / концертная афиша","desc":"Создал строгий монохромный промо-постер: центральный портрет, красная графическая подложка и лаконичная композиция без лишних деталей.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-18.webp"},"19":{"title":"SHAMI","category":"Артист / концертная афиша","desc":"Разработал концертную композицию: выделил основной визуал, собрал типографическую иерархию и расположил информацию для быстрого считывания.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-19.png"},"20":{"title":"SVIK","category":"Артист / концертная афиша","desc":"Скомпоновал фотографию и заголовок в цельный концертный постер, настроил масштаб элементов и визуальные акценты.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-20.png"},"21":{"title":"Линда","category":"Артист / концертная афиша","desc":"Подготовил артистический промо-макет: работа с изображением, цветовой подачей, контрастом и читаемостью основных надписей.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-21.png"},"22":{"title":"Нодар Ревия","category":"Артист / концертная афиша","desc":"Собрал концертную афишу: выстроил портретную композицию, подобрал типографику и организовал информационные блоки.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-22.png"},"23":{"title":"Бьянка","category":"Артист / концертная афиша","desc":"Разработал промо-визуал для выступления: акцент на портрете, выразительный заголовок и чёткая иерархия деталей события.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-23.png"}};
     const modalProject=document.getElementById('projectModal'),briefModal=document.getElementById('briefModal'),contactModal=document.getElementById('contactModal'),maxModal=document.getElementById('maxModal'),videoModal=document.getElementById('videoModal'),portfolioVideoPlayer=document.getElementById('portfolioVideoPlayer');
     let activeModal=null,lastFocus=null;
-    function closeModal(){if(!activeModal)return;if(activeModal===videoModal){portfolioVideoPlayer.pause();portfolioVideoPlayer.removeAttribute('src');portfolioVideoPlayer.load()}activeModal.classList.remove('open');activeModal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');activeModal=null;if(lastFocus&&lastFocus.isConnected)lastFocus.focus()}
-    function openModal(modal){if(activeModal)closeModal();lastFocus=document.activeElement;activeModal=modal;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('[data-close]').focus()}
+    function closeModal(){if(!activeModal)return;if(activeModal===videoModal){portfolioVideoPlayer.pause();portfolioVideoPlayer.muted=true;portfolioVideoPlayer.removeAttribute('src');portfolioVideoPlayer.load()}activeModal.classList.remove('open');activeModal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');activeModal=null;if(lastFocus&&lastFocus.isConnected)lastFocus.focus()}
+    function openModal(modal){if(activeModal)closeModal();if(modal===videoModal)pauseVideoPreviews();lastFocus=document.activeElement;activeModal=modal;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('[data-close]').focus()}
 
     function showProject(id){
       const p=projectData[id]; if(!p)return;
@@ -1163,27 +1178,84 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     // Every 4.5 seconds, smoothly replace one poster at a time, cycling left–center–right.
     setInterval(()=>{void advanceHeroPoster()},4500);
 
-    // Enable each video tile only when its real MP4 has been uploaded.
-    // This avoids misleading play buttons and broken videos before upload.
+    // Pinterest-style video board. Autoplay is ALWAYS muted; only an explicit click opens sound.
+    const previewTiles=[...document.querySelectorAll('.video-tile[data-video-src]')];
+    const previewPlayerState=new Map();
+    const previewObserver=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        const video=previewPlayerState.get(entry.target);
+        if(!video)return;
+        if(entry.isIntersecting&&!document.hidden&&!document.body.classList.contains('modal-open')){
+          // Video previews can never produce sound.
+          video.muted=true;
+          if(video.dataset.loaded!=='true'){video.src=entry.target.dataset.videoSrc;video.dataset.loaded='true'}
+          video.play().catch(()=>{/* Keep still cover if muted autoplay is blocked. */});
+        }else{
+          video.pause();
+        }
+      });
+    },{threshold:.18,rootMargin:'120px 0px'}):null;
+    function pauseVideoPreviews(){
+      previewPlayerState.forEach(video=>{
+        video.pause();
+        video.muted=true;
+      });
+    }
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden)pauseVideoPreviews();
+      else if(previewObserver){
+        previewPlayerState.forEach((video,tile)=>{
+          const rect=tile.getBoundingClientRect();
+          if(rect.bottom>0&&rect.top<innerHeight&&!document.body.classList.contains('modal-open')){
+            video.muted=true;
+            video.play().catch(()=>{});
+          }
+        });
+      }
+    });
     document.querySelectorAll('.video-tile[data-video-src]').forEach(tile=>{
       const file=tile.dataset.videoSrc;
       const button=tile.querySelector('.video-tile-play');
       const pending=tile.querySelector('.video-coming');
-      fetch(file,{method:'HEAD',cache:'no-store'}).then(response=>{
-        const contentType=(response.headers.get('content-type')||'').toLowerCase();
-        if(!response.ok||!(contentType.startsWith('video/')||contentType.includes('application/octet-stream')))return;
-        button.hidden=false;pending.hidden=true;
+      fetch(file,{method:'HEAD'}).then(response=>{
+        const type=(response.headers.get('content-type')||'').toLowerCase();
+        if(!response.ok||!(type.startsWith('video/')||type.includes('application/octet-stream')))return;
+        const preview=document.createElement('video');
+        preview.className='video-preview';
+        preview.muted=true;
+        preview.defaultMuted=true;
+        preview.setAttribute('muted','');
+        preview.autoplay=true;
+        preview.loop=true;
+        preview.playsInline=true;
+        preview.setAttribute('playsinline','');
+        preview.preload='none';
+        preview.setAttribute('aria-hidden','true');
+        preview.tabIndex=-1;
+        preview.addEventListener('playing',()=>tile.classList.add('is-preview-ready'));
+        preview.addEventListener('error',()=>tile.classList.remove('is-preview-ready'));
+        tile.querySelector('.video-grain').before(preview);
+        previewPlayerState.set(tile,preview);
+        pending.hidden=true;
+        button.hidden=false;
+        // An on-screen click is the ONLY way to enable sound, inside the modal.
         button.addEventListener('click',()=>{
-          document.getElementById('videoModalTitle').textContent=tile.dataset.videoTitle;
+          pauseVideoPreviews();
+          portfolioVideoPlayer.pause();
+          portfolioVideoPlayer.muted=false;
+          portfolioVideoPlayer.defaultMuted=false;
+          portfolioVideoPlayer.volume=1;
           portfolioVideoPlayer.src=file;
           portfolioVideoPlayer.poster=tile.querySelector('.video-cover').src;
+          document.getElementById('videoModalTitle').textContent=tile.dataset.videoTitle;
           openModal(videoModal);
-          portfolioVideoPlayer.play().catch(()=>{/* Native controls allow manual playback. */});
+          portfolioVideoPlayer.play().catch(()=>{/* Native controls remain usable. */});
         });
-      }).catch(()=>{/* Covers remain visible until the video file exists. */});
+        if(previewObserver)previewObserver.observe(tile);
+        // On old browsers without IntersectionObserver, use a still image rather than loading everything.
+      }).catch(()=>{/* Keep the cover until the video is uploaded. */});
     });
-
-    document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
+        document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
     document.querySelectorAll('[data-start-brief]').forEach(b=>b.addEventListener('click',()=>openModal(briefModal)));
     document.querySelectorAll('[data-max-contact]').forEach(b=>b.addEventListener('click',()=>openModal(maxModal)));
     document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModal));
