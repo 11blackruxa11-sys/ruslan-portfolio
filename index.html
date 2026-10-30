@@ -630,6 +630,17 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
  .video-head h2 .video-line-sheen{animation:none!important;opacity:0!important}
 }
 
+
+/* Four tightly grouped video tiles; loaded clips cycle one by one. */
+.video-gallery{column-count:4;column-gap:7px}
+.video-tile{margin-bottom:7px;transition:box-shadow .45s ease,opacity .48s ease,filter .48s ease}
+.video-tile.video-is-switching{opacity:.18;filter:blur(11px)}
+@media(max-width:1100px){.video-gallery{column-count:4}}
+@media(max-width:750px){.video-gallery{column-count:2;column-gap:6px}}
+@media(max-width:460px){.video-gallery{column-count:2;column-gap:5px}}
+@media(max-width:350px){.video-gallery{column-count:2}}
+@media(prefers-reduced-motion:reduce){.video-tile.video-is-switching{opacity:1;filter:none}}
+
 </style>
 </head>
 <body>
@@ -686,82 +697,42 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
 <span class="video-line video-line--white">ДИЗАЙН,</span>
 <span class="video-line video-line--white">КОТОРЫЙ</span>
 <span class="video-line video-line--glow">ДВИГАЕТСЯ.<span class="video-line-sheen" aria-hidden="true">ДВИГАЕТСЯ.</span></span>
-</h2><p class="video-intro">Живая доска видеоработ. Превью идут без звука, а посмотреть ролик со звуком можно только по нажатию. Пока вместо видео используются обложки из портфолио.</p></div>
+</h2><p class="video-intro">Четыре видео рядом, как на Pinterest. Превью идут в цикле без звука. По нажатию ролик откроется со звуком, а новые работы будут плавно сменять друг друга.</p></div>
     <div class="video-gallery" aria-label="Доска авторских видео">
-<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-01.mp4" data-video-title="Анимированные афиши">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Анимированные афиши" src="assets/poster-11.webp"/>
+<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/Лолита_1280_720_1.mp4" data-video-title="Лолита / Видео">
+<img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Лолита / Видео" src="assets/poster-12.webp"/>
 <span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">01 / MOTION</span><span class="video-format">9:16</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть Анимированные афиши со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Анимированные афиши</h3><p>Нажми для просмотра со звуком</p></div>
+<div class="video-topline"><span class="video-num">01 / MOTION / TEST</span><span class="video-format">MOTION / AI</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО СКОРО</span>
+<button class="video-tile-play" aria-label="Открыть Лолита / Видео со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Лолита / Видео</h3><p>Превью без звука / нажми для просмотра</p></div>
 </article>
-<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-02.mp4" data-video-title="AI / CINEMATIC">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: AI / CINEMATIC" src="assets/poster-17.webp"/>
+<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-02.mp4" data-video-title="AI / Cinematic">
+<img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки AI / Cinematic" src="assets/poster-17.webp"/>
 <span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">02 / AI VIDEO</span><span class="video-format">16:9</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть AI / CINEMATIC со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>AI / CINEMATIC</h3><p>Нажми для просмотра со звуком</p></div>
+<div class="video-topline"><span class="video-num">02 / AI VIDEO</span><span class="video-format">MOTION / AI</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО СКОРО</span>
+<button class="video-tile-play" aria-label="Открыть AI / Cinematic со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>AI / Cinematic</h3><p>Превью без звука / нажми для просмотра</p></div>
 </article>
-<article class="video-tile reveal" style="--tile-ratio:9/16" data-video-src="assets/video-03.mp4" data-video-title="Артист / PROMO">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Артист / PROMO" src="assets/poster-18.webp"/>
+<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-03.mp4" data-video-title="Артист / Promo">
+<img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Артист / Promo" src="assets/poster-18.webp"/>
 <span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">03 / MUSIC VISUALS</span><span class="video-format">9:16</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть Артист / PROMO со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Артист / PROMO</h3><p>Нажми для просмотра со звуком</p></div>
+<div class="video-topline"><span class="video-num">03 / MUSIC VISUALS</span><span class="video-format">MOTION / AI</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО СКОРО</span>
+<button class="video-tile-play" aria-label="Открыть Артист / Promo со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Артист / Promo</h3><p>Превью без звука / нажми для просмотра</p></div>
 </article>
-<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-04.mp4" data-video-title="Графика в движении">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Графика в движении" src="assets/poster-14.webp"/>
+<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-04.mp4" data-video-title="Анимированные афиши">
+<img class="video-cover" loading="lazy" decoding="async" alt="Обложка видеокарточки Анимированные афиши" src="assets/poster-11.webp"/>
 <span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">04 / MOTION</span><span class="video-format">9:16</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть Графика в движении со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Графика в движении</h3><p>Нажми для просмотра со звуком</p></div>
-</article>
-<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-05.mp4" data-video-title="Кинематограф">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Кинематограф" src="assets/poster-10.webp"/>
-<span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">05 / AI SCENES</span><span class="video-format">16:9</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть Кинематограф со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Кинематограф</h3><p>Нажми для просмотра со звуком</p></div>
-</article>
-<article class="video-tile reveal" style="--tile-ratio:9/11" data-video-src="assets/video-06.mp4" data-video-title="Концертный визуал">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Концертный визуал" src="assets/poster-04.webp"/>
-<span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">06 / PROMO</span><span class="video-format">9:16</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть Концертный визуал со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Концертный визуал</h3><p>Нажми для просмотра со звуком</p></div>
-</article>
-<article class="video-tile reveal" style="--tile-ratio:9/14" data-video-src="assets/video-07.mp4" data-video-title="Атмосфера события">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Атмосфера события" src="assets/poster-09.webp"/>
-<span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">07 / VFX / EVENT</span><span class="video-format">9:16</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть Атмосфера события со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Атмосфера события</h3><p>Нажми для просмотра со звуком</p></div>
-</article>
-<article class="video-tile reveal" style="--tile-ratio:9/12" data-video-src="assets/video-08.mp4" data-video-title="Creative / AI">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Creative / AI" src="assets/poster-16.webp"/>
-<span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">08 / GENERATIVE</span><span class="video-format">9:16</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть Creative / AI со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Creative / AI</h3><p>Нажми для просмотра со звуком</p></div>
-</article>
-<article class="video-tile reveal" style="--tile-ratio:9/15" data-video-src="assets/video-09.mp4" data-video-title="Видео для брендов">
-<img class="video-cover" loading="lazy" decoding="async" alt="Авторская афиша для превью: Видео для брендов" src="assets/poster-23.png"/>
-<span class="video-grain" aria-hidden="true"></span>
-<div class="video-topline"><span class="video-num">09 / AD / BRAND</span><span class="video-format">9:16</span></div>
-<span class="video-coming"><span class="video-coming-dot"></span>СКОРО ВИДЕО</span>
-<button class="video-tile-play" aria-label="Смотреть Видео для брендов со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
-<div class="video-card-bottom"><h3>Видео для брендов</h3><p>Нажми для просмотра со звуком</p></div>
+<div class="video-topline"><span class="video-num">04 / MOTION</span><span class="video-format">MOTION / AI</span></div>
+<span class="video-coming"><span class="video-coming-dot"></span>ВИДЕО СКОРО</span>
+<button class="video-tile-play" aria-label="Открыть Анимированные афиши со звуком" type="button" hidden><span class="video-play-ring"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5 20 12 8 19.5z"/></svg></span></button>
+<div class="video-card-bottom"><h3>Анимированные афиши</h3><p>Превью без звука / нажми для просмотра</p></div>
 </article>
     </div>
-    <div class="video-bottom reveal"><p class="video-bottom-note">Загрузи ролики в GitHub → <strong>assets</strong> с названиями <strong>video-01.mp4</strong> ... <strong>video-09.mp4</strong>. Превью появятся автоматически: беззвучное воспроизведение в ленте, звук только после нажатия.</p><button class="video-bottom-cta" data-open-brief="" type="button">ОБСУДИТЬ ВИДЕОПРОЕКТ ↗</button></div>
+    <div class="video-bottom reveal"><p class="video-bottom-note">Первое видео уже подключено. Остальные можно добавлять как <strong>video-02.mp4</strong> ... <strong>video-12.mp4</strong> в папку <strong>assets</strong>. На экране всегда четыре карточки; когда клипов станет больше четырёх, они будут автоматически меняться по одному.</p><button class="video-bottom-cta" data-open-brief="" type="button">ОБСУДИТЬ ВИДЕОПРОЕКТ ↗</button></div>
   </div>
 </section>
 <section class="expertise" id="services">
@@ -889,7 +860,7 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     const projectData={"1":{"title":"Карина Мейханаджян","category":"Тур / концертная афиша","desc":"Собрал гастрольный постер: выделил крупный заголовок, выстроил блоки городов и дат, усилил портрет красно-чёрной палитрой.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-01.webp"},"2":{"title":"MONA","category":"Концерт / артист","desc":"Выстроил светлую fashion-композицию с мягким фоном, тонкой типографикой и крупным портретом. Информацию о событии сделал лаконичной.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-02.webp"},"3":{"title":"DJ KILA / VINOGRAD","category":"Ресторан / музыкальное событие","desc":"Вписал портрет в архитектурный интерьер, согласовал золотистые акценты с оформлением площадки и выстроил иерархию информации.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-03.webp"},"4":{"title":"Магамет Дзыбов","category":"Концерт / артист","desc":"Собрал постер сольного концерта: тёплый интерьер, выразительный портрет, глубина за счёт света и объёмный металлический заголовок.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-04.webp"},"5":{"title":"INGVAR GROUP","category":"Бренд / открытие","desc":"Разработал рекламный макет открытия: скомпоновал фотографии продукции и образа жизни, выделил фирменный стиль и ключевую дату.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-05.webp"},"6":{"title":"Амир и Заур","category":"Стендап / шоу","desc":"Объединил два портрета на ярком жёлтом фоне, выстроил симметричную композицию и сделал крупную типографику главным акцентом.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-06.webp"},"7":{"title":"Расул / Павел","category":"Стендап / концерт","desc":"Собрал два чёрно-белых портрета в единую сетку. Расставил акценты датой, красной полосой и строгими вертикальными заголовками.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-07.webp"},"8":{"title":"SEVAK","category":"Артист / концертное промо","desc":"Создал контрастный промо-визуал: монохромный портрет, шероховатые серые фактуры и динамичные красные графические мазки.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-08.webp"},"9":{"title":"TIGO","category":"Артист / афиша","desc":"Подготовил минималистичный портретный постер в светло-серой гамме. Выстроил композицию вокруг силуэта и крупного белого заголовка.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-09.webp"},"10":{"title":"TOMAS NEVERGREEN","category":"Концерт / артист","desc":"Соединил чёрно-белый портрет, объёмную белую флористику и золотую типографику в цельную премиальную композицию.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-10.webp"},"11":{"title":"EGO UNTOLD","category":"Halloween / цирк ужасов","desc":"Разработал хэллоуинский визуал в эстетике мрачного цирка ужасов: гротескные образы, карнавальные костюмы, красно-оранжевый свет, свечи и хоррор-типографика.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-11.webp"},"12":{"title":"Familia","category":"Концерт / событие","desc":"Собрал концертную композицию на глубоком красном фоне. Выделил портрет, дату и название площадки с помощью контраста и масштаба.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-12.webp"},"13":{"title":"Катя Чехова","category":"Ностальгия / концерт","desc":"Оформил постер с настроением 2000-х: насыщенная красная палитра, сценические фактуры, крупная типографика и акцент на программе.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-13.webp"},"14":{"title":"Коста Лакоста","category":"Артист / концертное промо","desc":"Создал графичный монохромный портрет с эффектами цифрового сбоя, техническими деталями и контрастным красным заголовком.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-14.webp"},"15":{"title":"Словетский","category":"Артист / концертная афиша","desc":"Выстроил минималистичный постер в бежевой гамме: крупный портрет, спокойный фон, масштабный заголовок и мягкие тональные переходы.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-15.webp"},"16":{"title":"GUF","category":"Артист / концертное промо","desc":"Собрал многослойную композицию из чёрно-белого портрета, красных фактур и контрастных надписей. Проработал визуальный ритм.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-16.webp"},"17":{"title":"SLIMUS","category":"Артист / концертная афиша","desc":"Оформил контрастный постер с оранжевым фоном, монохромным портретом и фактурной типографикой. Сделал заголовок центральным элементом.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-17.webp"},"18":{"title":"Баста","category":"Артист / концертная афиша","desc":"Создал строгий монохромный промо-постер: центральный портрет, красная графическая подложка и лаконичная композиция без лишних деталей.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-18.webp"},"19":{"title":"SHAMI","category":"Артист / концертная афиша","desc":"Разработал концертную композицию: выделил основной визуал, собрал типографическую иерархию и расположил информацию для быстрого считывания.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-19.png"},"20":{"title":"SVIK","category":"Артист / концертная афиша","desc":"Скомпоновал фотографию и заголовок в цельный концертный постер, настроил масштаб элементов и визуальные акценты.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-20.png"},"21":{"title":"Линда","category":"Артист / концертная афиша","desc":"Подготовил артистический промо-макет: работа с изображением, цветовой подачей, контрастом и читаемостью основных надписей.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-21.png"},"22":{"title":"Нодар Ревия","category":"Артист / концертная афиша","desc":"Собрал концертную афишу: выстроил портретную композицию, подобрал типографику и организовал информационные блоки.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-22.png"},"23":{"title":"Бьянка","category":"Артист / концертная афиша","desc":"Разработал промо-визуал для выступления: акцент на портрете, выразительный заголовок и чёткая иерархия деталей события.","tags":["Афиша","Графический дизайн","Photoshop"],"image":"assets/poster-23.png"}};
     const modalProject=document.getElementById('projectModal'),briefModal=document.getElementById('briefModal'),contactModal=document.getElementById('contactModal'),maxModal=document.getElementById('maxModal'),videoModal=document.getElementById('videoModal'),portfolioVideoPlayer=document.getElementById('portfolioVideoPlayer');
     let activeModal=null,lastFocus=null;
-    function closeModal(){if(!activeModal)return;if(activeModal===videoModal){portfolioVideoPlayer.pause();portfolioVideoPlayer.muted=true;portfolioVideoPlayer.removeAttribute('src');portfolioVideoPlayer.load()}activeModal.classList.remove('open');activeModal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');activeModal=null;if(lastFocus&&lastFocus.isConnected)lastFocus.focus()}
+    function closeModal(){if(!activeModal)return;const wasVideo=activeModal===videoModal;if(wasVideo){portfolioVideoPlayer.pause();portfolioVideoPlayer.muted=true;portfolioVideoPlayer.removeAttribute('src');portfolioVideoPlayer.load()}activeModal.classList.remove('open');activeModal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');activeModal=null;if(wasVideo)refreshVisiblePreviews();if(lastFocus&&lastFocus.isConnected)lastFocus.focus()}
     function openModal(modal){if(activeModal)closeModal();if(modal===videoModal)pauseVideoPreviews();lastFocus=document.activeElement;activeModal=modal;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('[data-close]').focus()}
 
     function showProject(id){
@@ -1178,82 +1149,131 @@ button.stage-card:focus-visible{outline:3px solid var(--accent);outline-offset:6
     // Every 4.5 seconds, smoothly replace one poster at a time, cycling left–center–right.
     setInterval(()=>{void advanceHeroPoster()},4500);
 
-    // Pinterest-style video board. Autoplay is ALWAYS muted; only an explicit click opens sound.
-    const previewTiles=[...document.querySelectorAll('.video-tile[data-video-src]')];
-    const previewPlayerState=new Map();
-    const previewObserver=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        const video=previewPlayerState.get(entry.target);
-        if(!video)return;
-        if(entry.isIntersecting&&!document.hidden&&!document.body.classList.contains('modal-open')){
-          // Video previews can never produce sound.
-          video.muted=true;
-          if(video.dataset.loaded!=='true'){video.src=entry.target.dataset.videoSrc;video.dataset.loaded='true'}
-          video.play().catch(()=>{/* Keep still cover if muted autoplay is blocked. */});
-        }else{
-          video.pause();
-        }
-      });
-    },{threshold:.18,rootMargin:'120px 0px'}):null;
+    // Four-tile motion board with dynamic pool. No audio until a real user click.
+    const videoTiles=[...document.querySelectorAll('.video-tile[data-video-src]')];
+    const videoStates=new Map();
+    const videosPool=[
+      {src:'assets/Лолита_1280_720_1.mp4',title:'Лолита / Видео',cover:'assets/poster-12.webp',type:'MOTION'},
+      ...Array.from({length:11},(_,i)=>{
+        const number=i+2;
+        const numberString=String(number).padStart(2,'0');
+        const names=['AI / Cinematic','Артист / Promo','Анимированные афиши','Графика в движении','Кинематограф','Концертный визуал','Атмосфера события','Creative / AI','Видео для брендов','Motion 11','Motion 12'];
+        const covers=['assets/poster-17.webp','assets/poster-18.webp','assets/poster-11.webp','assets/poster-14.webp','assets/poster-10.webp','assets/poster-04.webp','assets/poster-09.webp','assets/poster-16.webp','assets/poster-23.png','assets/poster-05.webp','assets/poster-20.png'];
+        return {src:'assets/video-'+numberString+'.mp4',title:names[i],cover:covers[i],type:'MOTION / AI'};
+      })
+    ];
+    let videoPoolAvailable=[],videoSlotIndex=0,videoRotationBusy=false;
+    const motionReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function playTilePreview(tile,video){
+      if(document.hidden||document.body.classList.contains('modal-open'))return;
+      const bounds=tile.getBoundingClientRect();
+      if(bounds.bottom<0||bounds.top>innerHeight)return;
+      video.muted=true;
+      if(!video.src){video.src=tile.dataset.videoSrc}
+      video.play().catch(()=>{/* A still cover is the safe fallback. */});
+    }
     function pauseVideoPreviews(){
-      previewPlayerState.forEach(video=>{
-        video.pause();
-        video.muted=true;
+      videoStates.forEach(video=>{video.pause();video.muted=true});
+    }
+    const videoViewportObserver=('IntersectionObserver' in window)?new IntersectionObserver(entries=>{
+      entries.forEach(({target,isIntersecting})=>{
+        const video=videoStates.get(target);
+        if(!video)return;
+        if(isIntersecting)playTilePreview(target,video);
+        else video.pause();
       });
+    },{threshold:.15,rootMargin:'100px 0px'}):null;
+    function loadVideoInTile(tile,item){
+      const oldVideo=videoStates.get(tile);
+      if(oldVideo){oldVideo.pause();oldVideo.removeAttribute('src');oldVideo.load();oldVideo.remove();videoStates.delete(tile)}
+      if(videoViewportObserver)videoViewportObserver.unobserve(tile);
+      tile.classList.remove('is-preview-ready');
+      tile.dataset.videoSrc=item.src;
+      tile.dataset.videoTitle=item.title;
+      const cover=tile.querySelector('.video-cover');
+      cover.src=item.cover;
+      cover.alt='Обложка проекта '+item.title;
+      const title=tile.querySelector('.video-card-bottom h3');
+      title.textContent=item.title;
+      const pending=tile.querySelector('.video-coming');
+      const button=tile.querySelector('.video-tile-play');
+      pending.hidden=false;
+      button.hidden=true;
+      button.onclick=null;
+      const video=document.createElement('video');
+      video.className='video-preview';
+      video.muted=true;video.defaultMuted=true;
+      video.setAttribute('muted','');
+      video.setAttribute('playsinline','');
+      video.autoplay=true;video.loop=true;video.playsInline=true;
+      video.preload='none';video.tabIndex=-1;
+      video.setAttribute('aria-hidden','true');
+      video.addEventListener('playing',()=>{if(videoStates.get(tile)===video)tile.classList.add('is-preview-ready')});
+      video.addEventListener('error',()=>tile.classList.remove('is-preview-ready'));
+      tile.querySelector('.video-grain').before(video);
+      videoStates.set(tile,video);
+      pending.hidden=true;
+      button.hidden=false;
+      button.setAttribute('aria-label','Смотреть '+item.title+' со звуком');
+      button.onclick=()=>{
+        pauseVideoPreviews();
+        portfolioVideoPlayer.pause();
+        portfolioVideoPlayer.muted=false;
+        portfolioVideoPlayer.defaultMuted=false;
+        portfolioVideoPlayer.volume=1;
+        portfolioVideoPlayer.src=item.src;
+        portfolioVideoPlayer.poster=item.cover;
+        document.getElementById('videoModalTitle').textContent=item.title;
+        openModal(videoModal);
+        portfolioVideoPlayer.play().catch(()=>{/* Manual play available. */});
+      };
+      if(videoViewportObserver)videoViewportObserver.observe(tile);
+      else playTilePreview(tile,video);
+    }
+    function refreshVisiblePreviews(){
+      if(document.hidden||document.body.classList.contains('modal-open'))return;
+      videoStates.forEach((video,tile)=>playTilePreview(tile,video));
     }
     document.addEventListener('visibilitychange',()=>{
-      if(document.hidden)pauseVideoPreviews();
-      else if(previewObserver){
-        previewPlayerState.forEach((video,tile)=>{
-          const rect=tile.getBoundingClientRect();
-          if(rect.bottom>0&&rect.top<innerHeight&&!document.body.classList.contains('modal-open')){
-            video.muted=true;
-            video.play().catch(()=>{});
-          }
-        });
-      }
+      if(document.hidden)pauseVideoPreviews();else refreshVisiblePreviews();
     });
-    document.querySelectorAll('.video-tile[data-video-src]').forEach(tile=>{
-      const file=tile.dataset.videoSrc;
-      const button=tile.querySelector('.video-tile-play');
-      const pending=tile.querySelector('.video-coming');
-      fetch(file,{method:'HEAD'}).then(response=>{
-        const type=(response.headers.get('content-type')||'').toLowerCase();
-        if(!response.ok||!(type.startsWith('video/')||type.includes('application/octet-stream')))return;
-        const preview=document.createElement('video');
-        preview.className='video-preview';
-        preview.muted=true;
-        preview.defaultMuted=true;
-        preview.setAttribute('muted','');
-        preview.autoplay=true;
-        preview.loop=true;
-        preview.playsInline=true;
-        preview.setAttribute('playsinline','');
-        preview.preload='none';
-        preview.setAttribute('aria-hidden','true');
-        preview.tabIndex=-1;
-        preview.addEventListener('playing',()=>tile.classList.add('is-preview-ready'));
-        preview.addEventListener('error',()=>tile.classList.remove('is-preview-ready'));
-        tile.querySelector('.video-grain').before(preview);
-        previewPlayerState.set(tile,preview);
-        pending.hidden=true;
-        button.hidden=false;
-        // An on-screen click is the ONLY way to enable sound, inside the modal.
-        button.addEventListener('click',()=>{
-          pauseVideoPreviews();
-          portfolioVideoPlayer.pause();
-          portfolioVideoPlayer.muted=false;
-          portfolioVideoPlayer.defaultMuted=false;
-          portfolioVideoPlayer.volume=1;
-          portfolioVideoPlayer.src=file;
-          portfolioVideoPlayer.poster=tile.querySelector('.video-cover').src;
-          document.getElementById('videoModalTitle').textContent=tile.dataset.videoTitle;
-          openModal(videoModal);
-          portfolioVideoPlayer.play().catch(()=>{/* Native controls remain usable. */});
-        });
-        if(previewObserver)previewObserver.observe(tile);
-        // On old browsers without IntersectionObserver, use a still image rather than loading everything.
-      }).catch(()=>{/* Keep the cover until the video is uploaded. */});
+    const shuffleVideoPool=(items)=>{
+      const copied=items.slice();
+      for(let i=copied.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [copied[i],copied[j]]=[copied[j],copied[i]];
+      }
+      return copied;
+    };
+    Promise.all(videosPool.map(async item=>{
+      try{
+        const response=await fetch(item.src,{method:'HEAD'});
+        const mime=(response.headers.get('content-type')||'').toLowerCase();
+        return response.ok&&!mime.includes('text/html')&&(mime.includes('video/')||mime.includes('octet-stream'))?item:null;
+      }catch(error){return null}
+    })).then(results=>{
+      videoPoolAvailable=shuffleVideoPool(results.filter(Boolean));
+      // Missing files remain as original poster covers, not fake playable videos.
+      videoPoolAvailable.slice(0,videoTiles.length).forEach((item,index)=>loadVideoInTile(videoTiles[index],item));
+      if(!videoPoolAvailable.length)return;
+      // If 4 or fewer files exist, each clip stays visible and plays in a loop.
+      // At 5+ files, one tile changes every 7 seconds, smoothly.
+      setInterval(async ()=>{
+        if(videoRotationBusy||document.hidden||document.body.classList.contains('modal-open')||videoPoolAvailable.length<=videoTiles.length)return;
+        const slot=videoTiles[videoSlotIndex];
+        const visible=new Set(videoTiles.map(tile=>tile.dataset.videoSrc).filter(src=>videoPoolAvailable.some(item=>item.src===src)));
+        const options=videoPoolAvailable.filter(item=>!visible.has(item.src));
+        if(!options.length)return;
+        videoRotationBusy=true;
+        try{
+          const next=options[Math.floor(Math.random()*options.length)];
+          slot.classList.add('video-is-switching');
+          if(!motionReduced)await new Promise(resolve=>setTimeout(resolve,470));
+          loadVideoInTile(slot,next);
+          slot.classList.remove('video-is-switching');
+          videoSlotIndex=(videoSlotIndex+1)%videoTiles.length;
+        }finally{videoRotationBusy=false}
+      },7000);
     });
         document.querySelectorAll('[data-open-brief]').forEach(b=>b.addEventListener('click',()=>openModal(contactModal)));
     document.querySelectorAll('[data-start-brief]').forEach(b=>b.addEventListener('click',()=>openModal(briefModal)));
